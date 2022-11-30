@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "movie-app-a619f": {
+      "hosting": {
+        "angular-movies": [
+          "movie-app-a619f"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "movie-app-a619f"
+  }
+}
