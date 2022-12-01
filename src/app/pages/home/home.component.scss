@@ -1,0 +1,14 @@
+.container{
+    height: 100%; 
+    background-color: black  
+}
+.hero-container{
+    height: 80%;
+    background-image: linear-gradient(0deg,rgba(0,0,0,.9) 0,transparent 60%,rgba(0,0,0,.9)), url('../../../assets/images/RS-en-20221128-popsignuptwoweeks-perspective_alpha_website_large.jpg');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.mat-divider {
+    border-top-width: 10px;
+}
