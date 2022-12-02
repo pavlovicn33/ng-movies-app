@@ -11,7 +11,9 @@ export const environment = {
     authDomain: 'movie-app-a619f.firebaseapp.com',
     messagingSenderId: '218451149766',
   },
-  production: false
+  production: false,
+  apiKey: '?api_key=8ee7f4d4c46b1cba684adc6118411654',
+  baseURL: 'https://api.themoviedb.org/3'
 };
 
 /*

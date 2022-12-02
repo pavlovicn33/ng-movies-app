@@ -1,8 +1,47 @@
 *{
     margin: 0;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif; 
+    font-family: 'Nunito';
 }
 
-.navbar-container{
-    color: white;
+.container{
+    width: 95%;
+    margin: 0 auto;
+    padding-top: 25px;
+    
+    .navbar-container{
+        color: white;
+        display: flex;
+        justify-content: space-between;
+    
+        .logo{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            column-gap: 25px;
+            font-family:'Nunito'; 
+        }
+    }
 }
+
+.text-container{
+    color: white;
+    display: flex;
+    height: 60vh;
+    align-items:center;
+    justify-content:center;
+    text-align: center;
+
+    h1{
+        font-size: 58px;
+        line-height: 1;
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    button{
+        margin-top: 25px;
+        font-size: 36px;
+        padding: 36px 48px 36px 48px;
+    }
+}
+
