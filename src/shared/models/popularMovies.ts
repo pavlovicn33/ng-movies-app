@@ -1,4 +1,4 @@
-export interface Result {
+export interface ResultMovies {
     poster_path: string;
     adult: boolean;
     overview: string;
@@ -17,7 +17,7 @@ export interface Result {
 
 export interface  Movies {
     page: number;
-    results: Result[];
+    results: ResultMovies[];
     total_results: number;
     total_pages: number;
 }

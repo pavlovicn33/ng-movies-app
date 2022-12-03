@@ -3,12 +3,19 @@
       <app-nav-bar></app-nav-bar>
     </div>
     <mat-divider></mat-divider>
-    <splide>
-      <splide-slide>
-          <img src="image1.jpg" alt="" />
-      </splide-slide>
-      <splide-slide>
-          <img src="image2.jpg" alt="" />
-      </splide-slide>
-  </splide>
+    <div class="splide-container">
+      <splide  [options]="{ type: 'loop', perPage: 7, arrows:false,pagination:false,autoWidth:true,gap:20}">
+        <splide-slide  *ngFor="let image of movies">
+          <img height="250px" src="https://image.tmdb.org/t/p/w300/{{image.poster_path}}" alt="" />
+        </splide-slide>
+      </splide>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="splide-container">
+      <splide [options]="{ type: 'loop', perPage: 7, arrows:false,pagination:false,autoWidth:true,gap:20}">
+        <splide-slide *ngFor="let image of shows">
+          <img height="250px" src="https://image.tmdb.org/t/p/w300/{{image.poster_path}}" alt="" />
+        </splide-slide>
+      </splide>
+    </div>
 </div>

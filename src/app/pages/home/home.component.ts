@@ -1,8 +1,9 @@
 import { Component,OnInit } from '@angular/core';
-import { Movies } from 'src/shared/models/popularMovies';
-import { Shows } from 'src/shared/models/popularTvShows';
+import { Movies,ResultMovies } from 'src/shared/models/popularMovies';
+import { ResultShow, Shows } from 'src/shared/models/popularTvShows';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
+import { Splide } from '@splidejs/splide';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +12,8 @@ import { ShowsService } from 'src/shared/services/shows/shows.service';
 })
 export class HomeComponent implements OnInit {
 
-  movies!:Movies
-  shows!:Shows
+  movies:ResultMovies[] = []
+  shows:ResultShow[] = []
   constructor(private movieService:MoviesService, private tvService:ShowsService){
   }
 
@@ -23,16 +24,25 @@ export class HomeComponent implements OnInit {
 
   getMovies(){
     this.movieService.getPopularMovies().subscribe((data:Movies) => {
-      this.movies = data
-      console.log(this.movies)
+      this.movies = data.results
+      this.emptyPoster(this.movies)
     })
   }
 
   getShows(){
     this.tvService.getPopularShows().subscribe((data:Shows) => {
-      this.shows = data
-      console.log(this.shows)
+      this.shows = data.results
+      this.emptyPoster(this.shows)
     })
   }
 
+  emptyPoster(list:any[]){
+    let e = list.map(el => el.poster_path)
+    e.forEach((el,i) => {
+      if (!el) {
+        list.splice(i,1)
+      }
+    })
+    console.log(this.shows)
+  }
 }

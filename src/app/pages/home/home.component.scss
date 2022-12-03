@@ -1,6 +1,5 @@
 .container{
-    height: 100%; 
-    background-color: black  
+    background-color: #1F1F1F  
 }
 .hero-container{
     height: 80%;
@@ -10,5 +9,41 @@
     background-size: cover;
 }
 .mat-divider {
-    border-top-width: 10px;
+    border-top-width: 13px;
+    background-color: black;
 }
+
+.splide-container{
+    background-color:#1F1F1F;
+}
+
+@keyframes scroll{
+    0%{
+        transform:translateX(0);
+    }
+}
+
+img{
+    border-radius: 10px;
+}
+
+:host::ng-deep{
+    .splide__list{
+        animation:scroll 40s linear infinite;
+    }
+
+    .splide{
+        pointer-events: none;
+        border-top: none !important;
+    }
+
+    #splide02{
+      
+        .splide__list{
+            animation:scroll 30s linear infinite;
+        }
+        
+    }
+}    
+
+

@@ -31,9 +31,12 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/custom-theme.scss"
+              "src/custom-theme.scss",
+              "node_modules/@splidejs/splide/dist/css/splide-core.min.css",
+              "node_modules/@splidejs/splide/dist/css/splide.min.css"
             ],
             "scripts": [
+              "node_modules/@splidejs/splide/dist/js/splide.js"
             ]
           },
           "configurations": {

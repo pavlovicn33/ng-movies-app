@@ -1,4 +1,4 @@
-export interface Result {
+export interface ResultShow {
     poster_path: string;
     popularity: number;
     id: number;
@@ -16,7 +16,7 @@ export interface Result {
 
 export interface Shows {
     page: number;
-    results: Result[];
+    results: ResultShow[];
     total_results: number;
     total_pages: number;
 }
