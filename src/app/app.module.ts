@@ -17,6 +17,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SharedModule } from 'src/shared/shared.module';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NgxSplideModule } from 'ngx-splide';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NgxSplideModule } from 'ngx-splide';
   imports: [
     BrowserModule,
     SharedModule,
+    FontAwesomeModule,
     NgxSplideModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
