@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
       { benefits: 'No ads in streaming library',  free: false,
       paid: true,},
       {
-        benefits: 'Download and watchDownload and watch  ',
+        benefits: 'Download and watch',
         free: false,
         paid: true,
       },

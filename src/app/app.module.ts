@@ -18,6 +18,7 @@ import { SharedModule } from 'src/shared/shared.module';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NgxSplideModule } from 'ngx-splide';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   imports: [
     BrowserModule,
     SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
     FontAwesomeModule,
     NgxSplideModule,
     AppRoutingModule,

@@ -33,7 +33,7 @@ img {
 
 :host::ng-deep {
   .splide__list {
-    animation: scroll 40s linear infinite;
+    animation: scroll 40s linear infinite !important;
   }
 
   .splide {
@@ -43,7 +43,7 @@ img {
 
   #splide02 {
     .splide__list {
-      animation: scroll 30s linear infinite;
+      animation: scroll 30s linear infinite !important;
     }
   }
 }
