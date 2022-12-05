@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="navbar-container">
+        <div>
+            <h1 class="logo">
+                <span><img width="48px" src="../../../assets/images/icons8-movie-64.png" alt=""></span>
+                MOVIES
+            </h1>
+        </div>
+        <div [style.display]="'flex'" [style.align-items]="'center'">
+            <button [routerLink]="['/login']" mat-raised-button>Sign In</button>
+        </div>
+    </div>
+    <div class="text-container">
+        <div >
+            <h1>Unlimited movies, TV shows, and more.
+            </h1>
+            <h2>Watch anywhere. Cancel anytime.
+            </h2>
+            <h3 [style.margin-top]="'10px'">Ready to watch? Sign up now and create your membership.
+            </h3>
+            <button mat-stroked-button [routerLink]="['/register']" color="basic">Sign Up &#187;</button>
+        </div>
+    </div>
+</div>

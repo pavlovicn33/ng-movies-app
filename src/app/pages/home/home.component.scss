@@ -1,0 +1,163 @@
+.container {
+  background-color: #1f1f1f;
+}
+
+.hero-container {
+  height: 80%;
+  background-image: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.9) 0,
+      transparent 60%,
+      rgba(0, 0, 0, 0.9)
+    ),
+    url("../../../assets/images/RS-en-20221128-popsignuptwoweeks-perspective_alpha_website_large.jpg");
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.mat-divider {
+  border-top-width: 13px;
+  background-color: black;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+}
+
+img {
+  border-radius: 10px;
+}
+
+:host::ng-deep {
+  .splide__list {
+    animation: scroll 40s linear infinite !important;
+  }
+
+  .splide {
+    pointer-events: none;
+    border-top: none !important;
+  }
+
+  #splide02 {
+    .splide__list {
+      animation: scroll 30s linear infinite !important;
+    }
+  }
+}
+
+.subscription-container {
+  background-image: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.9) 0,
+    transparent 60%,
+    rgba(0, 0, 0, 0.9)
+  );
+
+  hr {
+    height: 1px;
+    background-color: rgb(90, 89, 89);
+    border: none;
+  }
+
+  .subscription-pricings {
+    width: 65%;
+    margin: 0 auto;
+
+    .mat-list-item {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    table {
+      background-color: transparent;
+    }
+
+    th {
+    
+      padding-bottom: 40px;
+    }
+
+    td {
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .green{
+        color: #1ce783 !important;
+    }
+
+    .red{
+        color:  #E50914 !important;
+    }
+
+    button {
+      background-color: white;
+      color: black;
+      font-weight: 700;
+      width: 100%;
+      height: 40px;
+      transition: ease 0.3s;
+
+      &:hover {
+        background-color: #858585;
+        transition: ease 0.3s;
+      }
+    }
+  }
+}
+
+.text-container {
+  width: 80%;
+  margin: auto;
+  margin-top: 35px;
+  font-family: "Nunito";
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  h1 {
+    font-size: 58px;
+    line-height: 1;
+    margin: 0 auto;
+  }
+}
+
+.icons-container {
+  font-family: "Nunito";
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-top: 65px;
+  align-items: center;
+
+  div {
+    margin: 0 auto;
+    text-align: center;
+    width: 50%;
+    height: 250px;
+
+    mat-icon {
+      transform: scale(4);
+    }
+
+    hr {
+      width: 20%;
+    }
+
+    h2 {
+      width: 100%;
+      padding-top: 20px;
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
