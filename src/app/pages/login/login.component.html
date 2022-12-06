@@ -30,7 +30,7 @@
                     </mat-form-field>
                     <div class="button-container">
                         <button [disabled]="loginUserForm.invalid" [style.font-family]="'Nunito'" mat-flat-button>Sign In</button>
-                        <p>Forgot Password?</p>
+                        <p [routerLink]="['/forgot-password']" >Forgot Password?</p>
                     </div>
                     <div class="split">
                         <hr>

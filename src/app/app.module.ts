@@ -19,6 +19,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NgxSplideModule } from 'ngx-splide';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     FooterComponent,
     NavBarComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

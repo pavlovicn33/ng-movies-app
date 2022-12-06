@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Route, Router } from '@angular/router';
+import { AuthService } from 'src/shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ export class LoginComponent implements OnInit{
   loginUserForm: FormGroup;
   hide = true;
 
-  constructor(private fb: FormBuilder,private router: Router) {
+  constructor(private fb: FormBuilder,private router: Router,private authService:AuthService) {
     this.loginUserForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: [
@@ -36,9 +38,7 @@ export class LoginComponent implements OnInit{
   }
   
   onSubmit(){
-    console.log("qwe")
-   
-    
+    this.authService.login(this.loginUserForm.value.email,this.loginUserForm.value.password)
   }
 
   getErrorMessage(){
@@ -63,5 +63,4 @@ export class LoginComponent implements OnInit{
     return null
   }
   
-
 }
