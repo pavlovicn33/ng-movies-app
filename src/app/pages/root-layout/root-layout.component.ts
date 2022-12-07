@@ -8,6 +8,8 @@ import { AuthService } from 'src/shared/services/auth/auth.service';
 })
 export class RootLayoutComponent implements OnInit {
 
+  labelPosition: 'before' | 'after' = 'after';
+
   constructor(private authService:AuthService){
 
   }

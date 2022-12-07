@@ -1,99 +1,143 @@
 <mat-drawer-container class="sidebar-container">
   <mat-drawer mode="side" opened>
     <div>
-        <h1 class="logo">
-            <span>
-
-                <img width="48px" src="../../../assets/images/icons8-movie-64.png" alt="">
-                <img width="48px" src="../../../assets/images/icons8-movie-64-dark.png" alt="">
-            </span>
-            MOVIES
-        </h1>
+      <h1 class="logo">
+        <span>
+          <img
+            width="48px"
+            src="../../../assets/images/icons8-movie-64.png"
+            alt=""
+          />
+          <img
+            width="48px"
+            src="../../../assets/images/icons8-movie-64-dark.png"
+            alt=""
+          />
+        </span>
+        MOVIES
+      </h1>
     </div>
     <div class="menu-list">
-        <h1>Menu</h1>
-        <ul>
-            <li>
-                <span>
-                    <mat-icon>home</mat-icon>
-                    Home
-                </span>
-            </li>
-            <li>
-                <span>
-                    <mat-icon>panorama_fish_eye</mat-icon>
-                    Discovery
-                </span>
-            </li>
-            <li>
-                <span>
-                    <mat-icon>people</mat-icon>
-                    Community
-                </span>
-            </li>
-            <li>
-                <span>
-                    <mat-icon>alarm</mat-icon>
-                    Coming Soon
-                </span>
-            </li>
-        </ul>
+      <h1>Menu</h1>
+      <ul>
+        <li>
+          <span>
+            <mat-icon>home</mat-icon>
+            Home
+          </span>
+        </li>
+        <li>
+          <span>
+            <mat-icon>panorama_fish_eye</mat-icon>
+            Discovery
+          </span>
+        </li>
+        <li>
+          <span>
+            <mat-icon>people</mat-icon>
+            Community
+          </span>
+        </li>
+        <li>
+          <span>
+            <mat-icon>alarm</mat-icon>
+            Coming Soon
+          </span>
+        </li>
+      </ul>
     </div>
-    <br>
+    <br />
     <mat-divider></mat-divider>
     <div [style.padding-top]="'0px'" class="menu-list">
-        <h1>Library</h1>
-        <ul>
-            <li>
-                <span>
-                    <mat-icon>access_time</mat-icon>
-                    Recent
-                </span>
-            </li>
-            <li>
-                <span>
-                    <mat-icon>bookmark_border</mat-icon>
-                    Bookmarked
-                </span>
-            </li>
-            <li>
-                <span>
-                    <mat-icon>star_border</mat-icon>
-                    Top rated
-                </span>
-            </li>
-            <li>
-                <span>
-                    <mat-icon>cloud_download</mat-icon>
-                    Downloaded
-                </span>
-            </li>
-        </ul>
+      <h1>Library</h1>
+      <ul>
+        <li>
+          <span>
+            <mat-icon>access_time</mat-icon>
+            Recent
+          </span>
+        </li>
+        <li>
+          <span>
+            <mat-icon>bookmark_border</mat-icon>
+            Bookmarked
+          </span>
+        </li>
+        <li>
+          <span>
+            <mat-icon>star_border</mat-icon>
+            Top rated
+          </span>
+        </li>
+        <li>
+          <span>
+            <mat-icon>cloud_download</mat-icon>
+            Downloaded
+          </span>
+        </li>
+      </ul>
     </div>
-    <br>
+    <br />
     <mat-divider></mat-divider>
     <div [style.padding-top]="'0px'" class="menu-list">
-        <ul>
-            <li>
-                <span>
-                    <mat-icon>settings</mat-icon>
-                    Settings
-                </span>
-            </li>
-            <li>
-                <span>
-                    <mat-icon>help_outline</mat-icon>
-                    Help
-                </span>
-            </li>
-        </ul>
+      <ul>
+        <li>
+          <span>
+            <mat-icon>settings</mat-icon>
+            Settings
+          </span>
+        </li>
+        <li>
+          <span>
+            <mat-icon>help_outline</mat-icon>
+            Help
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="menu-list logout">
+      <ul>
+        <li>
+          <span (click)="signOut()">
+            <mat-icon>exit_to_app</mat-icon>
+            Logout
+          </span>
+        </li>
+      </ul>
     </div>
   </mat-drawer>
-  <mat-drawer-content >
+  <mat-drawer-content>
     <mat-toolbar class="toolbar">
-      <span>My Application</span>
+      <div>
+        <ul>
+            <li>Movies</li>
+            <li>Series</li>
+            <li>Tv Shows</li>
+            <li>Animations</li>
+        </ul>
+      </div>
+      <div>
+        <ul [style.margin-right]="'15px'">
+            <li>
+                <mat-icon>surround_sound</mat-icon>
+            </li>
+            <li>
+                <mat-icon>notifications_none</mat-icon>
+            </li>
+            <li>
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>format_color_fill</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <mat-radio-group [(ngModel)]="labelPosition">
+                        <mat-radio-button class="example-margin" value="after">After</mat-radio-button>
+                        <br>
+                        <mat-radio-button class="example-margin" value="before">Before</mat-radio-button>
+                      </mat-radio-group>
+                  </mat-menu>
+            </li>
+        </ul>
+      </div>
     </mat-toolbar>
   </mat-drawer-content>
 </mat-drawer-container>
-
-<!-- <button color="warn" mat-raised-button (click)="signOut()" >Log Out</button> -->
