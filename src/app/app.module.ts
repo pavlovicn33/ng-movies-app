@@ -20,6 +20,7 @@ import { NgxSplideModule } from 'ngx-splide';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { AuthGuard } from 'src/shared/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,16 +5,21 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { RootLayoutComponent } from './pages/root-layout/root-layout.component';
+import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 
 const routes: Routes = [
   {
     path:'',
-    redirectTo:'ngmovies/movies',
-    pathMatch:'full'
+    redirectTo:'home',
+    pathMatch:'full',    
   },
   {
     path:'ngmovies',
     component:RootLayoutComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
     children:[
       {
         path:'movies',
