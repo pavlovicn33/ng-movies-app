@@ -1,2 +1,46 @@
-<button color="primary" (click)="signOut()" mat-button>Log Out</button>
-<p>root-layout works!</p>
+<mat-drawer-container class="sidebar-container">
+  <mat-drawer  mode="side" opened>
+    <div>
+        <h1 class="logo">
+            <span><img width="48px" src="../../../assets/images/icons8-movie-64.png" alt=""></span>
+            MOVIES
+        </h1>
+    </div>
+    <div class="menu-list">
+        <h1>Menu</h1>
+        <ul>
+            <li>
+                <span>
+                    <mat-icon>home</mat-icon>
+                    Home
+                </span>
+            </li>
+            <li>
+                <span>
+                    <mat-icon>panorama_fish_eye</mat-icon>
+                    Discovery
+                </span>
+            </li>
+            <li>
+                <span>
+                    <mat-icon>people</mat-icon>
+                    Community
+                </span>
+            </li>
+            <li>
+                <span>
+                    <mat-icon>alarm</mat-icon>
+                    Coming Soon
+                </span>
+            </li>
+        </ul>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content >
+    <mat-toolbar class="toolbar">
+      <span>My Application</span>
+    </mat-toolbar>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+<!-- <button color="warn" mat-raised-button (click)="signOut()" >Log Out</button> -->

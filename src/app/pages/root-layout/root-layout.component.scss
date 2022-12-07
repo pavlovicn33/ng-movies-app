@@ -1,0 +1,44 @@
+.sidebar-container{
+    height: 100%;
+
+    mat-drawer{
+        width: 20%;
+        background-color: rgba(0, 0, 0, 0.100)
+    }
+}
+
+.toolbar{
+    background-color: transparent;
+}
+
+.logo{
+    margin-left: 25px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 30px;
+    font-family:'Nunito';   
+}
+
+.menu-list{
+    margin-left: 25px;
+    padding-top: 30px;
+    font-family: 'Nunito';
+    
+    ul{
+        list-style: none;
+        padding: 0;
+        li{            
+            span{
+                font-size: 28px;
+                font-family: 'Nunito';
+                display: flex;
+                align-items: center;
+                &:hover {
+                    transition: ease 0.3s;
+                  }
+            }
+
+        }
+    }
+}

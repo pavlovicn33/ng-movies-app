@@ -8,6 +8,7 @@ $custom-accent: mat.define-palette(mat.$deep-orange-palette, A200, A100, A400);
 $custom-primary-light: mat.define-palette(mat.$blue-palette, 500);
 $custom-accent-light: mat.define-palette(mat.$green-palette, A200, A100, A400);
 
+
 $custom-theme: mat.define-dark-theme((
  color: (
    primary: $custom-primary,
