@@ -1,44 +1,56 @@
-.sidebar-container{
-    height: 100%;
+@use "@angular/material" as mat;
 
-    mat-drawer{
-        width: 20%;
-        background-color: rgba(0, 0, 0, 0.100)
-    }
+$color-config: mat.get-color-config(mat.$deep-orange-palette, 500);
+$color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
+
+.sidebar-container {
+  height: 100%;
+
+  mat-drawer {
+    width: 20%;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 }
 
-.toolbar{
-    background-color: transparent;
+.toolbar {
+  background-color: transparent;
 }
 
-.logo{
-    margin-left: 25px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    column-gap: 30px;
-    font-family:'Nunito';   
+.logo {
+  margin-left: 25px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 30px;
+  font-family: "Nunito";
 }
 
-.menu-list{
-    margin-left: 25px;
-    padding-top: 30px;
-    font-family: 'Nunito';
-    
-    ul{
-        list-style: none;
-        padding: 0;
-        li{            
-            span{
-                font-size: 28px;
-                font-family: 'Nunito';
-                display: flex;
-                align-items: center;
-                &:hover {
-                    transition: ease 0.3s;
-                  }
-            }
+.menu-list {
+  margin-left: 25px;
+  padding-top: 20px;
+  font-family: "Nunito";
 
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+        color: mat.get-color-from-palette($color-config-gray, 500);
+        padding-top: 18px;
+      span {
+        font-size: 22px;
+        font-family: "Nunito";
+        display: flex;
+        align-items: center;
+        gap: 35px;
+        &:hover {
+          color: mat.get-color-from-palette($color-config, 500);
+          transition: ease 0.3s;
         }
+      }
+
+      mat-icon{
+        transform: scale(1.5);
+      }
     }
+  }
 }

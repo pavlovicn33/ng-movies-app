@@ -1,8 +1,12 @@
 <mat-drawer-container class="sidebar-container">
-  <mat-drawer  mode="side" opened>
+  <mat-drawer mode="side" opened>
     <div>
         <h1 class="logo">
-            <span><img width="48px" src="../../../assets/images/icons8-movie-64.png" alt=""></span>
+            <span>
+
+                <img width="48px" src="../../../assets/images/icons8-movie-64.png" alt="">
+                <img width="48px" src="../../../assets/images/icons8-movie-64-dark.png" alt="">
+            </span>
             MOVIES
         </h1>
     </div>
@@ -31,6 +35,55 @@
                 <span>
                     <mat-icon>alarm</mat-icon>
                     Coming Soon
+                </span>
+            </li>
+        </ul>
+    </div>
+    <br>
+    <mat-divider></mat-divider>
+    <div [style.padding-top]="'0px'" class="menu-list">
+        <h1>Library</h1>
+        <ul>
+            <li>
+                <span>
+                    <mat-icon>access_time</mat-icon>
+                    Recent
+                </span>
+            </li>
+            <li>
+                <span>
+                    <mat-icon>bookmark_border</mat-icon>
+                    Bookmarked
+                </span>
+            </li>
+            <li>
+                <span>
+                    <mat-icon>star_border</mat-icon>
+                    Top rated
+                </span>
+            </li>
+            <li>
+                <span>
+                    <mat-icon>cloud_download</mat-icon>
+                    Downloaded
+                </span>
+            </li>
+        </ul>
+    </div>
+    <br>
+    <mat-divider></mat-divider>
+    <div [style.padding-top]="'0px'" class="menu-list">
+        <ul>
+            <li>
+                <span>
+                    <mat-icon>settings</mat-icon>
+                    Settings
+                </span>
+            </li>
+            <li>
+                <span>
+                    <mat-icon>help_outline</mat-icon>
+                    Help
                 </span>
             </li>
         </ul>

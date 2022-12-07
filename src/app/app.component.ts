@@ -9,6 +9,7 @@ import { Component,Inject,Renderer2 } from '@angular/core';
 export class AppComponent {
   title = 'angular-movies';
   constructor(@Inject(DOCUMENT) private document:Document, private render:Renderer2) {
+    this.switchMode(true)
   }
 
   switchMode(isLightMode:boolean) {
