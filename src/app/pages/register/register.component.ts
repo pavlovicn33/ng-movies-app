@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +13,7 @@ export class RegisterComponent {
   registerUserForm: FormGroup;
   hide = true;
 
-  constructor(private fb: FormBuilder,private router: Router) {
+  constructor(private fb: FormBuilder,private router: Router, private authService:AuthService) {
     this.registerUserForm = this.fb.group({
       name:['' , [Validators.required]],
       lastName:['' , [Validators.required]],
@@ -35,10 +37,9 @@ export class RegisterComponent {
   get f() {
     return this.registerUserForm.controls;
   }
-  
+   
   onSubmit(){
-    console.log("qwe")
-    
+    this.authService.register(this.registerUserForm.value.email,this.registerUserForm.value.password)
   }
 
   getErrorMessage(){
@@ -62,5 +63,4 @@ export class RegisterComponent {
     }
     return null
   }
-  
 }

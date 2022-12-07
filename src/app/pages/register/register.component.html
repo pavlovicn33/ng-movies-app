@@ -38,13 +38,13 @@
                         <mat-label>Password</mat-label>
                         <input formControlName="password" matInput [type]="hide ? 'password' : 'text'"  required>
                         <mat-error *ngIf="getErrorMessagePassword()">{{getErrorMessagePassword()}}</mat-error>
-                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                          <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-                        </button>
+                        <span  matSuffix [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <mat-icon  (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        </span>
                     </mat-form-field>
                     <div class="sign-up">
                         <div class="sign-up-button-container">
-                            <button [disabled]="registerUserForm.invalid" [style.font-family]="'Nunito'" mat-raised-button>Sign up</button>
+                            <button [disabled]="registerUserForm.invalid" [style.font-family]="'Nunito'" mat-raised-button><mat-icon>person</mat-icon>Sign up</button>
                         </div>
                     </div>
                 </form>
