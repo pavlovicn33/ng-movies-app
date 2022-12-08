@@ -6,6 +6,7 @@ export const environment = {
   firebase: {
     projectId: 'movie-app-a619f',
     appId: '1:218451149766:web:ac93629c83139405bde8c7',
+    databaseURL: 'https://movie-app-a619f-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'movie-app-a619f.appspot.com',
     apiKey: 'AIzaSyCaRbQ1yw7OrJDn2tFgIb0fnfIwcwf-d6s',
     authDomain: 'movie-app-a619f.firebaseapp.com',

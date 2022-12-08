@@ -8,6 +8,8 @@ import {
   Renderer2,
 } from '@angular/core';
 import { AuthService } from 'src/shared/services/auth/auth.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { getAuth } from "firebase/auth";
 
 @Component({
   selector: 'app-root-layout',
@@ -25,10 +27,13 @@ export class RootLayoutComponent implements OnInit {
   genres: any;
   showFiller = false;
 
+  user:any 
+
   constructor(
     private authService: AuthService,
     @Inject(DOCUMENT) private document: Document,
-    private render: Renderer2
+    private render: Renderer2,
+    private db:AngularFirestore
   ) {
     this.menuItems = [
       {
@@ -109,7 +114,9 @@ export class RootLayoutComponent implements OnInit {
     ];
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getUser()
+  }
 
   async switchMode(isLightMode: any) {
     console.log(isLightMode);
@@ -123,5 +130,14 @@ export class RootLayoutComponent implements OnInit {
     };
     this.switchMode(obj);
     this.authService.signOut();
+  }
+
+  async getUser(){
+    const auth = getAuth()
+    const userId = auth.currentUser?.uid
+    this.db.collection('users').doc(userId).get().subscribe((data:any) => {
+      this.user = data.data()
+    })
+    
   }
 }

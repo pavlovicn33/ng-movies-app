@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  constructor(private fireauth: AngularFireAuth, private router:Router, private _snackBar: MatSnackBar) { }
+  constructor(private fireauth: AngularFireAuth, private router:Router, private _snackBar: MatSnackBar,private db:AngularFirestore) { }
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
@@ -35,12 +36,13 @@ export class AuthService {
 
   register(email:string, password:string,name:string,lastName:string){
     this.fireauth.createUserWithEmailAndPassword(email, password).then( res => {
-      // if (res.user) {
-      //   this.db.collection('users').doc(res.user.uid).set({
-      //     name:name,
-      //     lastName:lastName
-      //   })
-      // }
+      if (res.user) {
+        this.db.collection('users').doc(res.user.uid).set({
+          name:name,
+          lastName:lastName,
+          email:email
+        })
+      }
       this.router.navigate(['/login'])
       this.openSnackBar('Confirmation Email Sent', 'X')
       this.sendEmailVerification(res.user)
