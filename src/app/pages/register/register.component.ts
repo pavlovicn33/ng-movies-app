@@ -39,7 +39,7 @@ export class RegisterComponent {
   }
    
   onSubmit(){
-    this.authService.register(this.registerUserForm.value.email,this.registerUserForm.value.password)
+    this.authService.register(this.registerUserForm.value.email,this.registerUserForm.value.password,this.registerUserForm.value.name,this.registerUserForm.value.lastName)
   }
 
   getErrorMessage(){

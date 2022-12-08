@@ -22,7 +22,7 @@
                     </mat-form-field>
                     <mat-form-field [color]="'primary'" appearance="outline"  class="form-container">
                         <mat-label>Enter your password</mat-label>
-                        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'"  required>
+                        <input  formControlName="password" matInput [type]="hide ? 'password' : 'text'"  required>
                         <mat-error *ngIf="getErrorMessagePassword()">{{getErrorMessagePassword()}}</mat-error>
                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                           <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>

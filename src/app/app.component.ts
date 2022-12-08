@@ -8,11 +8,6 @@ import { Component,Inject,Renderer2 } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-movies';
-  constructor(@Inject(DOCUMENT) private document:Document, private render:Renderer2) {
-  }
-
-  switchMode(isLightMode:boolean) {
-    const hostClass = isLightMode ? '' : 'theme-light';
-    this.render.setAttribute(this.document.body, 'class', hostClass)
+  constructor() {
   }
 }
