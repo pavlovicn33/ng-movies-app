@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +33,14 @@ export class AuthService {
     })
   }
 
-  register(email:string, password:string){
+  register(email:string, password:string,name:string,lastName:string){
     this.fireauth.createUserWithEmailAndPassword(email, password).then( res => {
+      // if (res.user) {
+      //   this.db.collection('users').doc(res.user.uid).set({
+      //     name:name,
+      //     lastName:lastName
+      //   })
+      // }
       this.router.navigate(['/login'])
       this.openSnackBar('Confirmation Email Sent', 'X')
       this.sendEmailVerification(res.user)

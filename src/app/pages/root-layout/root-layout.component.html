@@ -4,11 +4,13 @@
       <h1 class="logo">
         <span>
           <img
+            *ngIf="labelPosition == 'dark'"
             width="48px"
             src="../../../assets/images/icons8-movie-64.png"
             alt=""
           />
           <img
+            *ngIf="labelPosition == 'light'"
             width="48px"
             src="../../../assets/images/icons8-movie-64-dark.png"
             alt=""
@@ -18,126 +20,118 @@
       </h1>
     </div>
     <div class="menu-list">
-      <h1>Menu</h1>
-      <ul>
-        <li>
+      <h2>Menu</h2>
+      <mat-selection-list #shoes [multiple]="false">
+        <mat-list-option  *ngFor="let i of menuItems" [value]="i">
           <span>
-            <mat-icon>home</mat-icon>
-            Home
+            <mat-icon>{{ i.icon }}</mat-icon>
+            {{ i.title }}
           </span>
-        </li>
-        <li>
+          </mat-list-option>
+          <br>
+        <mat-divider></mat-divider>
+        <h2>Library</h2>
+        <mat-list-option *ngFor="let i of libraryItems" [value]="i">
           <span>
-            <mat-icon>panorama_fish_eye</mat-icon>
-            Discovery
+            <mat-icon>{{ i.icon }}</mat-icon>
+            {{ i.title }}
           </span>
-        </li>
-        <li>
+        </mat-list-option>
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+        <mat-list-option *ngFor="let i of miscItems" [value]="i">
           <span>
-            <mat-icon>people</mat-icon>
-            Community
+            <mat-icon>{{ i.icon }}</mat-icon>
+            {{ i.title }}
           </span>
-        </li>
-        <li>
+        </mat-list-option>
+        <mat-list-option class="logout"  *ngFor="let i of logoutItem" [value]="i" (click)="signOut()" >
           <span>
-            <mat-icon>alarm</mat-icon>
-            Coming Soon
+            <mat-icon>{{ i.icon }}</mat-icon>
+            {{ i.title }}
           </span>
-        </li>
-      </ul>
+        </mat-list-option>
+      </mat-selection-list>
     </div>
-    <br />
-    <mat-divider></mat-divider>
-    <div [style.padding-top]="'0px'" class="menu-list">
-      <h1>Library</h1>
-      <ul>
-        <li>
-          <span>
-            <mat-icon>access_time</mat-icon>
-            Recent
-          </span>
-        </li>
-        <li>
-          <span>
-            <mat-icon>bookmark_border</mat-icon>
-            Bookmarked
-          </span>
-        </li>
-        <li>
-          <span>
-            <mat-icon>star_border</mat-icon>
-            Top rated
-          </span>
-        </li>
-        <li>
-          <span>
-            <mat-icon>cloud_download</mat-icon>
-            Downloaded
-          </span>
-        </li>
-      </ul>
-    </div>
-    <br />
-    <mat-divider></mat-divider>
-    <div [style.padding-top]="'0px'" class="menu-list">
-      <ul>
-        <li>
-          <span>
-            <mat-icon>settings</mat-icon>
-            Settings
-          </span>
-        </li>
-        <li>
-          <span>
-            <mat-icon>help_outline</mat-icon>
-            Help
-          </span>
-        </li>
-      </ul>
-    </div>
-    <div class="menu-list logout">
-      <ul>
-        <li>
-          <span (click)="signOut()">
-            <mat-icon>exit_to_app</mat-icon>
-            Logout
-          </span>
-        </li>
-      </ul>
-    </div>
+
   </mat-drawer>
   <mat-drawer-content>
     <mat-toolbar class="toolbar">
-      <div>
-        <ul>
-            <li>Movies</li>
-            <li>Series</li>
-            <li>Tv Shows</li>
-            <li>Animations</li>
-        </ul>
-      </div>
+      <mat-nav-list>
+        <a  mat-list-item [routerLink]="[link]" *ngFor="let link of links" [activated]="link.isActive">{{ link }}</a>
+      </mat-nav-list>
       <div>
         <ul [style.margin-right]="'15px'">
-            <li>
-                <mat-icon>surround_sound</mat-icon>
-            </li>
-            <li>
-                <mat-icon>notifications_none</mat-icon>
-            </li>
-            <li>
-                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                    <mat-icon>format_color_fill</mat-icon>
-                  </button>
-                  <mat-menu #menu="matMenu">
-                    <mat-radio-group [(ngModel)]="labelPosition">
-                        <mat-radio-button class="example-margin" value="after">After</mat-radio-button>
-                        <br>
-                        <mat-radio-button class="example-margin" value="before">Before</mat-radio-button>
-                      </mat-radio-group>
-                  </mat-menu>
-            </li>
+          <li>
+            <button mat-icon-button  aria-label="Example icon-button with a menu">
+            <mat-icon>surround_sound</mat-icon>
+            </button>
+          </li>
+          <li>
+            <button mat-icon-button aria-label="Example icon-button with a menu">
+            <mat-icon>notifications_none</mat-icon>
+            </button>
+          </li>
+          <li>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon >format_color_fill</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <mat-radio-group
+                [(ngModel)]="labelPosition"
+                (change)="switchMode($event)"
+              >
+                <mat-radio-button class="example-margin" value="dark"
+                  >Dark</mat-radio-button
+                >
+                <br />
+                <mat-radio-button class="example-margin" value="light"
+                  >Light</mat-radio-button
+                >
+              </mat-radio-group>
+            </mat-menu>
+          </li>
         </ul>
       </div>
+      <mat-divider [vertical]="true" class="divider"></mat-divider>
+
+      <div class="profile-container">
+        <div class="profile-picture">
+          <img src="../../../assets/images/blank-profile-picture-973460_640.webp" alt="">
+        </div>
+        <div class="profile-info">
+          <h3>Nikola Pavlovic</h3>
+          <h5>pavlovicn410@gmail.com</h5>
+        </div>
+        <div>
+          <button mat-icon-button [matMenuTriggerFor]="profile">
+            <mat-icon >keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #profile="matMenu">
+          <div class="menu-content">
+            <h2>Media Service</h2>
+            <mat-selection-list #media [multiple]="false">
+              <mat-list-option  *ngFor="let i of mediaService" [value]="i">
+                <span>
+                  <img width="48px" src="{{i.src}}" alt="">
+                  {{ i.title }}
+                </span> 
+                </mat-list-option>
+                <mat-divider></mat-divider>
+                <h2>Genre</h2>
+              <mat-list-option  *ngFor="let i of genres" [value]="i">
+                <span>
+                  {{i}}
+                </span>
+                </mat-list-option>
+            </mat-selection-list>
+          </div>
+        </mat-menu>
+      </div>
     </mat-toolbar>
+    <router-outlet></router-outlet>
   </mat-drawer-content>
+  
 </mat-drawer-container>
