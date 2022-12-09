@@ -36,11 +36,18 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { NgxSplideModule } from 'ngx-splide';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    CarouselComponent,
+    SnackbarComponent
+  ],
   imports: [
+    NgxSplideModule,
     CommonModule,
     HttpClientModule,
     MatAutocompleteModule,
@@ -80,6 +87,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule
   ],
   exports: [
+    NgxSplideModule,
+    CarouselComponent,
     MatAutocompleteModule,
     MatCheckboxModule,
     MatDatepickerModule,

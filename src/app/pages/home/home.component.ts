@@ -80,7 +80,6 @@ export class HomeComponent implements OnInit {
         list.splice(i, 1);
       }
     });
-    console.log(this.shows);
   }
 
 }

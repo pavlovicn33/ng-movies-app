@@ -1,0 +1,17 @@
+<div>    
+    <splide
+    [options]="{
+        type: 'loop',
+        perPage: 3,
+        drag: 'free',
+        arrows: false,
+    pagination: false,
+    autoWidth: true,
+    gap: 20
+  }"
+>
+<splide-slide *ngFor="let i of data">
+    <img src="https://image.tmdb.org/t/p/w500/{{ i.backdrop_path }}" alt="" />
+</splide-slide>
+</splide>
+</div>
