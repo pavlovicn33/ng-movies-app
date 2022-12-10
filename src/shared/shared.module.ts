@@ -39,12 +39,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { NgxSplideModule } from 'ngx-splide';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import { SeeAllComponent } from './components/see-all/see-all.component';
 
 
 @NgModule({
   declarations: [
     CarouselComponent,
     SnackbarComponent,
+    SeeAllComponent,
   ],
   imports: [
     NgxSplideModule,
@@ -87,6 +89,7 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     MatTableModule
   ],
   exports: [
+    SeeAllComponent,
     NgxSplideModule,
     CarouselComponent,
     MatAutocompleteModule,

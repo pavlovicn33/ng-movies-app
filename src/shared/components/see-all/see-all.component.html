@@ -1,0 +1,9 @@
+<mat-grid-list  class="set-height" [cols]="cols" rowHeight="1:1.5">
+  <div [style.text-align]="'center'" *ngFor="let i of data">
+        <img
+          height="300px"
+          src="https://image.tmdb.org/t/p/w200{{ i.poster_path }}"
+          alt=""
+        />
+  </div>
+</mat-grid-list>
