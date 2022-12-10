@@ -10,6 +10,7 @@ import {
 import { AuthService } from 'src/shared/services/auth/auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getAuth } from "firebase/auth";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root-layout',
@@ -33,7 +34,8 @@ export class RootLayoutComponent implements OnInit {
     private authService: AuthService,
     @Inject(DOCUMENT) private document: Document,
     private render: Renderer2,
-    private db:AngularFirestore
+    private db:AngularFirestore,
+    private router:Router
   ) {
     this.menuItems = [
       {
@@ -133,6 +135,7 @@ export class RootLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.navigate(['ngmovies/movies'])
     this.getUser()
     let obj = {
       value: localStorage.getItem('mode')

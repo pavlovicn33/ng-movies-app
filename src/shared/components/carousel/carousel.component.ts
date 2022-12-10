@@ -13,6 +13,15 @@ export class CarouselComponent implements OnInit{
   constructor() {}
 
   ngOnInit(): void {
-    
+    this.emptyPoster(this.data)
+  }
+
+  emptyPoster(list: any[]) {
+    let e = list.map((el) => el.poster_path);
+    e.forEach((el, i) => {
+      if (!el) {
+        list.splice(i, 1);
+      }
+    });
   }
 }

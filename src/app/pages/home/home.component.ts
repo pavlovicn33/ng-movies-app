@@ -62,24 +62,24 @@ export class HomeComponent implements OnInit {
   getMovies() {
     this.movieService.getPopularMovies().subscribe((data: Movies) => {
       this.movies = data.results;
-      this.emptyPoster(this.movies);
+      // this.emptyPoster(this.movies);
     });
   }
 
   getShows() {
     this.tvService.getPopularShows().subscribe((data: Shows) => {
       this.shows = data.results;
-      this.emptyPoster(this.shows);
+      // this.emptyPoster(this.shows);
     });
   }
 
-  emptyPoster(list: any[]) {
-    let e = list.map((el) => el.poster_path);
-    e.forEach((el, i) => {
-      if (!el) {
-        list.splice(i, 1);
-      }
-    });
-  }
+  // emptyPoster(list: any[]) {
+  //   let e = list.map((el) => el.poster_path);
+  //   e.forEach((el, i) => {
+  //     if (!el) {
+  //       list.splice(i, 1);
+  //     }
+  //   });
+  // }
 
 }

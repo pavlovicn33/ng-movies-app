@@ -20,16 +20,7 @@ export class MoviesComponent implements OnInit{
   getMovies(){
     this.movieService.getPopularMovies().subscribe((data: Movies) => {
       this.movies = data.results;
-      this.emptyPoster(this.movies);
     });
   }
 
-  emptyPoster(list: any[]) {
-    let e = list.map((el) => el.poster_path);
-    e.forEach((el, i) => {
-      if (!el) {
-        list.splice(i, 1);
-      }
-    });
-  }
 }

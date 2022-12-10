@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AnimationsComponent } from './pages/animations/animations.component';
 import { AnimationsRoutes } from './pages/animations.routes';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from 'src/shared/shared.module';
 
 
 
@@ -12,6 +13,7 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild(AnimationsRoutes),
 
   ]

@@ -44,7 +44,7 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
 @NgModule({
   declarations: [
     CarouselComponent,
-    SnackbarComponent
+    SnackbarComponent,
   ],
   imports: [
     NgxSplideModule,

@@ -20,16 +20,6 @@ export class ShowsComponent implements OnInit{
   getShows(){
     this.showService.getPopularShows().subscribe((data: Shows) => {
       this.shows = data.results;
-      this.emptyPoster(this.shows);
-    });
-  }
-
-  emptyPoster(list: any[]) {
-    let e = list.map((el) => el.poster_path);
-    e.forEach((el, i) => {
-      if (!el) {
-        list.splice(i, 1);
-      }
     });
   }
 }
