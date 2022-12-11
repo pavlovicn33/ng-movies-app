@@ -23,6 +23,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
 import { provideStorage,getStorage } from '@angular/fire/storage';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
     ForgotPasswordComponent,
   ],
   imports: [
+    InfiniteScrollModule,
     BrowserModule,
     SharedModule,
     FormsModule,

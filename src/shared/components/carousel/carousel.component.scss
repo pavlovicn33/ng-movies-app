@@ -1,11 +1,15 @@
 img {
   border-radius: 10px;
+  &:active{
+    cursor: grab;
+  }
 }
 
 div {
   margin-left: 25px;
   margin-right: 25px;
   border-radius: 10px;
+  
 }
 :host::ng-deep {
   #splide01-track {

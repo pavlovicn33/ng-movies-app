@@ -23,7 +23,6 @@ export class AnimationsComponent implements OnInit {
   getMovies(){
     this.animationsService.getAnimationMovies().subscribe((data:Movies) => {
       this.movies = data.results
-      console.log(this.movies)
     })
   }
   getShows(){

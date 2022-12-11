@@ -1,18 +1,19 @@
 <div
-  class="set-height"
-  infiniteScroll
+class="container"
+  infinite-scroll
   [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="50"
+  [infiniteScrollThrottle]="300"
   (scrolled)="onScroll()"
+  [scrollWindow]="false"
 >
-<mat-grid-list class="set-height" [cols]="cols" rowHeight="1:1.3">
-    <mat-grid-tile *ngFor="let i of data">
-    <img
-      width="85%"
-      height="95%"
-      src="https://image.tmdb.org/t/p/w300{{ i.poster_path }}"
-      alt=""
+  <mat-grid-list class="set-height" [cols]="cols" rowHeight="1:1.3">
+    <mat-grid-tile *ngFor="let i of results">
+      <img
+        width="85%"
+        height="95%"
+        src="https://image.tmdb.org/t/p/w300{{ i.poster_path }}"
+        alt=""
       />
     </mat-grid-tile>
-</mat-grid-list>
+  </mat-grid-list>
 </div>

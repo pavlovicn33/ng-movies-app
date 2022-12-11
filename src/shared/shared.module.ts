@@ -91,7 +91,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     MatTableModule
   ],
   exports: [
-    InfiniteScrollModule,
     SeeAllComponent,
     NgxSplideModule,
     CarouselComponent,
