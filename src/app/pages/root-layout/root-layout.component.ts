@@ -9,8 +9,9 @@ import {
 } from '@angular/core';
 import { AuthService } from 'src/shared/services/auth/auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { getAuth } from "firebase/auth";
+import { getAuth } from 'firebase/auth';
 import { Router } from '@angular/router';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-root-layout',
@@ -18,7 +19,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./root-layout.component.scss'],
 })
 export class RootLayoutComponent implements OnInit {
-  labelPosition:string | null  = 'dark';
+  labelPosition: string | null = 'dark';
   menuItems: any;
   libraryItems: any;
   miscItems: any;
@@ -28,14 +29,15 @@ export class RootLayoutComponent implements OnInit {
   genres: any;
   showFiller = false;
 
-  user:any 
+  user: any;
 
   constructor(
     private authService: AuthService,
     @Inject(DOCUMENT) private document: Document,
     private render: Renderer2,
-    private db:AngularFirestore,
-    private router:Router
+    private db: AngularFirestore,
+    private router: Router,
+    private bpo: BreakpointObserver
   ) {
     this.menuItems = [
       {
@@ -91,17 +93,17 @@ export class RootLayoutComponent implements OnInit {
     ];
     this.links = [
       {
-        name:'Movies',
-        link:'movies',
+        name: 'Movies',
+        link: 'movies',
       },
       {
-        name:'TV Shows',
-        link:'tvshows',
+        name: 'TV Shows',
+        link: 'tvshows',
       },
       {
-        name:'Animations',
-        link:'animations',
-      }
+        name: 'Animations',
+        link: 'animations',
+      },
     ];
     this.mediaService = [
       {
@@ -128,39 +130,42 @@ export class RootLayoutComponent implements OnInit {
       'Romance',
     ];
     this.user = {
-      name:'',
-      lastName:'',
-      email:''
-    }
+      name: '',
+      lastName: '',
+      email: '',
+    };
   }
 
   ngOnInit(): void {
-    this.router.navigate(['ngmovies/movies'])
-    this.getUser()
+    this.router.navigate(['ngmovies/movies']);
+    this.getUser();
     let obj = {
-      value: localStorage.getItem('mode')
+      value: localStorage.getItem('mode'),
     };
-    this.labelPosition = obj.value
-    this.switchMode(obj)
+    this.labelPosition = obj.value;
+    this.switchMode(obj);
   }
 
   async switchMode(isLightMode: any) {
-    localStorage.setItem('mode', `${isLightMode.value}`)
+    localStorage.setItem('mode', `${isLightMode.value}`);
     const hostClass = isLightMode.value == 'dark' ? '' : 'theme-light';
     this.render.setAttribute(this.document.body, 'class', hostClass);
   }
-  
+
   signOut() {
     this.render.setAttribute(this.document.body, 'class', '');
     this.authService.signOut();
   }
 
-  async getUser(){
-    const auth = getAuth()
-    const userId = auth.currentUser?.uid
-    this.db.collection('users').doc(userId).get().subscribe((data:any) => {
-      this.user = data.data()
-    })
-    
+  async getUser() {
+    const auth = getAuth();
+    const userId = auth.currentUser?.uid;
+    this.db
+      .collection('users')
+      .doc(userId)
+      .get()
+      .subscribe((data: any) => {
+        this.user = data.data();
+      });
   }
 }

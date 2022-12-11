@@ -40,6 +40,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 import { NgxSplideModule } from 'ngx-splide';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { SeeAllComponent } from './components/see-all/see-all.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { SeeAllComponent } from './components/see-all/see-all.component';
     SeeAllComponent,
   ],
   imports: [
+    InfiniteScrollModule,
     NgxSplideModule,
     CommonModule,
     HttpClientModule,
@@ -89,6 +91,7 @@ import { SeeAllComponent } from './components/see-all/see-all.component';
     MatTableModule
   ],
   exports: [
+    InfiniteScrollModule,
     SeeAllComponent,
     NgxSplideModule,
     CarouselComponent,

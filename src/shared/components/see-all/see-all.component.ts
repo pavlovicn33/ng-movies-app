@@ -9,7 +9,7 @@ import { MatGridList } from '@angular/material/grid-list';
 })
 export class SeeAllComponent implements OnInit {
 
-  private breakpoints: any = {xs: 2, sm: 3, md: 4, lg: 5};
+  private breakpoints: any = {xs: 2, sm: 3, md: 4, lg: 6};
 
   cols!:number
 
@@ -41,4 +41,8 @@ export class SeeAllComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  onScroll(){
+    console.log('e')
+  }
 }

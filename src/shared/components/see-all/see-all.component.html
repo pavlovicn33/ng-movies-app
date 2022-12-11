@@ -1,9 +1,18 @@
-<mat-grid-list  class="set-height" [cols]="cols" rowHeight="1:1.5">
-  <div [style.text-align]="'center'" *ngFor="let i of data">
-        <img
-          height="300px"
-          src="https://image.tmdb.org/t/p/w200{{ i.poster_path }}"
-          alt=""
-        />
-  </div>
+<div
+  class="set-height"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+>
+<mat-grid-list class="set-height" [cols]="cols" rowHeight="1:1.3">
+    <mat-grid-tile *ngFor="let i of data">
+    <img
+      width="85%"
+      height="95%"
+      src="https://image.tmdb.org/t/p/w300{{ i.poster_path }}"
+      alt=""
+      />
+    </mat-grid-tile>
 </mat-grid-list>
+</div>
