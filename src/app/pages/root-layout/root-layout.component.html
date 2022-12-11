@@ -1,5 +1,5 @@
-<mat-drawer-container class="sidebar-container">
-  <mat-drawer mode="side" opened>
+<mat-drawer-container class="sidebar-container" [hasBackdrop]="false">
+  <mat-drawer id="side" mode="side" opened position="start">
     <div>
       <h1 class="logo">
         <span>
@@ -22,13 +22,13 @@
     <div class="menu-list">
       <h2>Menu</h2>
       <mat-selection-list #shoes [multiple]="false">
-        <mat-list-option  *ngFor="let i of menuItems" [value]="i">
+        <mat-list-option *ngFor="let i of menuItems" [value]="i">
           <span>
             <mat-icon>{{ i.icon }}</mat-icon>
             {{ i.title }}
           </span>
-          </mat-list-option>
-          <br>
+        </mat-list-option>
+        <br />
         <mat-divider></mat-divider>
         <h2>Library</h2>
         <mat-list-option *ngFor="let i of libraryItems" [value]="i">
@@ -37,16 +37,21 @@
             {{ i.title }}
           </span>
         </mat-list-option>
-        <br>
+        <br />
         <mat-divider></mat-divider>
-        <br>
+        <br />
         <mat-list-option *ngFor="let i of miscItems" [value]="i">
           <span>
             <mat-icon>{{ i.icon }}</mat-icon>
             {{ i.title }}
           </span>
         </mat-list-option>
-        <mat-list-option class="logout"  *ngFor="let i of logoutItem" [value]="i" (click)="signOut()" >
+        <mat-list-option
+          class="logout"
+          *ngFor="let i of logoutItem"
+          [value]="i"
+          (click)="signOut()"
+        >
           <span>
             <mat-icon>{{ i.icon }}</mat-icon>
             {{ i.title }}
@@ -54,30 +59,169 @@
         </mat-list-option>
       </mat-selection-list>
     </div>
-
   </mat-drawer>
+  <mat-drawer id="side-menu" #side mode="over" position="end">
+    <div>
+      <h1 class="logo">
+        <span>
+          <img
+            *ngIf="labelPosition == 'dark'"
+            width="48px"
+            src="../../../assets/images/icons8-movie-64.png"
+            alt=""
+          />
+          <img
+            *ngIf="labelPosition == 'light'"
+            width="48px"
+            src="../../../assets/images/icons8-movie-64-dark.png"
+            alt=""
+          />
+        </span>
+        MOVIES
+      </h1>
+    </div>
+    <div class="menu-list">
+      <h2>Menu</h2>
+      <mat-selection-list #shoes [multiple]="false">
+        <mat-list-option *ngFor="let i of menuItems" [value]="i">
+          <span>
+            <mat-icon>{{ i.icon }}</mat-icon>
+            {{ i.title }}
+          </span>
+        </mat-list-option>
+        <br />
+        <mat-divider></mat-divider>
+        <h2>Library</h2>
+        <mat-list-option *ngFor="let i of libraryItems" [value]="i">
+          <span>
+            <mat-icon>{{ i.icon }}</mat-icon>
+            {{ i.title }}
+          </span>
+        </mat-list-option>
+        <br />
+        <mat-divider></mat-divider>
+        <br />
+        <mat-list-option *ngFor="let i of miscItems" [value]="i">
+          <span>
+            <mat-icon>{{ i.icon }}</mat-icon>
+            {{ i.title }}
+          </span>
+        </mat-list-option>
+        <mat-list-option
+          class="logout"
+          *ngFor="let i of logoutItem"
+          [value]="i"
+          (click)="signOut()"
+        >
+          <span>
+            <mat-icon>{{ i.icon }}</mat-icon>
+            {{ i.title }}
+          </span>
+        </mat-list-option>
+      </mat-selection-list>
+    </div>
+  </mat-drawer>
+
   <mat-drawer-content>
     <mat-toolbar class="toolbar">
+      <div class="toggle">
+        <button
+          [style.font-family]="'Nunito'"
+          type="button"
+          mat-button
+          (click)="side.toggle()"
+        >
+          Menu <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+      </div>
+      <mat-divider
+        [vertical]="true"
+        id="divider-remove"
+        class="divider"
+      ></mat-divider>
+
+      <div class="hamburger">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <mat-nav-list>
+            <a
+              mat-list-item
+              id="movie-button"
+              [routerLink]="[link.link]"
+              *ngFor="let link of links"
+              [activated]="link.isActive"
+              >{{ link.name }}</a
+            >
+          </mat-nav-list>
+        </mat-menu>
+      </div>
       <mat-nav-list>
-        <a  mat-list-item [routerLink]="[link]" *ngFor="let link of links" [activated]="link.isActive">{{ link }}</a>
+        <a
+          mat-list-item
+          id="movie-button"
+          [routerLink]="[link.link]"
+          *ngFor="let link of links"
+          [activated]="link.isActive"
+          >{{ link.name }}</a
+        >
       </mat-nav-list>
       <div>
         <ul [style.margin-right]="'15px'">
-          <li>
-            <button mat-icon-button  aria-label="Example icon-button with a menu">
-            <mat-icon>surround_sound</mat-icon>
+          <div class="toggle2">
+            <button
+              [style.font-family]="'Nunito'"
+              type="button"
+              mat-button
+              (click)="side.toggle()"
+            >
+              Menu <mat-icon>keyboard_arrow_left</mat-icon>
             </button>
-          </li>
-          <li>
-            <button mat-icon-button aria-label="Example icon-button with a menu">
-            <mat-icon>notifications_none</mat-icon>
-            </button>
-          </li>
-          <li>
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-              <mat-icon >format_color_fill</mat-icon>
+          </div>
+          <div class="hamburger2">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>menu</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
+              <mat-nav-list>
+                <a
+                  mat-list-item
+                  id="movie-button"
+                  [routerLink]="[link.link]"
+                  *ngFor="let link of links"
+                  [activated]="link.isActive"
+                  >{{ link.name }}</a
+                >
+              </mat-nav-list>
+            </mat-menu>
+          </div>
+
+          <li>
+            <button
+              mat-icon-button
+              aria-label="Example icon-button with a menu"
+            >
+              <mat-icon>surround_sound</mat-icon>
+            </button>
+          </li>
+          <li>
+            <button
+              mat-icon-button
+              aria-label="Example icon-button with a menu"
+            >
+              <mat-icon>notifications_none</mat-icon>
+            </button>
+          </li>
+          <li>
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menuIcons"
+              aria-label="Example icon-button with a menu"
+            >
+              <mat-icon>format_color_fill</mat-icon>
+            </button>
+            <mat-menu #menuIcons="matMenu">
               <mat-radio-group
                 [(ngModel)]="labelPosition"
                 (change)="switchMode($event)"
@@ -95,37 +239,40 @@
         </ul>
       </div>
       <mat-divider [vertical]="true" class="divider"></mat-divider>
-
+      <mat-divider class="divider-1"></mat-divider>
       <div class="profile-container">
         <div class="profile-picture">
-          <img src="../../../assets/images/blank-profile-picture-973460_640.webp" alt="">
+          <img
+            src="../../../assets/images/blank-profile-picture-973460_640.webp"
+            alt=""
+          />
         </div>
         <div class="profile-info">
-          <h3>{{user.name}} {{user.lastName}}</h3>
-          <h5>{{user.email}}</h5>
+          <h3>{{ user.name }} {{ user.lastName }}</h3>
+          <h5>{{ user.email }}</h5>
         </div>
         <div>
           <button mat-icon-button [matMenuTriggerFor]="profile">
-            <mat-icon >keyboard_arrow_down</mat-icon>
+            <mat-icon>keyboard_arrow_down</mat-icon>
           </button>
         </div>
         <mat-menu #profile="matMenu">
           <div class="menu-content">
             <h2>Media Service</h2>
             <mat-selection-list #media [multiple]="false">
-              <mat-list-option  *ngFor="let i of mediaService" [value]="i">
+              <mat-list-option *ngFor="let i of mediaService" [value]="i">
                 <span>
-                  <img width="48px" src="{{i.src}}" alt="">
+                  <img width="48px" src="{{ i.src }}" alt="" />
                   {{ i.title }}
-                </span> 
-                </mat-list-option>
-                <mat-divider></mat-divider>
-                <h2>Genre</h2>
-              <mat-list-option  *ngFor="let i of genres" [value]="i">
-                <span>
-                  {{i}}
                 </span>
-                </mat-list-option>
+              </mat-list-option>
+              <mat-divider></mat-divider>
+              <h2>Genre</h2>
+              <mat-list-option *ngFor="let i of genres" [value]="i">
+                <span>
+                  {{ i }}
+                </span>
+              </mat-list-option>
             </mat-selection-list>
           </div>
         </mat-menu>
@@ -133,5 +280,4 @@
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-drawer-content>
-  
 </mat-drawer-container>

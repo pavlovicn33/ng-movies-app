@@ -1,0 +1,22 @@
+h1 {
+    font-family: "Nunito";
+    margin-left: 25px;
+  }
+  .text-container {
+    display: flex;
+    justify-content: space-between;
+  
+    .see-all {
+      display: flex;
+      align-items: center;
+      margin-right: 25px;
+      font-size: 18px;
+      gap: 20px;
+      cursor: pointer;
+  
+      &:hover{
+          opacity: 0.5;
+      }
+    }
+  }
+  

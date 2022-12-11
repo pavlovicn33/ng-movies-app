@@ -36,11 +36,24 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { NgxSplideModule } from 'ngx-splide';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import { SeeAllComponent } from './components/see-all/see-all.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { CarouselPipe } from './pipes/carousel.pipe';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    CarouselComponent,
+    SnackbarComponent,
+    SeeAllComponent,
+    CarouselPipe
+  ],
   imports: [
+    InfiniteScrollModule,
+    NgxSplideModule,
     CommonModule,
     HttpClientModule,
     MatAutocompleteModule,
@@ -80,6 +93,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule
   ],
   exports: [
+    CarouselPipe,
+    SeeAllComponent,
+    NgxSplideModule,
+    CarouselComponent,
     MatAutocompleteModule,
     MatCheckboxModule,
     MatDatepickerModule,
@@ -115,6 +132,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatPaginatorModule,
     MatSortModule,
     MatTableModule
-  ]
+  ],
+  providers: [CarouselPipe]
 })
 export class SharedModule { }
