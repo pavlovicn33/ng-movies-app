@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
 import { ResultShow, Shows } from 'src/shared/models/popularTvShows';
 import { TableSubscription } from 'src/shared/models/subscription';
+import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
 
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private movieService: MoviesService,
-    private tvService: ShowsService
+    private tvService: ShowsService,
+    private pipe:CarouselPipe
   ) {
     this.displayedColumns = ['position', 'weight', 'symbol'];
 
@@ -62,24 +64,14 @@ export class HomeComponent implements OnInit {
   getMovies() {
     this.movieService.getPopularMovies().subscribe((data: Movies) => {
       this.movies = data.results;
-      // this.emptyPoster(this.movies);
+      this.pipe.emptyPoster(this.movies)
     });
   }
 
   getShows() {
     this.tvService.getPopularShows().subscribe((data: Shows) => {
       this.shows = data.results;
-      // this.emptyPoster(this.shows);
+      this.pipe.emptyPoster(this.shows)
     });
   }
-
-  // emptyPoster(list: any[]) {
-  //   let e = list.map((el) => el.poster_path);
-  //   e.forEach((el, i) => {
-  //     if (!el) {
-  //       list.splice(i, 1);
-  //     }
-  //   });
-  // }
-
 }

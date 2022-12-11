@@ -12,11 +12,11 @@ export class AnimationsService {
 
   constructor(private http:HttpClient) { }
 
-  getAnimationMovies(): Observable<Movies>{
-    return this.http.get<Movies>(`${environment.baseURL}/movie/popular${environment.apiKey}&with_genres=16`)
+  getAnimationMovies(page?:number): Observable<Movies>{
+    return this.http.get<Movies>(`${environment.baseURL}/movie/popular${environment.apiKey}&with_genres=16&page=${page}`)
   }
 
-  getAnimationShows(): Observable<Shows>{
-    return this.http.get<Shows>(`${environment.baseURL}/tv/popular${environment.apiKey}&with_genres=16`)
+  getAnimationShows(page?:number): Observable<Shows>{
+    return this.http.get<Shows>(`${environment.baseURL}/tv/popular${environment.apiKey}&with_genres=16&page=${page}`)
   }
 }

@@ -55,7 +55,6 @@ export class SeeAllComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.results)
   }
 
   onScroll() {

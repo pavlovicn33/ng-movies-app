@@ -88,7 +88,7 @@ export class RootLayoutComponent implements OnInit {
     this.logoutItem = [
       {
         icon: 'exit_to_app',
-        title: 'logout',
+        title: 'Logout',
       },
     ];
     this.links = [

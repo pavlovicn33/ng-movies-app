@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
 
 @Component({
   selector: 'app-carousel',
@@ -10,18 +11,10 @@ export class CarouselComponent implements OnInit{
   @Input()
   data:any[] = []
 
-  constructor() {}
+  constructor(private pipe:CarouselPipe) {}
 
   ngOnInit(): void {
-    this.emptyPoster(this.data)
+    this.pipe.emptyPoster(this.data)
   }
 
-  emptyPoster(list: any[]) {
-    let e = list.map((el) => el.poster_path);
-    e.forEach((el, i) => {
-      if (!el) {
-        list.splice(i, 1);
-      }
-    });
-  }
 }

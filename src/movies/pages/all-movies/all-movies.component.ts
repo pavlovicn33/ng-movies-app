@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
+import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { MoviesService } from 'src/shared/services/movies/movies.service';
 export class AllMoviesComponent implements OnInit {
   movies: Movies;
   results: ResultMovies[] = []
-  constructor(private movieService: MoviesService) {
+  constructor(private movieService: MoviesService, private pipe:CarouselPipe) {
     this.movies = {
       page: 1,
       total_pages: 1,
@@ -29,8 +30,7 @@ export class AllMoviesComponent implements OnInit {
       data.results.forEach(element => {
           this.results.push(element)
       });
-      console.log(this.results)
-      
+      this.pipe.emptyPoster(this.results);      
     });
   }
 
