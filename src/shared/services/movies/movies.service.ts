@@ -17,10 +17,10 @@ export class MoviesService {
   }
 
   getUpcomingMovies():Observable<Movies>{
-    return this.http.get<Movies>(`${environment.baseURL}/movie/upcoming?api_key=${environment.apiKey}&page=1`)
+    return this.http.get<Movies>(`${environment.baseURL}/movie/upcoming${environment.apiKey}&page=1`)
   }
 
   getTrailers(movie_id:number):Observable<Videos>{
-    return this.http.get<Videos>(`${environment.baseURL}/movie/${movie_id}/videos?api_key=${environment.apiKey}&page=1`)  
+    return this.http.get<Videos>(`${environment.baseURL}/movie/${movie_id}/videos${environment.apiKey}&page=1`)  
   }
 }

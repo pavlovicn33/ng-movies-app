@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group [selectedIndex]="tab"  (selectedTabChange)="rememberTab($event)" [style.font-family]="'Nunito'">
   <mat-tab label="Movies"> 
     <app-animation-movies></app-animation-movies>
   </mat-tab>
