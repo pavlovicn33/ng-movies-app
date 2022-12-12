@@ -1,22 +1,9 @@
-<div>
-  <div class="text-container">
-    <h1>Movies</h1>
-    <h1 [routerLink]="['/ngmovies/animations/all-animations']" class="see-all">
-      See all <mat-icon>arrow_forward_ios</mat-icon>
-    </h1>
-  </div>
-  <div class="popular-movies-container">
-    <app-carousel [data]="movies"></app-carousel>
-  </div>
-</div>
-<div>
-  <div class="text-container">
-    <h1>TV Shows</h1>
-    <h1 [routerLink]="['/ngmovies/animations/all-animations-shows']" class="see-all">
-      See all <mat-icon>arrow_forward_ios</mat-icon>
-    </h1>
-  </div>
-  <div class="popular-movies-container">
-    <app-carousel [data]="shows"></app-carousel>
-  </div>
-</div>
+<mat-tab-group>
+  <mat-tab label="Movies"> 
+    <app-animation-movies></app-animation-movies>
+  </mat-tab>
+  <mat-tab label="Shows">
+    <app-animation-shows></app-animation-shows>
+  </mat-tab>
+
+

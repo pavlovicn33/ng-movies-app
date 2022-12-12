@@ -14,4 +14,8 @@ export class ShowsService {
   getPopularShows(page?:number):Observable<Shows>{
     return this.http.get<Shows>(`${environment.baseURL}/tv/popular${environment.apiKey}&page=${page}`)
   }
+  
+  getTvOnAir():Observable<Shows>{
+    return this.http.get<Shows>(`${environment.baseURL}/tv/on_the_air${environment.apiKey}&page=1`)
+  }
 }

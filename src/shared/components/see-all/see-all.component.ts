@@ -63,4 +63,8 @@ export class SeeAllComponent implements OnInit {
       this.nextPage.emit(this.data.page);
     }
   }
+
+  addToFavourites(){
+    
+  }
 }

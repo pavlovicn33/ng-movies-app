@@ -17,4 +17,6 @@ export class CarouselComponent implements OnInit{
     this.pipe.emptyPoster(this.data)
   }
 
+  addToFavourites(){
+  }
 }

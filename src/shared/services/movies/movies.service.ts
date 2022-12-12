@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Movies } from 'src/shared/models/popularMovies';
+import { Videos } from 'src/shared/models/videos';
 
 @Injectable({
   providedIn: 'root'
@@ -15,4 +16,11 @@ export class MoviesService {
     return this.http.get<Movies>(`${environment.baseURL}/movie/popular${environment.apiKey}&page=${page}`)
   }
 
+  getUpcomingMovies():Observable<Movies>{
+    return this.http.get<Movies>(`${environment.baseURL}/movie/upcoming?api_key=${environment.apiKey}&page=1`)
+  }
+
+  getTrailers(movie_id:number):Observable<Videos>{
+    return this.http.get<Videos>(`${environment.baseURL}/movie/${movie_id}/videos?api_key=${environment.apiKey}&page=1`)  
+  }
 }

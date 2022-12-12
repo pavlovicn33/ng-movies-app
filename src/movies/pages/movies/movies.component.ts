@@ -20,6 +20,7 @@ export class MoviesComponent implements OnInit{
   getMovies(){
     this.movieService.getPopularMovies().subscribe((data: Movies) => {
       this.movies = data.results;
+      console.log(this.movies)
     });
   }
 
