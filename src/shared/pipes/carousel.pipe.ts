@@ -15,6 +15,12 @@ export class CarouselPipe implements PipeTransform {
         list.splice(i, 1);
       }
     });
+    let eBack = list.map((el) => el.backdrop_path);
+    eBack.forEach((el, i) => {
+      if (!el) {  
+        list.splice(i, 1);
+      }
+    });
 
   }
 

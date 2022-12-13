@@ -11,10 +11,9 @@ export class CarouselComponent implements OnInit{
   @Input()
   data:any[] = []
 
-  constructor(private pipe:CarouselPipe) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.pipe.emptyPoster(this.data)
   }
 
   addToFavourites(){

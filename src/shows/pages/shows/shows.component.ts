@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Shows } from 'src/shared/models/popularTvShows';
+import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class ShowsComponent implements OnInit{
 
   shows:any[] = []
 
-  constructor(private showService:ShowsService) {}
+  constructor(private showService:ShowsService,private pipe:CarouselPipe) {}
 
   ngOnInit(): void {
       this.getShows()
@@ -20,6 +21,7 @@ export class ShowsComponent implements OnInit{
   getShows(){
     this.showService.getPopularShows().subscribe((data: Shows) => {
       this.shows = data.results;
+      this.pipe.emptyPoster(this.shows)
     });
   }
 }

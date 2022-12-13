@@ -1,0 +1,36 @@
+<div>
+    <splide
+      [options]="{
+        type: 'loop',
+        perPage: 3,
+        drag: 'free',
+        arrows: false,
+        pagination: false,
+        autoWidth: true,
+        gap: 20
+      }"
+    >
+      <splide-slide *ngFor="let i of data">
+        <div class="container-img">
+          <img
+            src="https://image.tmdb.org/t/p/w500/{{ i.backdrop_path }}"
+            alt=""
+          />
+          <div class="overlay">
+            <h3 [style.margin]="'10px'">
+              {{ i.title ? i.title : i.name }}
+              <br>
+              {{
+                i.release_date
+                  ? (i.release_date | date : "MMM, yyyy")
+                  : (i.first_air_date | date : "MMM, yyy")
+              }}
+              <div>
+              </div>
+            </h3>
+          </div>
+        </div>
+      </splide-slide>
+    </splide>
+  </div>
+  

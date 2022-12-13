@@ -6,22 +6,19 @@ import { AnimationsService } from 'src/shared/services/animations/animations.ser
 @Component({
   selector: 'app-animations',
   templateUrl: './animations.component.html',
-  styleUrls: ['./animations.component.scss']
+  styleUrls: ['./animations.component.scss'],
 })
 export class AnimationsComponent implements OnInit {
-
-  tab:any 
+  tab: any;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.tab = localStorage.getItem('tab')
-
+    this.tab = localStorage.getItem('tab');
   }
 
-  rememberTab(event:any){
-      this.tab = event.index
-      localStorage.setItem('tab', `${this.tab}`);
-
+  rememberTab(event: any) {
+    this.tab = event.index;
+    localStorage.setItem('tab', `${this.tab}`);
   }
 }

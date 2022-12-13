@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
 import { Videos } from 'src/shared/models/videos';
+import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
 
 @Component({
@@ -19,17 +20,17 @@ export class MoviesComponent implements OnInit {
 
   status: boolean = false;
 
-  constructor(private movieService: MoviesService) {}
+  constructor(private movieService: MoviesService, private pipe: CarouselPipe) {}
 
   ngOnInit(): void {
     this.getMovies();
-
     this.getUpcomingMovies(this.page);
   }
 
   getMovies() {
     this.movieService.getPopularMovies().subscribe((data: Movies) => {
       this.movies = data.results;
+      this.pipe.emptyPoster(this.movies)
     });
   }
 
@@ -60,6 +61,7 @@ export class MoviesComponent implements OnInit {
         this.trailerList.push(el);
         return;
       }
+      this.pipe.emptyPoster(this.trailerList)
       console.log(this.trailerList);
     });
   }
