@@ -16,8 +16,8 @@ export class MoviesService {
     return this.http.get<Movies>(`${environment.baseURL}/movie/popular${environment.apiKey}&page=${page}`)
   }
 
-  getUpcomingMovies():Observable<Movies>{
-    return this.http.get<Movies>(`${environment.baseURL}/movie/upcoming${environment.apiKey}&page=1`)
+  getUpcomingMovies(page:number):Observable<Movies>{
+    return this.http.get<Movies>(`${environment.baseURL}/movie/upcoming${environment.apiKey}&page=${page}`)
   }
 
   getTrailers(movie_id:number):Observable<Videos>{
