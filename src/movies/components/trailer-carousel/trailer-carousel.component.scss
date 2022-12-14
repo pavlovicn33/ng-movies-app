@@ -26,9 +26,23 @@ iframe {
     justify-content: center;
 
     mat-icon {
+      border-radius: 50px;
+      color: white;
       transform: scale(1.5);
       cursor: pointer;
+
+      &:active {
+        animation: grow 1s infinite;
+      }
     }
+  }
+}
+@keyframes grow {
+  from {
+    box-shadow: 0px 0px 1em #000;
+  }
+  to {
+    box-shadow: 0px 0px 3em #000;
   }
 }
 img {

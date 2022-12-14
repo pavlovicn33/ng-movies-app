@@ -8,7 +8,7 @@ import { Videos } from 'src/shared/models/videos';
 @Injectable({
   providedIn: 'root'
 })
-export class ShowsService {
+export class  ShowsService {
 
   constructor(private http:HttpClient) { }
 

@@ -1,1 +1,9 @@
-<p>snackbar works!</p>
+<div
+  class="container"
+  [style.display]="'flex'"
+  [style.justify-content]="'space-between'"
+  [style.align-items]="'center'"
+>
+  <p class="snackBarData" matSnackBarLabel>{{ data }}</p>
+  <button class="close" mat-icon-button (click)="undo()"><mat-icon>close</mat-icon></button>
+</div>

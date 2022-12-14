@@ -19,7 +19,7 @@
               <button (click)="addToFavourites()" class="popout" mat-icon-button>
                 <mat-icon>add_circle_outline</mat-icon>
               </button>
-                {{i.release_date? (i.release_date | date): i.first_air_date | date}}
+                {{i.release_date? (i.release_date | date:'yyyy'): i.first_air_date | date:'yyyy'}}
             </div>
             <div><mat-icon>star</mat-icon>
                 {{i.vote_average}}

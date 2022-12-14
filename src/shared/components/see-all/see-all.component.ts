@@ -1,7 +1,9 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatGridList } from '@angular/material/grid-list';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Movies } from 'src/shared/models/popularMovies';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 @Component({
   selector: 'app-see-all',
@@ -21,7 +23,10 @@ export class SeeAllComponent implements OnInit {
   @Output()
   nextPage: EventEmitter<number> = new EventEmitter();
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private snackbar: MatSnackBar
+  ) {
     this.data = {
       page: 1,
       total_pages: 1,
@@ -55,6 +60,7 @@ export class SeeAllComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.onScroll();
   }
 
   onScroll() {
@@ -64,7 +70,10 @@ export class SeeAllComponent implements OnInit {
     }
   }
 
-  addToFavourites(){
-    
+  addToFavourites() {
+    this.snackbar.openFromComponent(SnackbarComponent, {
+      data: 'Added to favourites!',
+      duration: 3000,
+    });
   }
 }

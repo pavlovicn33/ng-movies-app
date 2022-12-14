@@ -43,6 +43,7 @@ import { SeeAllComponent } from './components/see-all/see-all.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CarouselPipe } from './pipes/carousel.pipe';
 import { IframePipe } from './pipes/iframe.pipe';
+import { TopRatedComponent } from './components/top-rated/top-rated.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { IframePipe } from './pipes/iframe.pipe';
     SnackbarComponent,
     SeeAllComponent,
     CarouselPipe,
-    IframePipe
+    IframePipe,
+    TopRatedComponent
   ],
   imports: [
     InfiniteScrollModule,

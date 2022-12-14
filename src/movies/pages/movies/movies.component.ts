@@ -64,9 +64,9 @@ export class MoviesComponent implements OnInit {
           }
         })
         this.trailerList.push(el);
+        this.pipe.emptyPoster(this.trailerList)
         return;
       }
-      this.pipe.emptyPoster(this.trailerList)
     });
   }
 }

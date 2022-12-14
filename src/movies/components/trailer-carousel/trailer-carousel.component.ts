@@ -1,4 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  SimpleChanges,
+  OnChanges,
+} from '@angular/core';
 import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
 
 @Component({
@@ -14,9 +20,6 @@ export class TrailerCarouselComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  ngOnChanges() {
-    this.pipe.emptyPoster(this.data);
-  }
 
   ytUrl(url: string) {
     let embeddedUrl = 'https://www.youtube-nocookie.com/embed/' + url;
