@@ -1,4 +1,5 @@
 export interface VideoResults {
+  status: boolean;
   iso_639_1: string;
   iso_3166_1: string;
   name: string;

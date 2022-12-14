@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Shows } from 'src/shared/models/popularTvShows';
+import { ResultShow, Shows } from 'src/shared/models/popularTvShows';
 import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
 
@@ -10,7 +10,7 @@ import { ShowsService } from 'src/shared/services/shows/shows.service';
 })
 export class ShowsComponent implements OnInit{
 
-  shows:any[] = []
+  shows:ResultShow[] = []
 
   constructor(private showService:ShowsService,private pipe:CarouselPipe) {}
 
@@ -24,4 +24,6 @@ export class ShowsComponent implements OnInit{
       this.pipe.emptyPoster(this.shows)
     });
   }
+
+
 }

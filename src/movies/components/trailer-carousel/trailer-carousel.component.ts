@@ -10,8 +10,23 @@ export class TrailerCarouselComponent implements OnInit {
   @Input()
   data: any;
 
-  constructor() {}
+  constructor(private pipe: CarouselPipe) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnChanges() {
+    this.pipe.emptyPoster(this.data);
+  }
+
+  ytUrl(url: string) {
+    let embeddedUrl = 'https://www.youtube-nocookie.com/embed/' + url;
+    return embeddedUrl;
+  }
+
+  loadTrailer(el: any) {
+    this.data.forEach((element: any) => {
+      element.trailer.status = false;
+    });
+    el.trailer.status = true;
   }
 }

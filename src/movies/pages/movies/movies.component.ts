@@ -57,12 +57,16 @@ export class MoviesComponent implements OnInit {
   getTrailers(el: any) {
     this.movieService.getTrailers(el.id).subscribe((data: Videos) => {
       if (data.results.length >= 1) {
-        el.trailer = data.results;
+        data.results.forEach(ele => {
+          if (ele.type == "Trailer") {
+            ele.status = false
+            el.trailer = ele
+          }
+        })
         this.trailerList.push(el);
         return;
       }
       this.pipe.emptyPoster(this.trailerList)
-      console.log(this.trailerList);
     });
   }
 }

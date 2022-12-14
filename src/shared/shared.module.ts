@@ -42,6 +42,7 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { SeeAllComponent } from './components/see-all/see-all.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CarouselPipe } from './pipes/carousel.pipe';
+import { IframePipe } from './pipes/iframe.pipe';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { CarouselPipe } from './pipes/carousel.pipe';
     CarouselComponent,
     SnackbarComponent,
     SeeAllComponent,
-    CarouselPipe
+    CarouselPipe,
+    IframePipe
   ],
   imports: [
     InfiniteScrollModule,
@@ -93,6 +95,7 @@ import { CarouselPipe } from './pipes/carousel.pipe';
     MatTableModule
   ],
   exports: [
+    IframePipe,
     CarouselPipe,
     SeeAllComponent,
     NgxSplideModule,

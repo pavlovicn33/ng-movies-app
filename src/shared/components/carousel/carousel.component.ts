@@ -4,18 +4,19 @@ import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
-  styleUrls: ['./carousel.component.scss']
+  styleUrls: ['./carousel.component.scss'],
 })
-export class CarouselComponent implements OnInit{
-
+export class CarouselComponent implements OnInit {
   @Input()
-  data:any[] = []
+  data: any[] = [];
 
-  constructor() {}
+  constructor(private pipe: CarouselPipe) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnChanges() {
+    this.pipe.emptyPoster(this.data);
   }
 
-  addToFavourites(){
-  }
+  addToFavourites() {}
 }
