@@ -37,7 +37,6 @@ export class RootLayoutComponent implements OnInit {
     private render: Renderer2,
     private db: AngularFirestore,
     private router: Router,
-    private bpo: BreakpointObserver
   ) {
     this.menuItems = [
       {
@@ -153,7 +152,6 @@ export class RootLayoutComponent implements OnInit {
   }
 
   signOut() {
-    this.render.setAttribute(this.document.body, 'class', '');
     this.authService.signOut();
   }
 

@@ -120,13 +120,13 @@
         </ng-container>
         <ng-container matColumnDef="weight">
           <th [style.width]="'25%'" mat-header-cell *matHeaderCellDef>
-            <button mat-raised-button>Free</button>
+            <button mat-raised-button class="black">Free</button>
           </th>
           <td  mat-cell *matCellDef="let element"><mat-icon [ngClass]="{'green':element.free, 'red':!element.free}">{{ element.free ? 'check' : 'close'}}</mat-icon></td>
         </ng-container>
         <ng-container matColumnDef="symbol">
           <th [style.width]="'25%'" mat-header-cell *matHeaderCellDef>
-            <button mat-raised-button>$7.99 / Month</button>
+            <button mat-raised-button class="black">$7.99 / Month</button>
           </th>
           <td mat-cell *matCellDef="let element"><mat-icon [ngClass]="{'green':element.paid, 'red':!element.paid}">{{ element.paid ? 'check' : 'close'}}</mat-icon></td>
         </ng-container>
