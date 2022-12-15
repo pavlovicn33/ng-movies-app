@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/shared/shared.module';
 import { AllAnimationsComponent } from './pages/all-animations/all-animations.component';
 import { AllAnimationsShowsComponent } from './pages/all-animations-shows/all-animations-shows.component';
+import { AnimationMoviesComponent } from './components/animation-movies/animation-movies.component';
+import { AnimationShowsComponent } from './components/animation-shows/animation-shows.component';
 
 
 
@@ -14,6 +16,8 @@ import { AllAnimationsShowsComponent } from './pages/all-animations-shows/all-an
     AnimationsComponent,
     AllAnimationsComponent,
     AllAnimationsShowsComponent,
+    AnimationMoviesComponent,
+    AnimationShowsComponent,
   ],
   imports: [
     CommonModule,

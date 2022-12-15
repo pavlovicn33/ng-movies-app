@@ -6,30 +6,19 @@ import { AnimationsService } from 'src/shared/services/animations/animations.ser
 @Component({
   selector: 'app-animations',
   templateUrl: './animations.component.html',
-  styleUrls: ['./animations.component.scss']
+  styleUrls: ['./animations.component.scss'],
 })
 export class AnimationsComponent implements OnInit {
+  tab: any;
 
-  movies:ResultMovies[] = []
-  shows:ResultShow[] = []
-
-  constructor(private animationsService:AnimationsService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.getMovies()
-    this.getShows()
+    this.tab = localStorage.getItem('tab');
   }
 
-  getMovies(){
-    this.animationsService.getAnimationMovies().subscribe((data:Movies) => {
-      this.movies = data.results
-    })
+  rememberTab(event: any) {
+    this.tab = event.index;
+    localStorage.setItem('tab', `${this.tab}`);
   }
-  getShows(){
-    this.animationsService.getAnimationShows().subscribe((data:Shows) => {
-      this.shows = data.results
-
-    })
-  }
-
 }

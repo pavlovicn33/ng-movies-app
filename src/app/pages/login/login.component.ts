@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, OnInit,  Renderer2,Inject,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Route, Router } from '@angular/router';
@@ -14,7 +16,8 @@ export class LoginComponent implements OnInit{
   loginUserForm: FormGroup;
   hide = true;
 
-  constructor(private fb: FormBuilder,private router: Router,private authService:AuthService) {
+  constructor(private fb: FormBuilder,private router: Router,private authService:AuthService,private render: Renderer2,    @Inject(DOCUMENT) private document: Document,
+  ) {
     this.loginUserForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: [
@@ -31,6 +34,8 @@ export class LoginComponent implements OnInit{
   }
   
   ngOnInit(): void {
+    this.render.setAttribute(this.document.body, 'class', '');
+
   }
   
   get f() {

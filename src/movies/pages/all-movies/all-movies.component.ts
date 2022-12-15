@@ -25,7 +25,7 @@ export class AllMoviesComponent implements OnInit {
   }
 
   getMovies(number?:number) {
-    this.movieService.getPopularMovies(number).subscribe((data: Movies) => {
+    this.movieService.getPopularMoviesList(number).subscribe((data: Movies) => {
       this.movies = data
       data.results.forEach(element => {
           this.results.push(element)

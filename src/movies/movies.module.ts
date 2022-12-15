@@ -11,7 +11,7 @@ import { AllMoviesComponent } from './pages/all-movies/all-movies.component';
 @NgModule({
   declarations: [
     MoviesComponent,
-    AllMoviesComponent
+    AllMoviesComponent,
   ],
   imports: [
     CommonModule,

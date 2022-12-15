@@ -1,0 +1,14 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+@mixin color($custom-theme) {
+  // Get the color config from the theme.
+  $color-config: mat.get-color-config($custom-theme);
+  // Get the accent color palette from the color-config.
+  $primary-palette: map.get($color-config, "primary");
+  $accent-palette: map.get($color-config, "accent");
+
+  .snackBarData, .close {
+    color: mat.get-color-from-palette($primary-palette, 500) !important;
+  }
+}

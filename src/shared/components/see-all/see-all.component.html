@@ -14,10 +14,12 @@
             alt=""
           />            
           <div class="overlay">
-            <h3>{{i.title? i.title : i.original_name}}</h3>
+            <h3>{{i.title? i.title : i.name}}</h3>
             <div>
+              <button (click)="addToFavourites()" class="popout" mat-icon-button>
                 <mat-icon>add_circle_outline</mat-icon>
-                {{i.release_date? i.release_date : i.first_air_date | date}}
+              </button>
+                {{i.release_date? (i.release_date | date:'yyyy'): i.first_air_date | date:'yyyy'}}
             </div>
             <div><mat-icon>star</mat-icon>
                 {{i.vote_average}}

@@ -28,7 +28,7 @@ export class AllAnimationsShowsComponent implements OnInit {
     this.getShows();
   }
   getShows(number?: number) {
-    this.animationService.getAnimationShows(number).subscribe((data: Shows) => {
+    this.animationService.getAnimationShowsList(number).subscribe((data: Shows) => {
       this.shows = data;
       data.results.forEach((element) => {
         this.results.push(element);

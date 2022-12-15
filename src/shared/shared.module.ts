@@ -42,6 +42,10 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { SeeAllComponent } from './components/see-all/see-all.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CarouselPipe } from './pipes/carousel.pipe';
+import { IframePipe } from './pipes/iframe.pipe';
+import { TopRatedComponent } from './components/top-rated/top-rated.component';
+import { TrailerCarouselComponent } from './components/trailer-carousel/trailer-carousel.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 
 @NgModule({
@@ -49,7 +53,11 @@ import { CarouselPipe } from './pipes/carousel.pipe';
     CarouselComponent,
     SnackbarComponent,
     SeeAllComponent,
-    CarouselPipe
+    CarouselPipe,
+    IframePipe,
+    TopRatedComponent,
+    TrailerCarouselComponent,
+    SpinnerComponent
   ],
   imports: [
     InfiniteScrollModule,
@@ -93,6 +101,10 @@ import { CarouselPipe } from './pipes/carousel.pipe';
     MatTableModule
   ],
   exports: [
+    SpinnerComponent,
+    TrailerCarouselComponent,
+    TopRatedComponent,
+    IframePipe,
     CarouselPipe,
     SeeAllComponent,
     NgxSplideModule,
