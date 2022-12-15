@@ -15,6 +15,10 @@ export class MoviesService {
   getPopularMovies(page?:number):Observable<Movies>{
     return this.http.get<Movies>(`${environment.baseURL}/movie/popular${environment.apiKey}&page=${page}`)
   }
+  
+  getPopularMoviesList(page?:number):Observable<Movies>{
+    return this.http.get<Movies>(`${environment.baseURL}/movie/popular${environment.apiKey}&page=${page}&no-spinner`)
+  }
 
   getUpcomingMovies(page:number):Observable<Movies>{
     return this.http.get<Movies>(`${environment.baseURL}/movie/upcoming${environment.apiKey}&page=${page}`)

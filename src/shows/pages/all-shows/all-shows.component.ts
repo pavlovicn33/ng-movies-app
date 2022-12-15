@@ -26,7 +26,7 @@ export class AllShowsComponent implements OnInit {
   }
 
   getShows(number?: number) {
-    this.showService.getPopularShows(number).subscribe((data: Shows) => {
+    this.showService.getPopularShowsList(number).subscribe((data: Shows) => {
       this.shows = data;
       data.results.forEach((element) => {
         this.results.push(element);

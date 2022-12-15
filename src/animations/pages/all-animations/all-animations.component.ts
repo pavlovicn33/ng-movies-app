@@ -30,7 +30,7 @@ export class AllAnimationsComponent implements OnInit {
 
   getMovies(number?: number) {
     this.animationService
-      .getAnimationMovies(number)
+      .getAnimationMoviesList(number)
       .subscribe((data: Movies) => {
         this.movies = data;
         data.results.forEach((element) => {

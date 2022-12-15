@@ -15,6 +15,10 @@ export class  ShowsService {
   getPopularShows(page?:number):Observable<Shows>{
     return this.http.get<Shows>(`${environment.baseURL}/tv/popular${environment.apiKey}&page=${page}`)
   }
+
+  getPopularShowsList(page?:number):Observable<Shows>{
+    return this.http.get<Shows>(`${environment.baseURL}/tv/popular${environment.apiKey}&page=${page}&no-spinner`)
+  }
   
   getTopRated(page?:number):Observable<Shows>{
     return this.http.get<Shows>(`${environment.baseURL}/tv/top_rated${environment.apiKey}&page=${page}`)

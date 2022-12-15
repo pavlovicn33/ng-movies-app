@@ -17,10 +17,20 @@ export class AnimationsService {
       `${environment.baseURL}/movie/popular${environment.apiKey}&with_genres=16&page=${page}`
     );
   }
+  getAnimationMoviesList(page?: number): Observable<Movies> {
+    return this.http.get<Movies>(
+      `${environment.baseURL}/movie/popular${environment.apiKey}&with_genres=16&page=${page}&no-spinner`
+    );
+  }
 
   getAnimationShows(page?: number): Observable<Shows> {
     return this.http.get<Shows>(
       `${environment.baseURL}/tv/popular${environment.apiKey}&with_genres=16&page=${page}`
+    );
+  }
+  getAnimationShowsList(page?: number): Observable<Shows> {
+    return this.http.get<Shows>(
+      `${environment.baseURL}/tv/popular${environment.apiKey}&with_genres=16&page=${page}&no-spinner`
     );
   }
 

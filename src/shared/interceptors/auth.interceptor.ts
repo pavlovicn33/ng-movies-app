@@ -23,6 +23,9 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   handle(next: any, request: any) {
+    if (request.url.includes('no-spinner')) {
+      this.spinnerService.requestEnded()
+    }
     return next.handle(request).pipe(
       tap((event: any) => {
         if (event instanceof HttpResponse) {
