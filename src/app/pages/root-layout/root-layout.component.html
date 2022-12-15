@@ -261,9 +261,11 @@
           <h5>{{ user.email }}</h5>
         </div>
         <div>
-          <button mat-icon-button [matMenuTriggerFor]="profile">
-            <mat-icon>keyboard_arrow_down</mat-icon>
-          </button>
+          <span>
+            <button mat-icon-button [matMenuTriggerFor]="profile">
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+          </span>
         </div>
         <mat-menu #profile="matMenu">
           <div class="menu-content">

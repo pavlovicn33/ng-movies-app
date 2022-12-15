@@ -24,8 +24,8 @@ export class  ShowsService {
     return this.http.get<Shows>(`${environment.baseURL}/tv/top_rated${environment.apiKey}&page=${page}`)
   }
 
-  getTvOnAir():Observable<Shows>{
-    return this.http.get<Shows>(`${environment.baseURL}/tv/on_the_air${environment.apiKey}&page=1`)
+  getLatest(page?:number):Observable<Shows>{
+    return this.http.get<Shows>(`${environment.baseURL}/tv/on_the_air${environment.apiKey}&page=${page}`)
   }
   
   getTrailers(tv_id:number):Observable<Videos>{

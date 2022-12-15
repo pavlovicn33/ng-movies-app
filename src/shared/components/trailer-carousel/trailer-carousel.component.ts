@@ -53,7 +53,6 @@ export class TrailerCarouselComponent implements OnInit {
   }
 
   loadTrailer(el: any) {
-    console.log(this.data);
     this.data.forEach((element: any) => {
       element.trailer.status = false;
     });

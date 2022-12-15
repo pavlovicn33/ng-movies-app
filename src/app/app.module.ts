@@ -26,6 +26,7 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'src/shared/interceptors/auth.interceptor';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AuthInterceptor } from 'src/shared/interceptors/auth.interceptor';
     FooterComponent,
     NavBarComponent,
     ForgotPasswordComponent,
+    SettingsComponent,
   ],
   imports: [
     InfiniteScrollModule,
