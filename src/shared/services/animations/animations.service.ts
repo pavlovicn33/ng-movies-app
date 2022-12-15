@@ -45,4 +45,16 @@ export class AnimationsService {
       `${environment.baseURL}/tv/${tv_id}/videos${environment.apiKey}&page=1&with_genres=16`
     );
   }
+
+  getTopRatedMovies(): Observable<Movies> {
+    return this.http.get<Movies>(
+      `${environment.baseURL}/movie/top_rated/${environment.apiKey}&page=1&with_genres=16`
+    );
+  }
+
+  getTopRatedShows(): Observable<Shows> {
+    return this.http.get<Shows>(
+      `${environment.baseURL}/tv/top_rated${environment.apiKey}&page=1&with_genres=16`
+    );
+  }
 }

@@ -4,7 +4,9 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'carousel',
 })
 export class CarouselPipe implements PipeTransform {
-  transform() {}
+  transform() {
+    
+  }
 
   emptyPoster(list: any[]) {
     let eBack = list.map((el) => el.backdrop_path);

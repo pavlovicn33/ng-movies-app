@@ -23,4 +23,8 @@ export class MoviesService {
   getTrailers(movie_id:number):Observable<Videos>{
     return this.http.get<Videos>(`${environment.baseURL}/movie/${movie_id}/videos${environment.apiKey}&page=1`)  
   }
+
+  getTopRated():Observable<Movies>{
+    return this.http.get<Movies>(`${environment.baseURL}/movie/top_rated/${environment.apiKey}&page=1`)
+  }
 }

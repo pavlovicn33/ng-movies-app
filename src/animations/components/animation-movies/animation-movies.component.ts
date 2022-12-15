@@ -10,17 +10,25 @@ import { AnimationsService } from 'src/shared/services/animations/animations.ser
 })
 export class AnimationMoviesComponent implements OnInit{
   movies:ResultMovies[] = []
-
+  topRated:ResultMovies[] = []
   constructor(private animationsService:AnimationsService,private pipe:CarouselPipe) {}
 
   ngOnInit(): void {
     this.getMovies()
+    this.getTopRated()
   }
 
   getMovies(){
     this.animationsService.getAnimationMovies().subscribe((data:Movies) => {
       this.movies = data.results
       this.pipe.emptyPoster(this.movies)
+    })
+  }
+  
+  getTopRated(){
+    this.animationsService.getTopRatedMovies().subscribe((data:Movies) => {
+      this.pipe.emptyPoster(data.results)
+      this.topRated = data.results
     })
   }
 }

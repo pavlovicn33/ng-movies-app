@@ -11,10 +11,13 @@ import { ShowsService } from 'src/shared/services/shows/shows.service';
 export class ShowsComponent implements OnInit{
 
   shows:ResultShow[] = []
+  topRated:ResultShow[] = []
+  page:number = 1
 
   constructor(private showService:ShowsService,private pipe:CarouselPipe) {}
 
   ngOnInit(): void {
+      this.getTopRated(this.page)
       this.getShows()
   }
 
@@ -25,5 +28,21 @@ export class ShowsComponent implements OnInit{
     });
   }
 
+  getTopRated(page:number){
+    this.showService.getTopRated(page).subscribe((data:Shows) => {
+      data.results.forEach(el => {
+        if (!el.genre_ids.includes(16)) {
+          if (this.topRated.length == 20) {
+            return
+          }
+          this.topRated.push(el)
+        }
+      })
+      if (this.topRated.length < 20) {
+        this.page += 1
+        this.getTopRated(this.page)
+      }
+    })
+  }
 
 }

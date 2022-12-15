@@ -32,4 +32,6 @@ export class TrailerCarouselComponent implements OnInit {
     });
     el.trailer.status = true;
   }
+
+
 }

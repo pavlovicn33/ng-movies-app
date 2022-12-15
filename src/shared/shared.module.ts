@@ -97,6 +97,7 @@ import { TopRatedComponent } from './components/top-rated/top-rated.component';
     MatTableModule
   ],
   exports: [
+    TopRatedComponent,
     IframePipe,
     CarouselPipe,
     SeeAllComponent,

@@ -20,17 +20,23 @@ export class MoviesComponent implements OnInit {
 
   status: boolean = false;
 
-  constructor(private movieService: MoviesService, private pipe: CarouselPipe) {}
+  topRated: ResultMovies[] = [];
+
+  constructor(
+    private movieService: MoviesService,
+    private pipe: CarouselPipe
+  ) {}
 
   ngOnInit(): void {
     this.getMovies();
     this.getUpcomingMovies(this.page);
+    this.getTopRated();
   }
 
   getMovies() {
     this.movieService.getPopularMovies().subscribe((data: Movies) => {
       this.movies = data.results;
-      this.pipe.emptyPoster(this.movies)
+      this.pipe.emptyPoster(this.movies);
     });
   }
 
@@ -57,16 +63,22 @@ export class MoviesComponent implements OnInit {
   getTrailers(el: any) {
     this.movieService.getTrailers(el.id).subscribe((data: Videos) => {
       if (data.results.length >= 1) {
-        data.results.forEach(ele => {
-          if (ele.type == "Trailer") {
-            ele.status = false
-            el.trailer = ele
+        data.results.forEach((ele) => {
+          if (ele.type == 'Trailer') {
+            ele.status = false;
+            el.trailer = ele;
           }
-        })
+        });
         this.trailerList.push(el);
-        this.pipe.emptyPoster(this.trailerList)
+        this.pipe.emptyPoster(this.trailerList);
         return;
       }
+    });
+  }
+
+  getTopRated() {
+    this.movieService.getTopRated().subscribe((data: Movies) => {
+      this.topRated = data.results;
     });
   }
 }
