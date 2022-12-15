@@ -16,6 +16,8 @@ export class MoviesComponent implements OnInit {
 
   page: number = 1;
 
+  pageTop:number = 1
+
   trailerList: Videos[] = [];
 
   status: boolean = false;
@@ -30,7 +32,7 @@ export class MoviesComponent implements OnInit {
   ngOnInit(): void {
     this.getMovies();
     this.getUpcomingMovies(this.page);
-    this.getTopRated();
+    this.getTopRated(this.pageTop);
   }
 
   getMovies() {
@@ -76,9 +78,21 @@ export class MoviesComponent implements OnInit {
     });
   }
 
-  getTopRated() {
-    this.movieService.getTopRated().subscribe((data: Movies) => {
-      this.topRated = data.results;
+  getTopRated(pageTop:number) {
+    this.movieService.getTopRated(pageTop).subscribe((data: Movies) => {
+      data.results.forEach((el) => {
+        if (!el.genre_ids.includes(16)) {
+          if (this.topRated.length == 20) {
+            return;
+          }
+          this.topRated.push(el);
+        }
+        
+      });
+      if (this.topRated.length < 20) {
+        this.pageTop += 1
+        this.getTopRated(this.pageTop)
+      }
     });
   }
 }

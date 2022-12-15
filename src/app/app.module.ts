@@ -24,6 +24,8 @@ import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from 'src/shared/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     provideFunctions(() => getFunctions()),
     provideStorage(() => getStorage())
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

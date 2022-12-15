@@ -1,9 +1,14 @@
-<mat-tab-group [selectedIndex]="tab"  (selectedTabChange)="rememberTab($event)" [style.font-family]="'Nunito'">
-  <mat-tab label="Movies"> 
-    <app-animation-movies></app-animation-movies>
-  </mat-tab>
-  <mat-tab label="Shows">
-    <app-animation-shows></app-animation-shows>
-  </mat-tab>
-
-
+<div>
+  <mat-tab-group
+    [selectedIndex]="tab"
+    (selectedTabChange)="rememberTab($event)"
+    [style.font-family]="'Nunito'"
+  >
+    <mat-tab label="Movies">
+      <app-animation-movies></app-animation-movies>
+    </mat-tab>
+    <mat-tab label="Shows">
+      <app-animation-shows></app-animation-shows>
+    </mat-tab>
+  </mat-tab-group>
+</div>

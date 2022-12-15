@@ -24,12 +24,12 @@ export class AnimationsService {
     );
   }
 
-  getUpcomingAnimatedMovies(): Observable<Movies> {
+  getUpcomingAnimatedMovies(page?:number): Observable<Movies> {
     return this.http.get<Movies>(
       `${environment.baseURL}/movie/upcoming${environment.apiKey}&page=1&with_genres=16`
     );
   }
-  getUpcomingAnimatedShows(): Observable<Shows> {
+  getUpcomingAnimatedShows(page?:number): Observable<Shows> {
     return this.http.get<Shows>(
       `${environment.baseURL}/tv/on_the_air${environment.apiKey}&page=1&with_genres=16`
     );
@@ -40,9 +40,9 @@ export class AnimationsService {
       `${environment.baseURL}/tv/${tv_id}/videos${environment.apiKey}&page=1&with_genres=16`
     );
   }
-  getTrailersMovies(tv_id: number): Observable<Videos> {
+  getTrailersMovies(id: number): Observable<Videos> {
     return this.http.get<Videos>(
-      `${environment.baseURL}/tv/${tv_id}/videos${environment.apiKey}&page=1&with_genres=16`
+      `${environment.baseURL}/movie/${id}/videos${environment.apiKey}&page=1&with_genres=16`
     );
   }
 

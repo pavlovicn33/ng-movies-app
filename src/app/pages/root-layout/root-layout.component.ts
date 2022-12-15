@@ -10,8 +10,16 @@ import {
 import { AuthService } from 'src/shared/services/auth/auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getAuth } from 'firebase/auth';
-import { Router } from '@angular/router';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root-layout',
@@ -28,7 +36,6 @@ export class RootLayoutComponent implements OnInit {
   mediaService: any;
   genres: any;
   showFiller = false;
-
   user: any;
 
   constructor(
@@ -36,7 +43,7 @@ export class RootLayoutComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document,
     private render: Renderer2,
     private db: AngularFirestore,
-    private router: Router,
+    private router: Router
   ) {
     this.menuItems = [
       {

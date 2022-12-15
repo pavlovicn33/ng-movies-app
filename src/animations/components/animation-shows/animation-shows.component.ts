@@ -28,7 +28,6 @@ export class AnimationShowsComponent implements OnInit {
     this.animationsService.getTopRatedShows().subscribe((data: Shows) => {
       this.pipe.emptyPoster(data.results)
       this.topRated = data.results;
-      console.log(this.topRated)
     });
   }
 }

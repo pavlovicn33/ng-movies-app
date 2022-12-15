@@ -10,4 +10,5 @@ export class AppComponent {
   title = 'angular-movies';
   constructor() {
   }
+  
 }
