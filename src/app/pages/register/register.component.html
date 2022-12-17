@@ -17,26 +17,26 @@
                     <div class="input-container">
                         <mat-form-field [color]="'primary'" appearance="outline" [style.margin-top]="'15px'" class="form-container">
                             <mat-label>Name</mat-label>
-                            <input formControlName="name"
+                            <input autocomplete="off" formControlName="name"
                             matInput required>
                             <mat-error *ngIf="f['name'].errors?.['required']">You must enter a value</mat-error>
                         </mat-form-field>
                         <mat-form-field [color]="'primary'" appearance="outline" [style.margin-top]="'15px'" class="form-container">
                         <mat-label>Last Name</mat-label>
-                        <input formControlName="lastName"
+                        <input autocomplete="off" formControlName="lastName"
                         matInput required>
                         <mat-error *ngIf="f['lastName'].errors?.['required']">You must enter a value</mat-error>
                     </mat-form-field>
                     </div>
                     <mat-form-field [color]="'primary'" appearance="outline" [style.margin-top]="'15px'" class="form-container">
                         <mat-label>Email</mat-label>
-                        <input formControlName="email"
+                        <input autocomplete="off" formControlName="email"
                         matInput required>
                         <mat-error *ngIf="getErrorMessage()">{{getErrorMessage()}}</mat-error>
                     </mat-form-field>
                     <mat-form-field [color]="'primary'" appearance="outline"  class="form-container">
                         <mat-label>Password</mat-label>
-                        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'"  required>
+                        <input autocomplete="off" formControlName="password" matInput [type]="hide ? 'password' : 'text'"  required>
                         <mat-error *ngIf="getErrorMessagePassword()">{{getErrorMessagePassword()}}</mat-error>
                         <span  matSuffix [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                           <mat-icon  (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>

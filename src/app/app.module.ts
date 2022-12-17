@@ -27,6 +27,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'src/shared/interceptors/auth.interceptor';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { BrowseComponent } from './pages/browse/browse.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
     NavBarComponent,
     ForgotPasswordComponent,
     SettingsComponent,
+    BrowseComponent,
   ],
   imports: [
     InfiniteScrollModule,

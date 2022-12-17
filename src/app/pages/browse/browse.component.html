@@ -1,0 +1,55 @@
+<div class="container">
+  <h1>Search any movie, tv show or person</h1>
+  <mat-form-field
+    [style.margin-top]="'50px'"
+    appearance="fill"
+    class="form-container"
+  >
+    <input
+      (keydown.enter)="debounceSearch()"
+      (input)="debounceAutocomplete()"
+      [(ngModel)]="query"
+      [matAutocomplete]="auto"
+      matInput
+      placeholder="Search..."
+    />
+    <mat-icon class="search-icon" matSuffix>search</mat-icon>
+    <mat-autocomplete #auto="matAutocomplete">
+      <div>
+        <mat-option
+          *ngFor="let option of autocomplete"
+          [value]="option.title || option.name"
+        >
+          <span class="autocomplete-container">
+            <img
+              height="70px"
+              src="https://image.tmdb.org/t/p/w300/{{
+                option.poster_path || option.profile_path
+              }}"
+              alt=""
+            />
+            {{ option.title || option.name }}
+          </span>
+        </mat-option>
+      </div>
+    </mat-autocomplete>
+  </mat-form-field>
+  <app-see-all
+    (nextPage)="sendPage($event)"
+    [results]="itemsResult"
+    [data]="items"
+  ></app-see-all>
+  <h1 *ngIf="status">No Results</h1>
+  <button
+    (click)="getSearch(items.page + 1, query)"
+    class="color-accent"
+    *ngIf="
+      itemsResult.length > 1 &&
+      items.total_pages > 1 &&
+      items.page < items.total_pages
+    "
+    mat-raised-button
+  >
+    Load More... <mat-icon>refresh</mat-icon>
+  </button>
+</div>

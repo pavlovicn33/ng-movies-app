@@ -7,6 +7,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { RootLayoutComponent } from './pages/root-layout/root-layout.component';
 import { AngularFireAuthGuard, canActivate, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { BrowseComponent } from './pages/browse/browse.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 
@@ -40,6 +41,11 @@ const routes: Routes = [
       {
         path:'settings',
         component:SettingsComponent,
+        pathMatch:'full',
+      },
+      {
+        path:'browse',
+        component:BrowseComponent,
         pathMatch:'full',
       },
     ]

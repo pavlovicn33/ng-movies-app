@@ -49,10 +49,12 @@ export class RootLayoutComponent implements OnInit {
       {
         icon: 'home',
         title: 'Home',
+        link: 'movies'
       },
       {
-        icon: 'panorama_fish_eye',
-        title: 'Discovery',
+        icon: 'search',
+        title: 'Browse',
+        link: 'browse'
       },
       {
         icon: 'people',
@@ -85,6 +87,7 @@ export class RootLayoutComponent implements OnInit {
       {
         icon: 'settings',
         title: 'Settings',
+        link: 'settings'
       },
       {
         icon: 'help_outline',
@@ -140,6 +143,10 @@ export class RootLayoutComponent implements OnInit {
       lastName: '',
       email: '',
     };
+  }
+
+  getUrl(event:any){
+    this.menuItems[0].link = event.link
   }
 
   ngOnInit(): void {

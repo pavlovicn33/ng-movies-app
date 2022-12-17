@@ -14,7 +14,7 @@
             </mat-card-header>
             <mat-card-content> 
                 <form [formGroup]="loginUserForm" (ngSubmit)="onSubmit()">
-                    <mat-form-field [color]="'primary'" appearance="outline" [style.margin-top]="'15px'" class="form-container">
+                    <mat-form-field  [color]="'primary'" appearance="outline" [style.margin-top]="'15px'" class="form-container">
                         <mat-label>Enter your email</mat-label>
                         <input formControlName="email"
                         matInput required>

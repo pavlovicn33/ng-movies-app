@@ -60,6 +60,9 @@ export class SeeAllComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.data.browse) {
+      return
+    }
     this.onScroll();
   }
 

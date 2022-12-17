@@ -26,6 +26,7 @@
           *ngFor="let item of menuItems; let i = index"
           [value]="item"
           [selected]="item && i == 0"
+          [routerLink]="['/ngmovies/' + item.link]"
         >
           <span>
             <mat-icon>{{ item.icon }}</mat-icon>
@@ -44,7 +45,11 @@
         <br />
         <mat-divider></mat-divider>
         <br />
-        <mat-list-option *ngFor="let i of miscItems" [value]="i">
+        <mat-list-option
+          *ngFor="let i of miscItems"
+          [value]="i"
+          [routerLink]="['/ngmovies/' + i.link]"
+        >
           <span>
             <mat-icon>{{ i.icon }}</mat-icon>
             {{ i.title }}
@@ -164,6 +169,7 @@
 
       <mat-selection-list #nav [multiple]="false">
         <mat-list-option
+          (click)="getUrl(item)"
           *ngFor="let item of links; let i = index"
           [value]="item"
           [routerLink]="[item.link]"

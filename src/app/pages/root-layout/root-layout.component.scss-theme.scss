@@ -13,4 +13,11 @@
       background-color: mat.get-color-from-palette($accent-palette, 500) !important;
     }
   }
+  .search-icon{
+    color: mat.get-color-from-palette($accent-palette, 500) !important;
+  }
+  
+  .color-accent{
+    color: mat.get-color-from-palette($accent-palette, 500) !important;
+  }
 }
