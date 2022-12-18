@@ -2,17 +2,21 @@
   <splide
     [options]="{
       type: 'loop',
-      arrows: false,
+      arrows:false,
+      snap: true,
+      drag: true,
       pagination: false,
       autoWidth: true,
-      gap: 20
+      autoplay: true,
+      gap: 20,
+      perPage: 1
     }"
   >
-    <splide-slide *ngFor="let i of data" >
-      <div  class="container-img">
+    <splide-slide *ngFor="let i of data">
+      <div class="container-img">
         <img
-        height="250px"
-        width="400px"
+          height="250px"
+          width="350px"
           *ngIf="!i.trailer.status"
           src="https://image.tmdb.org/t/p/w1280/{{ i.backdrop_path }}"
           alt=""

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
 import { debounce, map } from 'lodash';
 import { Observable, startWith } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-browse',
@@ -15,6 +16,9 @@ export class BrowseComponent implements OnInit {
   itemsResult: any[] = [];
   status: boolean = false;
   autocomplete: any[] = [];
+  @ViewChild(MatAutocompleteTrigger)
+  autocompleteComponent!: MatAutocompleteTrigger;
+
   constructor(private movieService: MoviesService) {
     this.items = {
       page: 1,
@@ -54,6 +58,7 @@ export class BrowseComponent implements OnInit {
   }
 
   getSearch(page: number, query: string) {
+    this.autocompleteComponent.closePanel();
     this.status = false;
     if (!this.query) {
       return;
@@ -71,6 +76,7 @@ export class BrowseComponent implements OnInit {
       if (query && this.itemsResult.length == 0) {
         this.status = true;
       }
+      this.autocompleteComponent.closePanel();
     });
   }
   private debounceSearchLoad = debounce(

@@ -13,7 +13,14 @@
       matInput
       placeholder="Search..."
     />
-    <mat-icon class="search-icon" matSuffix>search</mat-icon>
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="debounceSearch()"
+      [attr.aria-label]="'Hide password'"
+    >
+      <mat-icon class="search-icon" matSuffix>search</mat-icon>
+    </button>
     <mat-autocomplete #auto="matAutocomplete">
       <div>
         <mat-option
