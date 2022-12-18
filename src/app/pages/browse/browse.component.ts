@@ -32,21 +32,19 @@ export class BrowseComponent implements OnInit {
     if (!this.query) {
       return;
     }
-    this.movieService
-      .multiSearchNames(this.items.page, this.query)
-      .subscribe((data: any) => {
-        data.results.forEach((element: any) => {
-          if (element.poster_path) {
-            this.autocomplete.push(element);
-          }
-          if (element.profile_path) {
-            this.autocomplete.push(element);
-          }
-        });
-        this.autocomplete = this.autocomplete.filter(function (element) {
-          return element !== undefined;
-        });
+    this.movieService.multiSearchNames(1, this.query).subscribe((data: any) => {
+      data.results.forEach((element: any) => {
+        if (element.poster_path) {
+          this.autocomplete.push(element);
+        }
+        if (element.profile_path) {
+          this.autocomplete.push(element);
+        }
       });
+      this.autocomplete = this.autocomplete.filter(function (element) {
+        return element !== undefined;
+      });
+    });
   }
 
   private debounceNames = debounce(() => this.getAutoComplete(), 300);
@@ -62,7 +60,6 @@ export class BrowseComponent implements OnInit {
     }
     this.movieService.multiSearch(page, query).subscribe((data: any) => {
       this.items = data;
-      console.log(data.results)
       data.results.forEach((element: any) => {
         if (element.poster_path) {
           this.itemsResult.push(element);
@@ -81,6 +78,7 @@ export class BrowseComponent implements OnInit {
     0
   );
   debounceSearch() {
+    this.items.page = 1;
     this.itemsResult = [];
     this.debounceSearchLoad();
   }
