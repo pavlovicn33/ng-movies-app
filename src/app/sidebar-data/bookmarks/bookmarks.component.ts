@@ -10,8 +10,9 @@ import { SpinnerService } from 'src/shared/services/spinner/spinner.service';
   styleUrls: ['./bookmarks.component.scss'],
 })
 export class BookmarksComponent implements OnInit {
-  movies: ResultMovies[] = [];
-  shows: ResultShow[] = [];
+  movies: any[] = [];
+  shows: any[] = [];
+
   constructor(private bookmarkService: BookmarkedService) {}
 
   ngOnInit(): void {
@@ -20,13 +21,21 @@ export class BookmarksComponent implements OnInit {
 
   getBookmarked() {
     this.bookmarkService.getMovies().subscribe((data: any) => {
+      let show: any[] = [];
+      let movie: any[] = [];
       data.forEach((element: any) => {
         if (element.name) {
-          this.shows.push(element);
+          show.push(element);
         } else {
-          this.movies.push(element);
+          movie.push(element);
         }
       });
+      this.shows = show;
+      this.movies = movie;
     });
+  }
+
+  removeDoc(movie: any) {
+    this.bookmarkService.removeMovie(movie);
   }
 }

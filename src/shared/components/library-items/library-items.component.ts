@@ -1,16 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MatGridList } from '@angular/material/grid-list';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
-import { SnackbarComponent } from '../snackbar/snackbar.component';
-import { map, Observable } from 'rxjs';
-import { BookmarkedService } from 'src/shared/services/bookmarked/bookmarked.service';
-import { SpinnerService } from 'src/shared/services/spinner/spinner.service';
-import { ResultShow } from 'src/shared/models/popularTvShows';
-import { collectionData } from '@angular/fire/firestore';
-import { collection } from 'firebase/firestore';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-library-items',
@@ -21,21 +10,20 @@ export class LibraryItemsComponent {
   private breakpoints: any = { xs: 2, sm: 3, md: 4, lg: 6 };
 
   cols!: number;
-
   @Input()
-  movies: any[] = [];
+  data:any
   @Input()
-  shows: any[] = [];
+  movies!: any[]
+  @Input()
+  shows!: any[]
 
   status: number = 1;
-  document!: Observable<any>;
 
   @Output()
-  getData: EventEmitter<number> = new EventEmitter();
+  remove: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private bookmarkService: BookmarkedService
   ) {
     this.breakpointObserver
       .observe([
@@ -74,7 +62,6 @@ export class LibraryItemsComponent {
   }
 
   removeFromFavourites(movie: any) {
-    this.bookmarkService.removeMovie(movie);
-    this.getData.emit()
+    this.remove.emit(movie)
   }
 }
