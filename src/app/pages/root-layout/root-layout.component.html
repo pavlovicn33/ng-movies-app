@@ -36,7 +36,11 @@
         <br />
         <mat-divider></mat-divider>
         <h2>Library</h2>
-        <mat-list-option *ngFor="let i of libraryItems" [value]="i" [routerLink]="['/ngmovies/' + i.link]">
+        <mat-list-option
+          *ngFor="let i of libraryItems"
+          [value]="i"
+          [routerLink]="['/ngmovies/' + i.link]"
+        >
           <span>
             <mat-icon>{{ i.icon }}</mat-icon>
             {{ i.title }}
