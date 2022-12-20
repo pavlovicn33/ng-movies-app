@@ -2,44 +2,48 @@
   <splide
     [options]="{
       type: 'loop',
-      drag:'free',
+      drag: 'free',
       arrows: false,
       pagination: false,
       autoWidth: true,
       gap: 20
     }"
   >
-    <splide-slide *ngFor="let i of data" >
-      <div class="container-img" >
+    <splide-slide *ngFor="let i of data">
+      <div class="container-img">
         <img
-        height="250px"
-        width="350px"
-          src="https://image.tmdb.org/t/p/w1280/{{ i.backdrop_path}}"
+          height="250px"
+          width="350px"
+          src="https://image.tmdb.org/t/p/w1280/{{ i.backdrop_path }}"
           alt=""
         />
         <div class="overlay">
-            <h3 [style.margin]="'10px'">
-              {{ i.title ? i.title : i.name }}
-              ({{
-                i.release_date
-                  ? (i.release_date | date : "yyyy")
-                  : (i.first_air_date | date : "yyyy")
-              }})
-              <div>
-                <button
-                  [style.font-family]="'Nunito'"
-                  mat-raised-button
-                  [style.border-radius]="'25px'"
-                  [style.min-width]="'80%'"
-                >
-                  Watch now
-                </button>
-                <button (click)="addToFavourites()" class="popout" mat-icon-button>
-                  <mat-icon>add_circle_outline</mat-icon>
-                </button>
-              </div>
-            </h3>
-          </div>
+          <h3 [style.margin]="'10px'">
+            {{ i.title ? i.title : i.name }}
+            ({{
+              i.release_date
+                ? (i.release_date | date : "yyyy")
+                : (i.first_air_date | date : "yyyy")
+            }})
+            <div>
+              <button
+                [style.font-family]="'Nunito'"
+                mat-raised-button
+                [style.border-radius]="'25px'"
+                [style.min-width]="'80%'"
+              >
+                Watch now
+              </button>
+              <button
+                (click)="addToFavourites(i, 1)"
+                class="popout"
+                mat-icon-button
+              >
+                <mat-icon>add_circle_outline</mat-icon>
+              </button>
+            </div>
+          </h3>
+        </div>
       </div>
     </splide-slide>
   </splide>

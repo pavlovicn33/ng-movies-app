@@ -8,7 +8,12 @@
   $primary-palette: map.get($color-config, "primary");
   $accent-palette: map.get($color-config, "accent");
 
-  .snackBarData, .close {
+  .snackBarData,
+  .close {
     color: mat.get-color-from-palette($primary-palette, 500) !important;
+
+    mat-icon {
+      color: mat.get-color-from-palette($primary-palette, 500) !important;
+    }
   }
 }

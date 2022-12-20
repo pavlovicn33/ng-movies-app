@@ -26,8 +26,10 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'src/shared/interceptors/auth.interceptor';
-import { SettingsComponent } from './pages/settings/settings.component';
-import { BrowseComponent } from './pages/browse/browse.component';
+import { BrowseComponent } from './sidebar-data/browse/browse.component';
+import { BookmarksComponent } from './sidebar-data/bookmarks/bookmarks.component';
+import { RecentComponent } from './sidebar-data/recent/recent.component';
+import { SettingsComponent } from './sidebar-data/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -38,9 +40,11 @@ import { BrowseComponent } from './pages/browse/browse.component';
     HomeComponent,
     FooterComponent,
     NavBarComponent,
-    ForgotPasswordComponent,
     SettingsComponent,
+    ForgotPasswordComponent,
     BrowseComponent,
+    BookmarksComponent,
+    RecentComponent,
   ],
   imports: [
     InfiniteScrollModule,

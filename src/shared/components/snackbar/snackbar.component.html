@@ -4,6 +4,9 @@
   [style.justify-content]="'space-between'"
   [style.align-items]="'center'"
 >
-  <p class="snackBarData" matSnackBarLabel>{{ data }}</p>
+  <p class="snackBarData" matSnackBarLabel>{{ data }}
+    <mat-icon *ngIf="data == 'Added to bookmarks!'">check</mat-icon>
+  </p>
   <button class="close" mat-icon-button (click)="undo()"><mat-icon>close</mat-icon></button>
+
 </div>

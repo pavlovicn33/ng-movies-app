@@ -16,7 +16,7 @@
             alt=""
           />
         </span>
-        MOVIES
+        ngMovies
       </h1>
     </div>
     <div class="menu-list">
@@ -36,7 +36,7 @@
         <br />
         <mat-divider></mat-divider>
         <h2>Library</h2>
-        <mat-list-option *ngFor="let i of libraryItems" [value]="i">
+        <mat-list-option *ngFor="let i of libraryItems" [value]="i" [routerLink]="['/ngmovies/' + i.link]">
           <span>
             <mat-icon>{{ i.icon }}</mat-icon>
             {{ i.title }}
@@ -86,7 +86,7 @@
             alt=""
           />
         </span>
-        MOVIES
+        ngMovies
       </h1>
     </div>
     <div class="menu-list">

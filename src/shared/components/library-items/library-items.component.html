@@ -1,0 +1,74 @@
+<div
+  class="container"
+  infinite-scroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="300"
+  (scrolled)="onScroll()"   
+  [scrollWindow]="false"
+>
+  <mat-tab-group  fitInkBarToContent [style.font-family]="'Nunito'" [style.text-align]="'center'">
+    <mat-tab label="Movies">
+      <mat-grid-list class="set-height" [cols]="cols" rowHeight="1:1.3">
+        <mat-grid-tile *ngFor="let i of movies">
+          <div class="container-img">
+            <img
+              src="https://image.tmdb.org/t/p/w300{{ i.poster_path }}"
+              alt=""
+            />
+            <div class="overlay">
+              <h3>
+                {{ i.title }}
+              </h3>
+              <div>
+                <button
+                  *ngIf="!i.profile_path"
+                  (click)="removeFromFavourites(i)"
+                  class="popout"
+                  mat-icon-button
+                >
+                  <mat-icon>remove_circle_outline</mat-icon>
+                </button>
+                {{ i.release_date | date:"yyyy"}}
+              </div>
+              <div *ngIf="i.poster_path">
+                <mat-icon class="star">star</mat-icon>
+                {{ i.vote_average }}
+              </div>
+            </div>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-tab>‌
+    <mat-tab label="Shows‌‌‌‌">
+      <mat-grid-list class="set-height" [cols]="cols" rowHeight="1:1.3">
+        <mat-grid-tile *ngFor="let i of shows">
+          <div class="container-img">
+            <img
+              src="https://image.tmdb.org/t/p/w300{{ i.poster_path }}"
+              alt=""
+            />
+            <div class="overlay">
+              <h3>
+                {{ i.name }}
+              </h3>
+              <div>
+                <button
+                  (click)="removeFromFavourites(i)"
+                  class="popout"
+                  mat-icon-button
+                >
+                  <mat-icon>remove_circle_outline</mat-icon>
+                </button>
+                {{ i.first_air_date | date : "yyyy" }}
+              </div>
+              <div *ngIf="i.poster_path">
+                <mat-icon class="star">star</mat-icon>
+                {{ i.vote_average }}
+              </div>
+            </div>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-tab>
+  </mat-tab-group>
+</div>

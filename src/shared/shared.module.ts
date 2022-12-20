@@ -46,6 +46,7 @@ import { IframePipe } from './pipes/iframe.pipe';
 import { TopRatedComponent } from './components/top-rated/top-rated.component';
 import { TrailerCarouselComponent } from './components/trailer-carousel/trailer-carousel.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { LibraryItemsComponent } from './components/library-items/library-items.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     IframePipe,
     TopRatedComponent,
     TrailerCarouselComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    LibraryItemsComponent,
   ],
   imports: [
     InfiniteScrollModule,
@@ -101,6 +103,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     MatTableModule
   ],
   exports: [
+    LibraryItemsComponent,
     SpinnerComponent,
     TrailerCarouselComponent,
     TopRatedComponent,
