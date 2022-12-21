@@ -51,10 +51,10 @@ export class LibraryItemsComponent {
   }
 
   ngOnInit(): void {
-    this.onScroll();
   }
 
-  onScroll() {
+  test() {
+    console.log('qwe')
     // this.data.page += 1;
     // if (this.data.page != this.data.total_pages) {
     //   this.nextPage.emit(this.data.page);

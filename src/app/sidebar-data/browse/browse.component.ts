@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
-import { debounce, map } from 'lodash';
+import { debounce, map } from 'lodash-es';
 import { Observable, startWith } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';

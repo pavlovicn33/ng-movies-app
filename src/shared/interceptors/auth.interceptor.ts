@@ -9,6 +9,7 @@ import {
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { SpinnerService } from '../services/spinner/spinner.service';
+import { debounce } from 'lodash';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -29,12 +30,14 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       tap((event: any) => {
         if (event instanceof HttpResponse) {
-          this.spinnerService.requestEnded();
+          setTimeout(() => {
+            this.spinnerService.requestEnded();
+          }, 50);
         }
       }, (error:HttpErrorResponse) => {
         this.spinnerService.resetSpinner()
         throw error
       })
-    );
-  }
-}
+      );
+    }
+    }

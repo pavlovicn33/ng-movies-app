@@ -13,7 +13,7 @@ export class BookmarkedService {
   getMovies() {
     const auth = getAuth();
     const userId = auth.currentUser?.uid;
-    return this.db.collection('users').doc(userId).collection('bookmarks').valueChanges()
+    return this.db.collection('users').doc(userId).collection('bookmarks', ref => ref .limit(10)).valueChanges()
   }
 
   addMovie(movie: any) {

@@ -43,7 +43,8 @@ export class TrailerCarouselComponent implements OnInit {
 
   state:string = 'none';
 
-  constructor(private pipe: CarouselPipe) {}
+  constructor(private pipe: CarouselPipe) {
+  }
   
   ngOnInit(): void {}
 
@@ -54,8 +55,8 @@ export class TrailerCarouselComponent implements OnInit {
 
   loadTrailer(el: any) {
     this.data.forEach((element: any) => {
-      element.trailer.status = false;
+      element.video = false;
     });
-    el.trailer.status = true;
+    el.video = true;
   }
 }

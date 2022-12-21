@@ -16,7 +16,7 @@ export class MoviesComponent implements OnInit {
 
   page: number = 1;
 
-  pageTop:number = 1
+  pageTop: number = 1;
 
   trailerList: Videos[] = [];
 
@@ -41,17 +41,19 @@ export class MoviesComponent implements OnInit {
       this.pipe.emptyPoster(this.movies);
     });
   }
-
   getUpcomingMovies(page: number) {
     let dateToday = new Date();
     this.movieService.getUpcomingMovies(page).subscribe((data: Movies) => {
       this.upcomingMovies = data.results.filter((el) => {
-        if (new Date(el.release_date) > dateToday) {
+        if (
+          new Date(el.release_date) > dateToday &&
+          !el.genre_ids.includes(16)
+        ) {
           return el;
         }
         return;
       });
-      if (this.trailerList.length < 10 && this.page <= data.total_pages) {
+      if (this.trailerList.length < 12 && this.page <= data.total_pages) {
         this.page += 1;
         this.getUpcomingMovies(this.page);
         this.upcomingMovies.forEach((el) => {
@@ -67,18 +69,19 @@ export class MoviesComponent implements OnInit {
       if (data.results.length >= 1) {
         data.results.forEach((ele) => {
           if (ele.type == 'Trailer') {
-            ele.status = false;
             el.trailer = ele;
+            ele.status = false;
+            this.trailerList.push(el);
           }
         });
-        this.trailerList.push(el);
         this.pipe.emptyPoster(this.trailerList);
+        this.trailerList = [...new Set(this.trailerList)];
         return;
       }
     });
   }
 
-  getTopRated(pageTop:number) {
+  getTopRated(pageTop: number) {
     this.movieService.getTopRated(pageTop).subscribe((data: Movies) => {
       data.results.forEach((el) => {
         if (!el.genre_ids.includes(16)) {
@@ -87,11 +90,10 @@ export class MoviesComponent implements OnInit {
           }
           this.topRated.push(el);
         }
-        
       });
       if (this.topRated.length < 20) {
-        this.pageTop += 1
-        this.getTopRated(this.pageTop)
+        this.pageTop += 1;
+        this.getTopRated(this.pageTop);
       }
     });
   }
