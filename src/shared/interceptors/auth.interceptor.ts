@@ -32,7 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (event instanceof HttpResponse) {
           setTimeout(() => {
             this.spinnerService.requestEnded();
-          }, 50);
+          }, 0);
         }
       }, (error:HttpErrorResponse) => {
         this.spinnerService.resetSpinner()

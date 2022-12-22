@@ -30,7 +30,7 @@ export class CarouselComponent implements OnInit {
     this.pipe.emptyPoster(this.data);
   }
 
-  addToFavourites(movie: ResultMovies, number: number) {
+  addToFavourites(movie: any, number: number) {
     this.status = number;
     this.document = this.bookmarkService.getMovies();
     this.document.subscribe((data: any) => {
@@ -45,13 +45,13 @@ export class CarouselComponent implements OnInit {
       if (this.status == 2) {
         this.status = 3;
         this.snackbar.openFromComponent(SnackbarComponent, {
-          data: 'Already in bookmarks.',
+          data: `${movie.name || movie.title} is already in bookmarks.`,
           duration: 3000,
         });
       }
       if (this.status == 1) {
         this.snackbar.openFromComponent(SnackbarComponent, {
-          data: 'Added to bookmarks!',
+          data: `Added ${movie.name || movie.title} to bookmarks!`,
           duration: 3000,
         });
         this.bookmarkService.addMovie(movie);

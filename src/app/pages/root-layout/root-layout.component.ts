@@ -20,6 +20,7 @@ import {
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import { SpinnerService } from 'src/shared/services/spinner/spinner.service';
 
 @Component({
   selector: 'app-root-layout',
@@ -43,7 +44,8 @@ export class RootLayoutComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document,
     private render: Renderer2,
     private db: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private spinnerService:SpinnerService
   ) {
     this.menuItems = [
       {
@@ -181,4 +183,5 @@ export class RootLayoutComponent implements OnInit {
         this.user = data.data();
       });
   }
+
 }

@@ -47,7 +47,7 @@ export class AnimationShowsComponent implements OnInit {
       this.onTheAir = this.onTheAir.filter(
         (o1) => !this.shows.some((o2) => o1.id === o2.id)
       );
-      if (this.trailers.length < 12 && this.onTheAirPage <= data.total_pages) {
+      if (this.trailers.length < 10 && this.onTheAirPage <= data.total_pages) {
         this.onTheAirPage += 1;
         this.getOnTheAir(this.onTheAirPage)
         this.onTheAir.forEach(el => {

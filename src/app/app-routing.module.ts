@@ -6,9 +6,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { RootLayoutComponent } from './pages/root-layout/root-layout.component';
 import { AngularFireAuthGuard, canActivate, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
-import { SettingsComponent } from './sidebar-data/settings/settings.component';
 import { BrowseComponent } from './sidebar-data/browse/browse.component';
 import { BookmarksComponent } from './sidebar-data/bookmarks/bookmarks.component';
+import { SettingsComponent } from './sidebar-data/settings/settings.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 

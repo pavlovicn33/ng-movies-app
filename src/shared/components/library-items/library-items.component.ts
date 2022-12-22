@@ -1,5 +1,14 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { SpinnerService } from 'src/shared/services/spinner/spinner.service';
 
 @Component({
   selector: 'app-library-items',
@@ -11,20 +20,21 @@ export class LibraryItemsComponent {
 
   cols!: number;
   @Input()
-  data:any
+  data: any;
   @Input()
-  movies!: any[]
+  movies!: any[];
   @Input()
-  shows!: any[]
+  shows!: any[];
 
   status: number = 1;
 
+  start!: number;
+  end!: number;
+  pageSize: number = 10;
   @Output()
   remove: EventEmitter<any> = new EventEmitter();
 
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-  ) {
+  constructor(private breakpointObserver: BreakpointObserver) {
     this.breakpointObserver
       .observe([
         Breakpoints.XSmall,
@@ -50,18 +60,9 @@ export class LibraryItemsComponent {
       });
   }
 
-  ngOnInit(): void {
-  }
-
-  test() {
-    console.log('qwe')
-    // this.data.page += 1;
-    // if (this.data.page != this.data.total_pages) {
-    //   this.nextPage.emit(this.data.page);
-    // }
-  }
+  ngOnInit(): void {}
 
   removeFromFavourites(movie: any) {
-    this.remove.emit(movie)
+    this.remove.emit(movie);
   }
 }

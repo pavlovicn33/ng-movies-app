@@ -53,7 +53,7 @@ export class MoviesComponent implements OnInit {
         }
         return;
       });
-      if (this.trailerList.length < 12 && this.page <= data.total_pages) {
+      if (this.trailerList.length < 10 && this.page <= data.total_pages) {
         this.page += 1;
         this.getUpcomingMovies(this.page);
         this.upcomingMovies.forEach((el) => {
