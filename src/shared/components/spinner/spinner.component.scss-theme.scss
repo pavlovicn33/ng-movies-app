@@ -14,9 +14,17 @@
       500
     ) !important;
   }
-  .lds-roller div:after{
+  .lds-roller div:after {
     background-color: mat.get-color-from-palette(
-        $accent-palette,
-        500
-      ) !important;  }
+      $accent-palette,
+      500
+    ) !important;
+  }
+
+  #side-menu {
+    background-color: mat.get-color-from-palette(
+      $primary-palette,
+      500
+    ) !important;
+  }
 }

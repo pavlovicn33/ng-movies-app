@@ -3,7 +3,7 @@
     [options]="{
       type: 'loop',
       perPage: 3,
-      perMove:1,
+      perMove: 1,
       drag: 'free',
       arrows: false,
       pagination: false,
@@ -12,11 +12,10 @@
       gap: 20
     }"
   >
-    <splide-slide  *ngFor="let i of data">
+    <splide-slide *ngFor="let i of data">
       <div class="container-img">
         <img
           height="325px"
-          width="450px"
           src="https://image.tmdb.org/t/p/w1280/{{ i.backdrop_path }}"
           alt=""
         />
@@ -30,6 +29,7 @@
             }})
             <div class="buttons">
               <button
+                class="watch-now"
                 [style.font-family]="'Nunito'"
                 mat-raised-button
                 [style.border-radius]="'25px'"

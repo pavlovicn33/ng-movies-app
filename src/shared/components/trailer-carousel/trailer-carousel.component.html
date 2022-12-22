@@ -1,10 +1,11 @@
-<div>
+<div [style.margin-left]="'25px'" [style.margin-right]="'25px'">
   <splide
     [options]="{
       type: 'loop',
-      arrows:false,
+      arrows: true,
       snap: true,
       drag: true,
+      focus:'center',
       pagination: false,
       autoWidth: true,
       autoplay: true,
@@ -16,7 +17,6 @@
       <div class="container-img">
         <img
           height="250px"
-          width="350px"
           *ngIf="!i.video"
           src="https://image.tmdb.org/t/p/w1280/{{ i.backdrop_path }}"
           alt=""

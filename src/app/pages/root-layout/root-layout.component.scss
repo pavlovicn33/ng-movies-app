@@ -9,7 +9,7 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
   height: 100%;
 
   mat-drawer {
-    min-width: 21%;
+    min-width: 15%;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
       rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
       rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
@@ -23,7 +23,7 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   position: sticky;
   top: 0;
-  height: 10%;
+  height: 7.5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34,6 +34,7 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
     justify-content: space-around;
     width: 50%;
     gap: 15px;
+    font-size: 20px;
     min-width: 0;
     text-align: center;
 
@@ -57,7 +58,10 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
 }
 
 .logo {
-  margin-left: 25px;
+  margin-top: 15px;
+  margin-bottom: 0 !important;
+  margin-left: 10px;
+  margin-right: 10px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -69,7 +73,7 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
 
 .menu-list {
   font-family: "Nunito";
-
+  overflow: hidden;
   .mat-mdc-selection-list {
     padding-top: 0;
     width: 100%;
@@ -96,9 +100,7 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
 }
 
 .logout {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  margin-top: 35px;
 }
 
 .divider {
@@ -134,9 +136,9 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
 }
 
 .menu-content {
-  height: 800px;
-  width: 280px;
-
+  height: 100%;
+  width: 280;
+  overflow: hidden;
   .mat-mdc-selection-list {
     display: flex;
     flex-direction: column;
@@ -144,8 +146,8 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
     align-items: center;
   }
   .mat-mdc-list-item {
-    height: 15%;
-    width: 100%;
+    height: 10%;
+    width: 95%;
 
     span {
       padding: 15px;
@@ -158,8 +160,14 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
   h2 {
     font-family: "Nunito";
     text-align: center;
+    margin: 5px !important;
+  }
+
+  .mat-mdc-menu-content{
+    padding: 0px !important;
   }
 }
+
 
 .hamburger {
   display: none;
@@ -232,7 +240,21 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
     margin: 15px;
   }
 }
-
+@media screen and (max-height: 625px) {
+  .toolbar {
+    height: 10%;
+  }
+}
+@media screen and (max-height: 525px) {
+  .toolbar {
+    height: 15%;
+  }
+}
+@media screen and (max-height: 400px) {
+  .toolbar {
+    height: 20%;
+  }
+}
 @media screen and (min-width: 800px) {
   #divider-remove {
     display: none;
@@ -254,7 +276,7 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
 
   #side-menu {
     display: block;
-    background-color: rgba(122, 122, 122, 0.651);
+    background-color: #303030;
   }
 }
 

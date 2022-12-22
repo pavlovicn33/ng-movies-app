@@ -1,4 +1,8 @@
-<div class="container">
+<div
+  class="container"
+  [style.margin-left]="'25px'"
+  [style.margin-right]="'25px'"
+>
   <splide
     [options]="{
       type: 'loop',
@@ -13,7 +17,7 @@
       <div class="container-img">
         <img
           height="250px"
-          width="350px"
+          width="250px"
           src="https://image.tmdb.org/t/p/w1280/{{ i.backdrop_path }}"
           alt=""
         />
@@ -25,8 +29,9 @@
                 ? (i.release_date | date : "yyyy")
                 : (i.first_air_date | date : "yyyy")
             }})
-            <div>
+            <div class="buttons">
               <button
+              class="watch-now"
                 [style.font-family]="'Nunito'"
                 mat-raised-button
                 [style.border-radius]="'25px'"

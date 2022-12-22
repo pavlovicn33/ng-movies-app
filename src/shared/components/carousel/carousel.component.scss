@@ -19,7 +19,6 @@ img {
   .splide__track {
     border-radius: 10px !important;
   }
-
 }
 .container-img {
   width: 100%;
@@ -55,6 +54,30 @@ img {
   }
 }
 
+@media screen and (max-width: 625px) {
+  .container-img {
+    width: 350px;
+
+    img {
+      object-fit: cover;
+      max-width: 100% !important;
+      height: auto !important;
+    }
+
+    .overlay {
+      height: 35%;
+
+      .watch-now {
+        display: none;
+      }
+
+      h3 {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
 @-webkit-keyframes popout {
   50% {
     -webkit-transform: scale(1.2);
@@ -68,13 +91,13 @@ img {
   }
 }
 
-.popout{
+.popout {
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 
-  &:active{
-    -webkit-animation-name:popout;
+  &:active {
+    -webkit-animation-name: popout;
     animation-name: popout;
     -webkit-animation-duration: 0.1s;
     animation-duration: 0.1s;

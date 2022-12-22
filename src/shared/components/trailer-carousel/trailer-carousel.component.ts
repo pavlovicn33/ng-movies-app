@@ -5,6 +5,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import {
   Component,
   OnInit,
@@ -41,11 +42,10 @@ export class TrailerCarouselComponent implements OnInit {
   @Input()
   data: any;
 
-  state:string = 'none';
+  state: string = 'none';
 
-  constructor(private pipe: CarouselPipe) {
-  }
-  
+  constructor(private pipe: CarouselPipe) {}
+
   ngOnInit(): void {}
 
   ytUrl(url: string) {

@@ -1,10 +1,9 @@
 .container {
   background-color: #1f1f1f;
 }
-.black{
+.black {
   color: black !important;
 }
-
 .hero-container {
   height: 80%;
   background-image: linear-gradient(
@@ -38,7 +37,7 @@ img {
   .splide__list {
     animation: scroll 75s linear infinite !important;
   }
-  
+
   .splide {
     pointer-events: none;
     border-top: none !important;
@@ -79,7 +78,6 @@ img {
     }
 
     th {
-    
       padding-bottom: 40px;
     }
 
@@ -88,12 +86,12 @@ img {
       font-size: 14px;
     }
 
-    .green{
-        color: #1ce783 !important;
+    .green {
+      color: #1ce783 !important;
     }
 
-    .red{
-        color:  #E50914 !important;
+    .red {
+      color: #e50914 !important;
     }
 
     button {

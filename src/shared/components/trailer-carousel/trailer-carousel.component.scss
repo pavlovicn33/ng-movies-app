@@ -7,6 +7,12 @@ iframe {
     cursor: grab;
   }
 }
+
+:host::ng-deep {
+  .splide__arrows {
+    display: none !important;
+  }
+}
 .overlay2 {
   border-radius: 10px;
   position: absolute;
@@ -53,11 +59,6 @@ img {
   }
 }
 
-div {
-  margin-left: 25px;
-  margin-right: 25px;
-  border-radius: 10px;
-}
 :host::ng-deep {
   #splide01-track {
     border-radius: 10px !important;
@@ -129,5 +130,42 @@ div {
     animation-timing-function: linear;
     -webkit-animation-iteration-count: 1;
     animation-iteration-count: 1;
+  }
+}
+@media screen and (max-width: 625px) {
+  :host::ng-deep{
+    .splide__arrows{
+      display: block !important;
+      
+      .splide__arrow--prev{
+        left: 0 !important;
+      }
+      .splide__arrow--next{
+        right: 0 !important;
+      }
+    }
+  
+  }
+  .container-img {
+    width: 350px;
+
+    img {
+      object-fit: cover;
+      max-width: 100% !important;
+      height: auto !important;
+    }
+
+    iframe {
+      max-width: 100% !important;
+      max-height: 196px !important;
+    }
+
+    .overlay {
+      height: 35%;
+
+      h3 {
+        font-size: 16px;
+      }
+    }
   }
 }
