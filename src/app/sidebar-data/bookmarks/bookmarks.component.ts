@@ -15,23 +15,22 @@ export class BookmarksComponent implements OnInit {
   movies: any[] = [];
   shows: any[] = [];
 
-  page:number = 1
+  page: number = 1;
 
   constructor(
     private bookmarkService: BookmarkedService,
     private snackbar: MatSnackBar,
-    private spinner:SpinnerService
+    private spinner: SpinnerService
   ) {}
 
   ngOnInit(): void {
-    this.spinner.getSpinnerObserver()
-    this.spinner.requestStarted()
+    this.spinner.getSpinnerObserver();
+    this.spinner.requestStarted();
     this.getBookmarkedMovies(this.page);
     this.getBookmarkedShows(this.page);
   }
 
   getBookmarkedMovies(page: number) {
- 
     this.bookmarkService
       .getBookmarkedPaginatedMovies(page)
       .subscribe((data: any) => {
@@ -41,8 +40,10 @@ export class BookmarksComponent implements OnInit {
             movie.push(element);
           }
         });
-        this.movies = movie;
-        this.spinner.requestEnded()
+        this.movies = movie.sort((a: any, b: any) => {
+          return b.createdAt - a.createdAt;
+        });
+        this.spinner.requestEnded();
       });
   }
   getBookmarkedShows(page: number) {
@@ -55,7 +56,9 @@ export class BookmarksComponent implements OnInit {
             show.push(element);
           }
         });
-        this.shows = show;
+        this.shows = show.sort((a: any, b: any) => {
+          return b.createdAt - a.createdAt;
+        });
       });
   }
 
@@ -66,11 +69,10 @@ export class BookmarksComponent implements OnInit {
       duration: 3000,
     });
   }
-  
 
   onScroll() {
-    this.page += 1
-    this.getBookmarkedMovies(this.page)
-    this.getBookmarkedShows(this.page)
+    this.page += 1;
+    this.getBookmarkedMovies(this.page);
+    this.getBookmarkedShows(this.page);
   }
 }

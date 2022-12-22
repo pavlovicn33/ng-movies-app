@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { FieldValue } from '@angular/fire/firestore';
 import { getAuth } from 'firebase/auth';
 
 const DEFAULT_PAGE_SIZE = 20;
@@ -48,6 +49,7 @@ export class BookmarkedService {
     const userId = auth.currentUser?.uid;
     const id = this.db.createId();
     movie.fsId = id;
+    movie.createdAt = new Date()
     return new Promise<any>((resolve, reject) => {
       this.db
         .collection('users')
