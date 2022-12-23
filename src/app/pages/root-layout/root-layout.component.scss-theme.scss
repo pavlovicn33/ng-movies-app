@@ -20,4 +20,9 @@
   .color-accent{
     color: mat.get-color-from-palette($accent-palette, 500) !important;
   }
+  .save{
+    button{
+      background-color: mat.get-color-from-palette($accent-palette, 500) !important;
+    }
+  }
 }

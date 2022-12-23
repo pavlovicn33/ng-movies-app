@@ -27,4 +27,12 @@
       500
     ) !important;
   }
+
+  .toolbar{
+    background-color: mat.get-color-from-palette($accent-palette, 200) !important;
+  }
+
+  .watch-now{
+    background-color: mat.get-color-from-palette($accent-palette, 200) !important;
+  }
 }
