@@ -135,7 +135,6 @@ img {
   justify-content: center;
   margin-top: 65px;
   align-items: center;
-
   div {
     margin: 0 auto;
     text-align: center;
@@ -160,5 +159,89 @@ img {
     list-style: none;
     margin: 0;
     padding: 0;
+  }
+}
+@media screen and (max-width: 660px) {
+  .subscription-container {
+    .subscription-pricings {
+      width: 95%;
+      button {
+        padding: 10px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  .subscription-container {
+    .subscription-pricings {
+      td {
+        font-size: 12px;
+      }
+
+      .subscription-button {
+        width: 1% !important;
+        padding: 5px !important;
+      }
+      .mat-mdc-cell {
+        width: 80% !important;
+      }
+      .shrink {
+        padding: 0px;
+        width: 30px !important;
+      }
+    }
+  }
+}
+@media screen and (max-width: 805px) {
+  .icons-container {
+    h2 {
+      font-size: 18px;
+    }
+  }
+}
+@media screen and (max-width: 610px) {
+  .text-container {
+    width: 90%;
+    h1 {
+      font-size: 48px;
+    }
+  }
+  .icons-container {
+    flex-wrap: wrap;
+    div {
+      margin-top: 25px;
+    }
+
+    mat-icon {
+      transform: scale(3) !important;
+    }
+    ul {
+      font-size: 14px;
+    }
+  }
+}
+@media screen and (max-width: 315px) {
+  .text-container {
+    h1 {
+      font-size: 38px;
+    }
+  }
+  .icons-container {
+    flex-wrap: wrap;
+    div {
+      margin-top: 25px;
+    }
+
+    mat-icon {
+      transform: scale(2.5) !important;
+    }
+
+    h2 {
+      font-size: 16px;
+    }
+
+    ul {
+      font-size: 12px;
+    }
   }
 }

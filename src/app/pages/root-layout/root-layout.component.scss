@@ -23,7 +23,7 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   position: sticky;
   top: 0;
-  height: 7.5%;
+  min-height: 7.5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -136,8 +136,8 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
 }
 
 .menu-content {
-  height: 100%;
-  width: 280;
+  min-height: 100%;
+  width: 280px;
   overflow: hidden;
   .mat-mdc-selection-list {
     display: flex;
@@ -163,11 +163,10 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
     margin: 5px !important;
   }
 
-  .mat-mdc-menu-content{
+  .mat-mdc-menu-content {
     padding: 0px !important;
   }
 }
-
 
 .hamburger {
   display: none;
@@ -240,21 +239,7 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
     margin: 15px;
   }
 }
-@media screen and (max-height: 625px) {
-  .toolbar {
-    height: 10%;
-  }
-}
-@media screen and (max-height: 525px) {
-  .toolbar {
-    height: 15%;
-  }
-}
-@media screen and (max-height: 400px) {
-  .toolbar {
-    height: 20%;
-  }
-}
+
 @media screen and (min-width: 800px) {
   #divider-remove {
     display: none;
@@ -282,10 +267,10 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
 
 @media screen and (max-width: 625px) {
   .toolbar {
-    height: 20% !important;
+    min-height: 175px !important;
     flex-direction: column-reverse;
     justify-content: space-between;
-    gap: 5px;
+    gap: 5px; 
 
     .divider {
       display: none;
@@ -318,5 +303,11 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
 
   .toggle {
     display: none;
+  }
+}
+@media screen and (max-height: 830px) {
+
+  ::ng-deep .cdk-overlay-container .flag-menu {
+    margin-top: 4rem;
   }
 }

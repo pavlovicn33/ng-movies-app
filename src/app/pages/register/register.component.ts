@@ -23,7 +23,7 @@ export class RegisterComponent {
         [
           Validators.required,
           Validators.pattern(
-            '(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$'
+            '[A-Za-zd$@$!%*?&](?=.*?[#?!@$%^&*-]).{8,}'
           ),
         ],
       ],

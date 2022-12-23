@@ -42,7 +42,7 @@
             <mat-error *ngIf="getErrorMessagePassword()">{{
               getErrorMessagePassword()
             }}</mat-error>
-            <button
+            <span
               mat-icon-button
               matSuffix
               (click)="hide = !hide"
@@ -50,7 +50,7 @@
               [attr.aria-pressed]="hide"
             >
               <mat-icon>{{ hide ? "visibility" : "visibility_off" }}</mat-icon>
-            </button>
+          </span>
           </mat-form-field>
           <div class="button-container">
             <button

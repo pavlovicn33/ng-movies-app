@@ -3,9 +3,8 @@
 }
 
 .container {
-  width: 100%;
+  min-height: 100%;
   margin: 0 auto;
-  padding-top: 25px;
   background-color: #1f1f1f;
   background-image: linear-gradient(
     0deg,
@@ -13,7 +12,6 @@
     transparent 60%,
     rgba(0, 0, 0, 0.9)
   );
-  height: 100%;
 
   .navbar-container {
     color: white;
@@ -21,6 +19,7 @@
     justify-content: space-between;
 
     .logo {
+      padding-top: 25px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -98,4 +97,47 @@
 .mat-mdc-form-field-error {
   font-size: 14px;
   margin-top: 5px;
+}
+
+@media screen and (max-height: 700px) {
+  .container {
+    height: 700px;
+  }
+}
+@media screen and (max-width: 650px) {
+  .login-form {
+    .mdc-card {
+      width: 90%;
+    }
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .input-container{
+    display: block;
+    margin-top: 0px;
+    mat-form-field {
+      width: 90%;
+      margin-top: 0px !important;
+      font-size: 14px;
+    }
+  }
+  .button-container {
+    button {
+      min-width: 25%;
+      font-size: 12px;
+    }
+    p {
+      font-size: 14px;
+    }
+  }
+  .sign-up-button-container{
+    margin-top: 25px;
+    button{
+      width: 90%;
+    }
+  }
+  form {
+    font-size: 12px;
+  }
 }

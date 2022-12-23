@@ -21,6 +21,7 @@
       align-items: center;
       column-gap: 25px;
       font-family: "Nunito";
+      margin-top: 15px;
     }
   }
 }
@@ -44,5 +45,91 @@
     margin-top: 25px;
     font-size: 36px;
     padding: 36px 48px 36px 48px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .text-container{
+    h1{
+      font-size: 34px;
+      width: 90%;
+    }
+    h2{
+      font-size: 22px;
+    }
+    h3{
+      font-size:16px
+    }
+  }
+}
+@media screen and (max-height: 680px) {
+  .text-container{
+    h1{
+      font-size: 34px;
+      width: 90%;
+    }
+    h2{
+      font-size: 22px;
+    }
+    h3{
+      font-size:16px
+    }
+  }
+  .text-container {
+    button {
+      margin-top: 25px;
+      font-size: 24px;
+      padding: 24px 32px 24px 32px;
+    }
+  }
+}
+@media screen and (max-width: 300px) {
+  .text-container{
+    h1{
+      font-size: 24px;
+      width: 90%;
+    }
+    h2{
+      font-size: 16px;
+    }
+    h3{
+      font-size:14px
+    }
+  }
+  img{
+    width: 160px;
+  }
+  .white{
+    font-size: 12px;
+  }
+  .sign-up{
+    font-size: 24px !important;
+  }
+}
+@media screen and (max-height: 370px) {
+  .text-container{
+    h1{
+      font-size: 24px;
+      width: 90%;
+    }
+    h2{
+      font-size: 16px;
+    }
+    h3{
+      font-size:14px
+    }
+  }
+  img{
+    width: 160px;
+  }
+  .white{
+    font-size: 12px;
+  }
+
+  .text-container {
+    button {
+      margin-top: 10px;
+      font-size: 24px;
+      padding: 20px 32px 20px 32px;
+    }
   }
 }
