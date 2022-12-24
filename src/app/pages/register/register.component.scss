@@ -33,8 +33,14 @@
   }
 }
 
+.caps-lock-error {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #f44336;
+}
 .sign-up-button-container {
   button {
+    margin-top: 25px;
     margin-bottom: 10px;
     width: 50%;
     padding: 25px;
@@ -85,10 +91,6 @@
 .form-container {
   width: 90%;
   padding-top: 25px;
-  .mad-mdc-form-field-error {
-    font-size: 33px !important;
-  }
-
   span {
     cursor: pointer;
     margin-right: 10px;

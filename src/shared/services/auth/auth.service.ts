@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { getAuth } from 'firebase/auth';
+import { getAuth,updateProfile  } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -106,7 +106,17 @@ export class AuthService {
     let id = getAuth().currentUser?.uid;
     this.db.collection('users').doc(id).update({
       name: name,
-      lastName: lastName,
+      lastName: lastName,   
     });
+  }
+
+  updateEmail(currentEmail:string, newEmail:string){
+    const user  = getAuth().currentUser
+    console.log(currentEmail, newEmail)
+    if (user) {
+      updateProfile(user,{
+        
+      })
+    }
   }
 }

@@ -21,12 +21,14 @@ export class SettingsComponent {
   hide = true;
   user: User;
   userId: string = '';
+  showError!: any;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
     private db: AngularFirestore,
-    private snackbar:MatSnackBar
+    private snackbar: MatSnackBar
   ) {
     this.user = {
       name: '',
@@ -35,8 +37,22 @@ export class SettingsComponent {
     };
 
     this.emailForm = this.fb.group({
-      newEmail: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      newEmail: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
     });
     this.passwordForm = this.fb.group({
       password: [
@@ -93,6 +109,16 @@ export class SettingsComponent {
     return this.passwordForm.controls;
   }
 
+  onEmailSubmit() {
+    if (this.emailForm.invalid) {
+      return;
+    }
+    this.authService.updateEmail(
+      this.emailForm.value.email,
+      this.emailForm.value.newEmail
+    );
+  }
+
   onSubmit() {
     if (this.registerUserForm.invalid) {
       return;
@@ -101,15 +127,34 @@ export class SettingsComponent {
       data: `Successfully changed name and last name`,
       duration: 2500,
     });
-    this.authService.updateNameAndLastName(this.registerUserForm.value.name, this.registerUserForm.value.lastName)
+    this.authService.updateNameAndLastName(
+      this.registerUserForm.value.name,
+      this.registerUserForm.value.lastName
+    );
   }
 
-  getErrorMessage() {
+  getEmailError() {
     if (this.e['email'].hasError('required')) {
       return 'You must enter a value';
     }
 
     if (this.e['email'].hasError('email')) {
+      return 'Email is invalid';
+    }
+    if (this.e['email'].hasError('pattern')) {
+      return 'Email is invalid';
+    }
+    return null;
+  }
+  getNewEmailError() {
+    if (this.e['newEmail'].hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    if (this.e['newEmail'].hasError('email')) {
+      return 'Email is invalid';
+    }
+    if (this.e['newEmail'].hasError('pattern')) {
       return 'Email is invalid';
     }
     return null;

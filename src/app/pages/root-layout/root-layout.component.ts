@@ -22,6 +22,9 @@ import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { SpinnerService } from 'src/shared/services/spinner/spinner.service';
 import { User } from 'src/shared/models/user';
+import * as functions from 'firebase-functions';
+import * as firebase from 'firebase-admin';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 @Component({
   selector: 'app-root-layout',
@@ -176,6 +179,17 @@ export class RootLayoutComponent implements OnInit {
   async getUser() {
     const auth = getAuth();
     const userId = auth.currentUser?.uid;
+    this.db.collection("users").doc(userId).ref.onSnapshot({
+      includeMetadataChanges:true
+    }, (doc:any) => {
+      this.db
+      .collection('users')
+      .doc(userId)
+      .get()
+      .subscribe((data: any) => {
+        this.user = data.data();
+      });
+    })
     this.db
       .collection('users')
       .doc(userId)

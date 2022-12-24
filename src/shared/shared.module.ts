@@ -48,6 +48,7 @@ import { TrailerCarouselComponent } from './components/trailer-carousel/trailer-
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { LibraryItemsComponent } from './components/library-items/library-items.component';
 import { ScrollableDirective } from './directives/scrollable.directive';
+import { CapsLockDirective } from './directives/caps-lock.directive';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { ScrollableDirective } from './directives/scrollable.directive';
     SpinnerComponent,
     LibraryItemsComponent,
     ScrollableDirective,
+    CapsLockDirective,
   ],
   imports: [
     InfiniteScrollModule,
@@ -105,6 +107,7 @@ import { ScrollableDirective } from './directives/scrollable.directive';
     MatTableModule
   ],
   exports: [
+    CapsLockDirective,
     ScrollableDirective,
     LibraryItemsComponent,
     SpinnerComponent,

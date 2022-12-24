@@ -13,7 +13,7 @@ import { AuthService } from 'src/shared/services/auth/auth.service';
 export class LoginComponent implements OnInit {
   loginUserForm: FormGroup;
   hide = true;
-
+  capsOn!: any;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -22,7 +22,14 @@ export class LoginComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document
   ) {
     this.loginUserForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
       password: [
         '',
         [Validators.required, Validators.pattern('[A-Za-zd$@$!%*?&].{8,}')],
@@ -40,6 +47,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.loginUserForm.invalid) {
+      this.loginUserForm.reset();
+      return;
+    }
     this.authService.login(
       this.loginUserForm.value.email,
       this.loginUserForm.value.password
@@ -52,6 +63,9 @@ export class LoginComponent implements OnInit {
     }
 
     if (this.f['email'].hasError('email')) {
+      return 'Email is invalid';
+    }
+    if (this.f['email'].hasError('pattern')) {
       return 'Email is invalid';
     }
     return null;

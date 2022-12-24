@@ -52,7 +52,7 @@
             </div>
           </div>
         </form>
-        <form [formGroup]="emailForm">
+        <form [formGroup]="emailForm" (ngSubmit)="onEmailSubmit()">
           <div class="input-container">
             <h3 class="title">Email</h3>
             <mat-divider></mat-divider>
@@ -70,8 +70,8 @@
                 matInput
                 required
               />
-              <mat-error *ngIf="getErrorMessage()">{{
-                getErrorMessage()
+              <mat-error *ngIf="getEmailError()">{{
+                getEmailError()
               }}</mat-error>
             </mat-form-field>
             <mat-form-field
@@ -88,8 +88,8 @@
                 matInput
                 required
               />
-              <mat-error *ngIf="getErrorMessage()">{{
-                getErrorMessage()
+              <mat-error *ngIf="getNewEmailError()">{{
+                getNewEmailError()
               }}</mat-error>
             </mat-form-field>
             <div class="save">
@@ -99,7 +99,20 @@
         </form>
         <form [formGroup]="passwordForm">
           <div class="input-container">
-            <h3 class="title">Password</h3>
+            <div class="titles-errors">
+              <h3
+                [style.margin]="'0'"
+                class="caps-lock-error"
+                [ngClass]="{
+                  visibility: showError,
+                  visibilityHidden: !showError
+                }"
+              >
+                Caps Lock is on*
+              </h3>
+              <h3 [style.margin]="'0'" class="title">Password</h3>
+              <h3 [style.margin]="'0'" class="visibilityHidden">eeeeeeee***</h3>
+            </div>
             <mat-divider></mat-divider>
             <mat-form-field
               floatLabel="always"
@@ -107,6 +120,7 @@
               [color]="'primary'"
               appearance="fill"
               class="form-container"
+              (capsLock)="showError = $event"
             >
               <mat-label>Current password</mat-label>
               <input
@@ -116,18 +130,20 @@
                 [type]="hide ? 'password' : 'text'"
                 required
               />
-              <mat-error *ngIf="getErrorMessagePassword()">{{
-                getErrorMessagePassword()
-              }}</mat-error>
-              <span
+              <button
+                mat-icon-button
                 matSuffix
+                (click)="hide = !hide"
                 [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide"
               >
-                <mat-icon (click)="hide = !hide">{{
-                  hide ? "visibility" : "visibility_off"
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
                 }}</mat-icon>
-              </span>
+              </button>
+              <mat-error *ngIf="getErrorMessagePassword()">{{
+                getErrorMessagePassword()
+              }}</mat-error>
             </mat-form-field>
             <mat-form-field
               floatLabel="always"
@@ -147,15 +163,17 @@
               <mat-error *ngIf="getErrorMessagePassword()">{{
                 getErrorMessagePassword()
               }}</mat-error>
-              <span
+              <button
+                mat-icon-button
                 matSuffix
+                (click)="hide = !hide"
                 [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide"
               >
-                <mat-icon (click)="hide = !hide">{{
-                  hide ? "visibility" : "visibility_off"
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
                 }}</mat-icon>
-              </span>
+              </button>
             </mat-form-field>
             <mat-form-field
               floatLabel="always"
@@ -175,15 +193,17 @@
               <mat-error *ngIf="getErrorMessagePassword()">{{
                 getErrorMessagePassword()
               }}</mat-error>
-              <span
+              <button
+                mat-icon-button
                 matSuffix
+                (click)="hide = !hide"
                 [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide"
               >
-                <mat-icon (click)="hide = !hide">{{
-                  hide ? "visibility" : "visibility_off"
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
                 }}</mat-icon>
-              </span>
+              </button>
             </mat-form-field>
             <div class="save">
               <button mat-raised-button><mat-icon>save</mat-icon>Save</button>

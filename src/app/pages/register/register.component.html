@@ -52,6 +52,7 @@
             </mat-form-field>
           </div>
           <mat-form-field
+            email
             [color]="'primary'"
             appearance="outline"
             [style.margin-top]="'15px'"
@@ -64,11 +65,13 @@
               matInput
               required
             />
+
             <mat-error *ngIf="getErrorMessage()">{{
               getErrorMessage()
             }}</mat-error>
           </mat-form-field>
           <mat-form-field
+            (capsLock)="showError = $event"
             [color]="'primary'"
             appearance="outline"
             class="form-container"
@@ -93,6 +96,7 @@
                 hide ? "visibility" : "visibility_off"
               }}</mat-icon>
             </span>
+            <p class="caps-lock-error" *ngIf="showError">Caps Lock is on*</p>
           </mat-form-field>
           <div class="sign-up">
             <div class="sign-up-button-container">

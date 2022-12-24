@@ -28,6 +28,7 @@
             }}</mat-error>
           </mat-form-field>
           <mat-form-field
+            (capsLock)="capsOn = $event"
             [color]="'primary'"
             appearance="outline"
             class="form-container"
@@ -42,6 +43,8 @@
             <mat-error *ngIf="getErrorMessagePassword()">{{
               getErrorMessagePassword()
             }}</mat-error>
+            <p class="caps-lock-error" *ngIf="capsOn">Caps Lock is on*</p>
+
             <span
               mat-icon-button
               matSuffix
@@ -50,7 +53,7 @@
               [attr.aria-pressed]="hide"
             >
               <mat-icon>{{ hide ? "visibility" : "visibility_off" }}</mat-icon>
-          </span>
+            </span>
           </mat-form-field>
           <div class="button-container">
             <button
