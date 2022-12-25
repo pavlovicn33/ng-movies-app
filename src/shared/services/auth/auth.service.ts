@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, TitleStrategy } from '@angular/router';
 import {
   getAuth,
   updateEmail,
@@ -12,13 +12,16 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
   updatePassword,
+  deleteUser,
 } from 'firebase/auth';
+import { PasswordDialogComponent } from 'src/app/components/password-dialog/password-dialog.component';
 import { DialogComponent } from 'src/shared/components/dialog/dialog.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  password: string = '';
   constructor(
     private fireauth: AngularFireAuth,
     private router: Router,
@@ -121,10 +124,12 @@ export class AuthService {
     });
   }
 
-  async updateEmail(newEmail: string, password: string,form:FormGroup) {
+  async updateEmail(newEmail: string, password: string, form: FormGroup) {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
         option: 'email',
+        title: 'Confirmation',
+        description: 'this action will update your',
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -143,7 +148,7 @@ export class AuthService {
               });
             },
             (error) => {
-              form.reset()
+              form.reset();
               this.openSnackBar(
                 'The password is incorrect. Please try again',
                 'X'
@@ -156,10 +161,16 @@ export class AuthService {
       this.openSnackBar('You have cancelled', 'X');
     });
   }
-  async updatePassword(currentPassword: string, newPassword: string, form:FormGroup) {
+  async updatePassword(
+    currentPassword: string,
+    newPassword: string,
+    form: FormGroup
+  ) {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
         option: 'password',
+        title: 'Confirmation',
+        description: 'this action will update your',
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -173,21 +184,21 @@ export class AuthService {
           reauthenticateWithCredential(user, credential).then(
             () => {
               if (currentPassword == newPassword) {
-                form.reset()
+                form.reset();
                 this.openSnackBar(
                   'New password cannot be same as old password',
                   'X'
                 );
-                return                
+                return;
               }
               updatePassword(user, newPassword).then(() => {
                 sendEmailVerification(user).then(() => {});
               });
-              form.reset()
+              form.reset();
               this.openSnackBar('Password successfully changed', 'X');
             },
             (error) => {
-              form.reset()
+              form.reset();
               this.openSnackBar(
                 'The password is incorrect. Please try again',
                 'X'
@@ -200,8 +211,49 @@ export class AuthService {
       this.openSnackBar('You have cancelled', 'X');
     });
   }
+
+  deleteAccount() {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        title: 'Delete Confirmation',
+        description:
+          'Deleting this data will permanently remove your account, and this cannot be recovered.',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == true) {
+        this.dialog
+          .open(PasswordDialogComponent)
+          .afterClosed()
+          .subscribe((result) => {
+            if (result == true) {
+              const user = getAuth().currentUser;
+              if (user && user.email) {
+                const credential = EmailAuthProvider.credential(
+                  user.email,
+                  this.password
+                );
+                reauthenticateWithCredential(user, credential).then(
+                  () => {
+                    deleteUser(user).then(() => {
+                      sendEmailVerification(user).then(() => {});
+                    });
+                    this.router.navigate(['/login']);
+                    this.openSnackBar('Account deleted', 'X');
+                  },
+                  (error) => {
+                    this.openSnackBar(
+                      'The password is incorrect. Please try again',
+                      'X'
+                    );
+                  }
+                );
+              }
+              return;
+            }
+            this.openSnackBar('You have cancelled', 'X');
+          });
+      }
+    });
+  }
 }
-
-//RESET FORMS WHEN SUCCESS
-
-//Delete account?

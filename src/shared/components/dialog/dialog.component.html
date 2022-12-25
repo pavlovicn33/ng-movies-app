@@ -1,7 +1,14 @@
-<h1 [style.font-family]="'Nunito'" mat-dialog-title>Confirmation</h1>
+<h1 [style.font-family]="'Nunito'" mat-dialog-title>{{ data.title }}</h1>
 <div mat-dialog-content>
-  <p [style.display]="'flex'" [style.align-items]="'center'" [style.gap]="'10px'" [style.margin-top]="'15px'" [style.font-family]="'Nunito'">
-    <mat-icon>warning</mat-icon> this action will update your {{data.option}}
+  <p
+    [style.display]="'flex'"
+    [style.align-items]="'center'"
+    [style.gap]="'10px'"
+    [style.margin-top]="'15px'"
+    [style.font-family]="'Nunito'"
+  >
+    <mat-icon [style.min-width]="'25px'">warning</mat-icon> {{ data.description
+    }} {{ data.option }}
   </p>
 </div>
 <mat-dialog-actions align="end">

@@ -30,6 +30,7 @@ import { BrowseComponent } from './sidebar-data/browse/browse.component';
 import { BookmarksComponent } from './sidebar-data/bookmarks/bookmarks.component';
 import { RecentComponent } from './sidebar-data/recent/recent.component';
 import { SettingsComponent } from './sidebar-data/settings/settings.component';
+import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { SettingsComponent } from './sidebar-data/settings/settings.component';
     BrowseComponent,
     BookmarksComponent,
     RecentComponent,
+    PasswordDialogComponent,
   ],
   imports: [
     InfiniteScrollModule,

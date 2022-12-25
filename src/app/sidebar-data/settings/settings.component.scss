@@ -40,6 +40,9 @@
   width: 90%;
   padding-top: 25px;
 
+  h4 {
+    margin-top: 10px;
+  }
   mat-form-field {
     width: 100%;
   }
@@ -80,6 +83,13 @@
 .visibility {
   visibility: visible;
 }
+.delete-button {
+  text-align: end;
+  margin-top: 15px;
+  button {
+    font-family: "Nunito";
+  }
+}
 @media screen and (max-height: 700px) {
   .container {
     height: 700px;
@@ -95,6 +105,10 @@
 
 @media screen and (max-width: 430px) {
   .save {
+    margin-top: 45px;
+    text-align: center;
+  }
+  .delete-button {
     margin-top: 45px;
     text-align: center;
   }

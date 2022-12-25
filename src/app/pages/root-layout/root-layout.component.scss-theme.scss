@@ -28,4 +28,7 @@
       background-color: mat.get-color-from-palette($accent-palette, 500) !important;
     }
   }
+  .highlight{
+    color: mat.get-color-from-palette($accent-palette, 400) !important;
+  }
 }

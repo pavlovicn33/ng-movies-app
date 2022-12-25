@@ -249,6 +249,24 @@
             </div>
           </div>
         </form>
+        <div class="input-container">
+          <h3 class="title">Personal Data</h3>
+          <mat-divider></mat-divider>
+          <h4>
+            Your account contains personal data that you have given us. This
+            section allows you to <span class="highlight">delete</span> that
+            data.
+          </h4>
+          <h4>
+            Deleting this data will permanently remove your account, and
+            <span class="highlight">this cannot be recovered.</span>
+          </h4>
+          <div class="delete-button">
+            <button (click)="openDeleteModal()" color="warn" mat-stroked-button>
+              <mat-icon>delete_forever</mat-icon>Delete
+            </button>
+          </div>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>

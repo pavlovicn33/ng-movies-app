@@ -189,6 +189,10 @@ export class SettingsComponent {
     );
   }
 
+  openDeleteModal(){
+    this.authService.deleteAccount()
+  }
+
   getNewEmailError() {
     if (this.e['newEmail'].hasError('required')) {
       return 'You must enter a value';
