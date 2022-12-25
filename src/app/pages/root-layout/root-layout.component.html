@@ -5,18 +5,17 @@
         <span>
           <img
             *ngIf="labelPosition == 'dark'"
-            width="48px"
-            src="../../../assets/images/icons8-movie-64.png"
+            width="180px"
+            src="../../../assets/images/logo.png"
             alt=""
           />
           <img
             *ngIf="labelPosition == 'light'"
-            width="48px"
-            src="../../../assets/images/icons8-movie-64-dark.png"
+            width="180px"
+            src="../../../assets/images/logo-dark.png"
             alt=""
           />
         </span>
-        MOVIES
       </h1>
     </div>
     <div class="menu-list">
@@ -26,6 +25,8 @@
           *ngFor="let item of menuItems; let i = index"
           [value]="item"
           [selected]="item && i == 0"
+          [routerLink]="['/ngmovies/' + item.link]"
+          [routerLinkActive]="['selected']"
         >
           <span>
             <mat-icon>{{ item.icon }}</mat-icon>
@@ -35,7 +36,12 @@
         <br />
         <mat-divider></mat-divider>
         <h2>Library</h2>
-        <mat-list-option *ngFor="let i of libraryItems" [value]="i">
+        <mat-list-option
+          *ngFor="let i of libraryItems"
+          [value]="i"
+          [routerLink]="['/ngmovies/' + i.link]"
+          [routerLinkActive]="['selected']"
+        >
           <span>
             <mat-icon>{{ i.icon }}</mat-icon>
             {{ i.title }}
@@ -44,7 +50,12 @@
         <br />
         <mat-divider></mat-divider>
         <br />
-        <mat-list-option *ngFor="let i of miscItems" [value]="i">
+        <mat-list-option
+          *ngFor="let i of miscItems"
+          [value]="i"
+          [routerLink]="['/ngmovies/' + i.link]"
+          [routerLinkActive]="['selected']"
+        >
           <span>
             <mat-icon>{{ i.icon }}</mat-icon>
             {{ i.title }}
@@ -70,24 +81,28 @@
         <span>
           <img
             *ngIf="labelPosition == 'dark'"
-            width="48px"
-            src="../../../assets/images/icons8-movie-64.png"
+            width="180px"
+            src="../../../assets/images/logo.png"
             alt=""
           />
           <img
             *ngIf="labelPosition == 'light'"
-            width="48px"
-            src="../../../assets/images/icons8-movie-64-dark.png"
+            width="180px"
+            src="../../../assets/images/logo-dark.png"
             alt=""
           />
         </span>
-        MOVIES
       </h1>
     </div>
     <div class="menu-list">
       <h2>Menu</h2>
       <mat-selection-list #shoes1 [multiple]="false">
-        <mat-list-option *ngFor="let item of menuItems" [value]="item">
+        <mat-list-option
+          *ngFor="let item of menuItems"
+          [value]="item"
+          [routerLink]="['/ngmovies/' + item.link]"
+          [routerLinkActive]="['selected']"
+        >
           <span>
             <mat-icon>{{ item.icon }}</mat-icon>
             {{ item.title }}
@@ -96,7 +111,12 @@
         <br />
         <mat-divider></mat-divider>
         <h2>Library</h2>
-        <mat-list-option *ngFor="let i of libraryItems" [value]="i">
+        <mat-list-option
+          *ngFor="let i of libraryItems"
+          [value]="i"
+          [routerLink]="['/ngmovies/' + i.link]"
+          [routerLinkActive]="['selected']"
+        >
           <span>
             <mat-icon>{{ i.icon }}</mat-icon>
             {{ i.title }}
@@ -105,7 +125,12 @@
         <br />
         <mat-divider></mat-divider>
         <br />
-        <mat-list-option *ngFor="let i of miscItems" [value]="i">
+        <mat-list-option
+          *ngFor="let i of miscItems"
+          [value]="i"
+          [routerLinkActive]="['selected']"
+          [routerLink]="['/ngmovies/' + i.link]"
+        >
           <span>
             <mat-icon>{{ i.icon }}</mat-icon>
             {{ i.title }}
@@ -164,6 +189,7 @@
 
       <mat-selection-list #nav [multiple]="false">
         <mat-list-option
+          (click)="getUrl(item)"
           *ngFor="let item of links; let i = index"
           [value]="item"
           [routerLink]="[item.link]"
@@ -267,7 +293,7 @@
             </button>
           </span>
         </div>
-        <mat-menu #profile="matMenu">
+        <mat-menu class="flag-menu" #profile="matMenu">
           <div class="menu-content">
             <h2>Media Service</h2>
             <mat-selection-list #media [multiple]="false">

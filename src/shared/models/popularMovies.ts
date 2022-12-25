@@ -1,4 +1,5 @@
 export interface ResultMovies {
+    bookmarked: boolean;
     poster_path: string;
     adult: boolean;
     overview: string;

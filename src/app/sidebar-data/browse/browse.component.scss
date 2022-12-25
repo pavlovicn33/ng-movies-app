@@ -1,0 +1,25 @@
+.container {
+  text-align: center;
+  font-family: "Nunito";
+  margin-top: 100px;
+
+  .form-container {
+    width: 75%;
+    margin: 0 auto;
+  }
+}
+.color-accent {
+  margin: 25px;
+  font-family: "Nunito";
+
+  &:active {
+    transform: translateY(4px);
+  }
+}
+.autocomplete-container {
+  font-family: "Nunito";
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}

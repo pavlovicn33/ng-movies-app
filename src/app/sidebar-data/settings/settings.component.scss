@@ -1,0 +1,137 @@
+* {
+  margin: 0 auto;
+}
+.container {
+  min-height: 100%;
+  margin: 0 auto;
+}
+.login-form {
+  font-family: "Nunito";
+  margin-top: 25px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+
+  .mdc-card {
+    width: 75%;
+    text-align: center;
+
+    .mat-mdc-card-title {
+      text-align: start !important;
+      margin-top: 15px;
+      font-size: 12px;
+      margin-left: 59px;
+    }
+
+    .mat-mdc-card-content {
+      margin: 0;
+    }
+  }
+}
+.save {
+  text-align: end;
+  margin-top: 5px;
+  button {
+    color: rgb(255, 255, 255);
+    font-family: "Nunito";
+  }
+}
+.input-container {
+  width: 90%;
+  padding-top: 25px;
+
+  h4 {
+    margin-top: 10px;
+  }
+  mat-form-field {
+    width: 100%;
+  }
+  p {
+    cursor: pointer;
+
+    &:hover {
+      color: #ffffff98;
+    }
+  }
+}
+.title {
+  margin-top: 15px;
+}
+.form-container {
+  width: 90%;
+  padding-top: 10px;
+}
+
+.mat-mdc-form-field-error {
+  font-size: 14px;
+  margin-top: 5px;
+}
+.caps-lock-error {
+  align-self: flex-end;
+
+  margin-top: 20px;
+  font-size: 14px;
+  color: #f44336;
+}
+.titles-errors {
+  display: flex;
+  justify-content: space-between;
+}
+.visibilityHidden {
+  visibility: hidden;
+}
+.visibility {
+  visibility: visible;
+}
+.delete-button {
+  text-align: end;
+  margin-top: 15px;
+  button {
+    font-family: "Nunito";
+  }
+}
+@media screen and (max-height: 700px) {
+  .container {
+    height: 700px;
+  }
+}
+@media screen and (max-width: 650px) {
+  .login-form {
+    .mdc-card {
+      width: 90%;
+    }
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .save {
+    margin-top: 45px;
+    text-align: center;
+  }
+  .delete-button {
+    margin-top: 45px;
+    text-align: center;
+  }
+  .mat-mdc-card-title {
+    text-align: center !important;
+    margin-left: 0px !important;
+    h1 {
+      text-align: center !important;
+      width: 100%;
+    }
+  }
+  .mdc-card {
+    text-align: start !important;
+  }
+  .titles-errors {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+  .remove {
+    display: none;
+  }
+  .form-container {
+    padding-top: 45px;
+  }
+}

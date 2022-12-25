@@ -20,6 +20,11 @@ import {
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import { SpinnerService } from 'src/shared/services/spinner/spinner.service';
+import { User } from 'src/shared/models/user';
+import * as functions from 'firebase-functions';
+import * as firebase from 'firebase-admin';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 @Component({
   selector: 'app-root-layout',
@@ -36,23 +41,26 @@ export class RootLayoutComponent implements OnInit {
   mediaService: any;
   genres: any;
   showFiller = false;
-  user: any;
-
+  user: User;
+  selectedE:boolean = false
   constructor(
     private authService: AuthService,
     @Inject(DOCUMENT) private document: Document,
     private render: Renderer2,
     private db: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private spinnerService: SpinnerService
   ) {
     this.menuItems = [
       {
         icon: 'home',
         title: 'Home',
+        link: 'movies',
       },
       {
-        icon: 'panorama_fish_eye',
-        title: 'Discovery',
+        icon: 'search',
+        title: 'Browse',
+        link: 'browse',
       },
       {
         icon: 'people',
@@ -71,6 +79,7 @@ export class RootLayoutComponent implements OnInit {
       {
         icon: 'bookmark_border',
         title: 'Bookmarked',
+        link: 'bookmarked',
       },
       {
         icon: 'star_border',
@@ -85,6 +94,7 @@ export class RootLayoutComponent implements OnInit {
       {
         icon: 'settings',
         title: 'Settings',
+        link: 'settings',
       },
       {
         icon: 'help_outline',
@@ -142,6 +152,10 @@ export class RootLayoutComponent implements OnInit {
     };
   }
 
+  getUrl(event: any) {
+    this.menuItems[0].link = event.link;
+  }
+
   ngOnInit(): void {
     this.router.navigate(['ngmovies/movies']);
     this.getUser();
@@ -165,6 +179,18 @@ export class RootLayoutComponent implements OnInit {
   async getUser() {
     const auth = getAuth();
     const userId = auth.currentUser?.uid;
+    this.db.collection("users").doc(userId).ref.onSnapshot({
+      includeMetadataChanges:true
+    }, (doc:any) => {
+      this.db
+      .collection('users')
+      .doc(userId)
+      .get()
+      .subscribe((data: any) => {
+        this.user.name = data.data().name;
+        this.user.lastName = data.data().lastName;
+      });
+    })
     this.db
       .collection('users')
       .doc(userId)

@@ -5,6 +5,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import {
   Component,
   OnInit,
@@ -41,10 +42,10 @@ export class TrailerCarouselComponent implements OnInit {
   @Input()
   data: any;
 
-  state:string = 'none';
+  state: string = 'none';
 
   constructor(private pipe: CarouselPipe) {}
-  
+
   ngOnInit(): void {}
 
   ytUrl(url: string) {
@@ -54,8 +55,8 @@ export class TrailerCarouselComponent implements OnInit {
 
   loadTrailer(el: any) {
     this.data.forEach((element: any) => {
-      element.trailer.status = false;
+      element.video = false;
     });
-    el.trailer.status = true;
+    el.video = true;
   }
 }

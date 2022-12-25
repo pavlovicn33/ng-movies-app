@@ -1,11 +1,13 @@
-<div>
+<div [style.margin-left]="'25px'" [style.margin-right]="'25px'">
   <splide
     [options]="{
       type: 'loop',
       perPage: 3,
+      perMove: 1,
       drag: 'free',
       arrows: false,
       pagination: false,
+      omitEnd: false,
       autoWidth: true,
       gap: 20
     }"
@@ -13,7 +15,8 @@
     <splide-slide *ngFor="let i of data">
       <div class="container-img">
         <img
-          src="https://image.tmdb.org/t/p/w500/{{ i.backdrop_path }}"
+          height="325px"
+          src="https://image.tmdb.org/t/p/w1280/{{ i.backdrop_path }}"
           alt=""
         />
         <div class="overlay">
@@ -24,8 +27,9 @@
                 ? (i.release_date | date : "yyyy")
                 : (i.first_air_date | date : "yyyy")
             }})
-            <div>
+            <div class="buttons">
               <button
+                class="watch-now"
                 [style.font-family]="'Nunito'"
                 mat-raised-button
                 [style.border-radius]="'25px'"
@@ -33,8 +37,13 @@
               >
                 Watch now
               </button>
-              <button (click)="addToFavourites()" class="popout" mat-icon-button>
-                <mat-icon>add_circle_outline</mat-icon>
+              <button
+                (click)="addToFavourites(i, 1)"
+                class="popout"
+                mat-icon-button
+              >
+                <mat-icon *ngIf="!i.bookmarked">add_circle_outline</mat-icon>
+                <mat-icon *ngIf="i.bookmarked">add_circle</mat-icon>
               </button>
             </div>
           </h3>

@@ -16,7 +16,9 @@ export class SnackbarComponent implements OnInit {
     private snackBarRef: MatSnackBarRef<SnackbarComponent>
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+ 
+  }
 
   undo() {
     this.snackBarRef.dismissWithAction();

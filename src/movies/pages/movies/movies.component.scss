@@ -20,3 +20,9 @@ h1 {
     }
   }
 }
+
+@media screen and (max-width: 625px) {
+  .text-container{
+    font-size: 10px;
+  }
+}

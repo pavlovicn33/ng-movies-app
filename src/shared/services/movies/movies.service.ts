@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { observable, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Movies } from 'src/shared/models/popularMovies';
 import { Videos } from 'src/shared/models/videos';
@@ -30,5 +30,12 @@ export class MoviesService {
 
   getTopRated(page:number):Observable<Movies>{
     return this.http.get<Movies>(`${environment.baseURL}/movie/top_rated/${environment.apiKey}&page=${page}`)
+  }
+
+  multiSearch(page:number,query:string):Observable<any>{
+    return this.http.get<any>(`${environment.baseURL}/search/multi${environment.apiKey}&page=${page}&query=${query}`)
+  }
+  multiSearchNames(page:number,query:string):Observable<any>{
+    return this.http.get<any>(`${environment.baseURL}/search/multi${environment.apiKey}&page=${page}&query=${query}&no-spinner`)
   }
 }

@@ -1,34 +1,39 @@
-<div>
+<div [style.margin-left]="'25px'" [style.margin-right]="'25px'">
   <splide
     [options]="{
       type: 'loop',
-      arrows: false,
+      arrows: true,
+      snap: true,
+      drag: true,
+      focus:'center',
       pagination: false,
       autoWidth: true,
-      gap: 20
+      autoplay: true,
+      gap: 20,
+      perPage: 1
     }"
   >
-    <splide-slide *ngFor="let i of data" >
-      <div  class="container-img">
+    <splide-slide *ngFor="let i of data">
+      <div class="container-img">
         <img
-        
-          *ngIf="!i.trailer.status"
-          src="https://image.tmdb.org/t/p/w400/{{ i.backdrop_path }}"
+          height="250px"
+          *ngIf="!i.video"
+          src="https://image.tmdb.org/t/p/w1280/{{ i.backdrop_path }}"
           alt=""
         />
         <div [style.text-align]="'center'">
           <iframe
-            *ngIf="i.trailer.status"
+            *ngIf="i.video"
             [src]="ytUrl(i.trailer.key) | iframe"
             frameborder="0"
           ></iframe>
         </div>
-        <div *ngIf="!i.trailer.status" class="overlay2">
+        <div *ngIf="!i.video" class="overlay2">
           <div class="middle">
             <mat-icon (click)="loadTrailer(i)">play_circle_outline</mat-icon>
           </div>
         </div>
-        <div *ngIf="!i.trailer.status" class="overlay">
+        <div *ngIf="!i.video" class="overlay">
           <h3 [style.margin]="'10px'">
             {{ i.title ? i.title : i.name }}
             <br />

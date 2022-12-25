@@ -27,7 +27,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatRippleModule } from '@angular/material/core';
+import { ErrorStateMatcher, MatRippleModule } from '@angular/material/core';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -46,6 +46,10 @@ import { IframePipe } from './pipes/iframe.pipe';
 import { TopRatedComponent } from './components/top-rated/top-rated.component';
 import { TrailerCarouselComponent } from './components/trailer-carousel/trailer-carousel.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { LibraryItemsComponent } from './components/library-items/library-items.component';
+import { ScrollableDirective } from './directives/scrollable.directive';
+import { CapsLockDirective } from './directives/caps-lock.directive';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 
 @NgModule({
@@ -57,7 +61,11 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     IframePipe,
     TopRatedComponent,
     TrailerCarouselComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    LibraryItemsComponent,
+    ScrollableDirective,
+    CapsLockDirective,
+    DialogComponent,
   ],
   imports: [
     InfiniteScrollModule,
@@ -101,6 +109,9 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     MatTableModule
   ],
   exports: [
+    CapsLockDirective,
+    ScrollableDirective,
+    LibraryItemsComponent,
     SpinnerComponent,
     TrailerCarouselComponent,
     TopRatedComponent,

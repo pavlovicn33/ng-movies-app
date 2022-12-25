@@ -2,8 +2,12 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatGridList } from '@angular/material/grid-list';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Movies } from 'src/shared/models/popularMovies';
+import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { map, Observable } from 'rxjs';
+import { BookmarkedService } from 'src/shared/services/bookmarked/bookmarked.service';
+import { SpinnerService } from 'src/shared/services/spinner/spinner.service';
+import { debounce } from 'lodash';
 
 @Component({
   selector: 'app-see-all',
@@ -19,13 +23,20 @@ export class SeeAllComponent implements OnInit {
   data: any;
   @Input()
   results: any[] = [];
+  bookmarked: any[] = [];
+  status: number = 1;
+  document!: Observable<any>;
+
+  subscribe!: Observable<any>;
 
   @Output()
   nextPage: EventEmitter<number> = new EventEmitter();
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private spinnerService: SpinnerService,
+    private bookmarkService: BookmarkedService
   ) {
     this.data = {
       page: 1,
@@ -59,7 +70,17 @@ export class SeeAllComponent implements OnInit {
       });
   }
 
+  getBookmarked() {
+    this.bookmarkService.getMovies().subscribe((data: any) => {
+      this.bookmarked = data;
+    });
+  }
+
   ngOnInit(): void {
+    this.getBookmarked();
+    if (this.data.browse) {
+      return;
+    }
     this.onScroll();
   }
 
@@ -70,10 +91,30 @@ export class SeeAllComponent implements OnInit {
     }
   }
 
-  addToFavourites() {
-    this.snackbar.openFromComponent(SnackbarComponent, {
-      data: 'Added to favourites!',
-      duration: 3000,
+  addToFavourites(movie: any, number: number) {
+    this.status = number;
+    if (this.status == 3) {
+      return;
+    }
+    this.bookmarked.forEach((element: any) => {
+      if (movie.id == element.id) {
+        this.status = 2;
+      }
     });
+    if (this.status == 2) {
+      this.status = 3;
+      this.snackbar.openFromComponent(SnackbarComponent, {
+        data: `${movie.name || movie.title} is already in bookmarks.`,
+        duration: 2500,
+      });
+    }
+    if (this.status == 1) {
+      this.status = 3;
+      this.bookmarkService.addMovie(movie);
+      this.snackbar.openFromComponent(SnackbarComponent, {
+        data: `Added ${movie.name || movie.title} to bookmarks!`,
+        duration: 2500,
+      });
+    }
   }
 }

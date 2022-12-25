@@ -1,0 +1,27 @@
+<h1 [style.font-family]="'Nunito'" mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+  <p
+    [style.display]="'flex'"
+    [style.align-items]="'center'"
+    [style.gap]="'10px'"
+    [style.margin-top]="'15px'"
+    [style.font-family]="'Nunito'"
+  >
+    <mat-icon [style.min-width]="'25px'">warning</mat-icon> {{ data.description
+    }} {{ data.option }}
+  </p>
+</div>
+<mat-dialog-actions align="end">
+  <button [style.font-family]="'Nunito'" mat-button mat-dialog-close>
+    <mat-icon>cancel</mat-icon> Cancel
+  </button>
+  <button
+    [style.font-family]="'Nunito'"
+    mat-button
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+  >
+    <mat-icon>check_circle</mat-icon>
+    Save
+  </button>
+</mat-dialog-actions>

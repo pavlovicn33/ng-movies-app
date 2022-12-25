@@ -8,9 +8,27 @@
   $primary-palette: map.get($color-config, "primary");
   $accent-palette: map.get($color-config, "accent");
 
-  mat-list-option {
-    &:hover {
+  .selected {
+    span {
+      color: mat.get-color-from-palette($accent-palette, 500) !important;
+    }
+    mat-icon {
+      color: mat.get-color-from-palette($accent-palette, 500) !important;
+    }
+  }
+  .search-icon{
+    color: mat.get-color-from-palette($accent-palette, 500) !important;
+  }
+  
+  .color-accent{
+    color: mat.get-color-from-palette($accent-palette, 500) !important;
+  }
+  .save{
+    button{
       background-color: mat.get-color-from-palette($accent-palette, 500) !important;
     }
+  }
+  .highlight{
+    color: mat.get-color-from-palette($accent-palette, 400) !important;
   }
 }

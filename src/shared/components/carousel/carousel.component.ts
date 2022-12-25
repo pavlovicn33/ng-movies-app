@@ -1,7 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ResultMovies } from 'src/shared/models/popularMovies';
 import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
+import { BookmarkedService } from 'src/shared/services/bookmarked/bookmarked.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-carousel',
@@ -11,19 +14,53 @@ import { SnackbarComponent } from '../snackbar/snackbar.component';
 export class CarouselComponent implements OnInit {
   @Input()
   data: any[] = [];
+  document!: Observable<any>;
+  bookmarked: any[] = [];
 
-  constructor(private pipe: CarouselPipe, private snackbar: MatSnackBar) {}
+  status: number = 1;
 
-  ngOnInit(): void {}
+  constructor(
+    private pipe: CarouselPipe,
+    private snackbar: MatSnackBar,
+    private bookmarkService: BookmarkedService
+  ) {}
+
+  ngOnInit(): void {
+    this.getBookmarked();
+  }
 
   ngOnChanges() {
     this.pipe.emptyPoster(this.data);
   }
-
-  addToFavourites() {
-    this.snackbar.openFromComponent(SnackbarComponent, {
-      data: 'Added to favourites!',
-      duration: 3000,
+  getBookmarked() {
+    this.bookmarkService.getMovies().subscribe((data: any) => {
+      this.bookmarked = data;
     });
+  }
+  addToFavourites(movie: any, number: number) {
+    this.status = number;
+    if (this.status == 3) {
+      return;
+    }
+    this.bookmarked.forEach((element: any) => {
+      if (movie.id == element.id) {
+        this.status = 2;
+      }
+    });
+    if (this.status == 2) {
+      this.status = 3;
+      this.snackbar.openFromComponent(SnackbarComponent, {
+        data: `${movie.name || movie.title} is already in bookmarks.`,
+        duration: 2500,
+      });
+    }
+    if (this.status == 1) {
+      this.status = 3;
+      this.bookmarkService.addMovie(movie);
+      this.snackbar.openFromComponent(SnackbarComponent, {
+        data: `Added ${movie.name || movie.title} to bookmarks!`,
+        duration: 2500,
+      });
+    }
   }
 }
