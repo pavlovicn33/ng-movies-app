@@ -8,9 +8,12 @@
   $primary-palette: map.get($color-config, "primary");
   $accent-palette: map.get($color-config, "accent");
 
-  mat-list-option {
-    &:hover {
-      background-color: mat.get-color-from-palette($accent-palette, 500) !important;
+  .selected {
+    span {
+      color: mat.get-color-from-palette($accent-palette, 500) !important;
+    }
+    mat-icon {
+      color: mat.get-color-from-palette($accent-palette, 500) !important;
     }
   }
   .search-icon{

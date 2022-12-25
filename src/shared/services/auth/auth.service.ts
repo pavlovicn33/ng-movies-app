@@ -1,9 +1,19 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { getAuth,updateProfile  } from 'firebase/auth';
+import {
+  getAuth,
+  updateEmail,
+  sendEmailVerification,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  updatePassword,
+} from 'firebase/auth';
+import { DialogComponent } from 'src/shared/components/dialog/dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +23,8 @@ export class AuthService {
     private fireauth: AngularFireAuth,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    public dialog: MatDialog
   ) {}
 
   openSnackBar(message: string, action: string) {
@@ -106,17 +117,91 @@ export class AuthService {
     let id = getAuth().currentUser?.uid;
     this.db.collection('users').doc(id).update({
       name: name,
-      lastName: lastName,   
+      lastName: lastName,
     });
   }
 
-  updateEmail(currentEmail:string, newEmail:string){
-    const user  = getAuth().currentUser
-    console.log(currentEmail, newEmail)
-    if (user) {
-      updateProfile(user,{
-        
-      })
-    }
+  async updateEmail(newEmail: string, password: string,form:FormGroup) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        option: 'email',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == true) {
+        const user = getAuth().currentUser;
+        if (user && user.email) {
+          const credential = EmailAuthProvider.credential(user.email, password);
+          reauthenticateWithCredential(user, credential).then(
+            () => {
+              updateEmail(user, newEmail).then(() => {
+                sendEmailVerification(user).then(() => {});
+              });
+              this.openSnackBar('Confirmation Email Sent', 'X');
+              this.db.collection('users').doc(user?.uid).update({
+                email: newEmail,
+              });
+            },
+            (error) => {
+              form.reset()
+              this.openSnackBar(
+                'The password is incorrect. Please try again',
+                'X'
+              );
+            }
+          );
+        }
+        return;
+      }
+      this.openSnackBar('You have cancelled', 'X');
+    });
+  }
+  async updatePassword(currentPassword: string, newPassword: string, form:FormGroup) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        option: 'password',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == true) {
+        const user = getAuth().currentUser;
+        if (user && user.email) {
+          const credential = EmailAuthProvider.credential(
+            user.email,
+            currentPassword
+          );
+          reauthenticateWithCredential(user, credential).then(
+            () => {
+              if (currentPassword == newPassword) {
+                form.reset()
+                this.openSnackBar(
+                  'New password cannot be same as old password',
+                  'X'
+                );
+                return                
+              }
+              updatePassword(user, newPassword).then(() => {
+                sendEmailVerification(user).then(() => {});
+              });
+              form.reset()
+              this.openSnackBar('Password successfully changed', 'X');
+            },
+            (error) => {
+              form.reset()
+              this.openSnackBar(
+                'The password is incorrect. Please try again',
+                'X'
+              );
+            }
+          );
+        }
+        return;
+      }
+      this.openSnackBar('You have cancelled', 'X');
+    });
   }
 }
+
+//RESET FORMS WHEN SUCCESS
+
+//Delete account?

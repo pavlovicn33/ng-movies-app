@@ -65,14 +65,12 @@
             >
               <mat-label>Current email</mat-label>
               <input
+                [value]="user.email"
                 autocomplete="off"
-                formControlName="email"
                 matInput
                 required
+                disabled
               />
-              <mat-error *ngIf="getEmailError()">{{
-                getEmailError()
-              }}</mat-error>
             </mat-form-field>
             <mat-form-field
               floatLabel="always"
@@ -91,13 +89,48 @@
               <mat-error *ngIf="getNewEmailError()">{{
                 getNewEmailError()
               }}</mat-error>
+              <mat-error
+                *ngIf="emailForm.get('newEmail')!.hasError('matchingValues')"
+                >New email cannot be the same as old email
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field
+              floatLabel="always"
+              [style.margin-top]="'15px'"
+              [color]="'primary'"
+              appearance="fill"
+              class="form-container"
+            >
+              <mat-label>Enter your password</mat-label>
+              <input
+                autocomplete="off"
+                formControlName="passwordEmail"
+                matInput
+                [type]="hideConfirmEmailPass ? 'password' : 'text'"
+                required
+              />
+              <button
+                type="button"
+                mat-icon-button
+                matSuffix
+                (click)="hideConfirmEmailPass = !hideConfirmEmailPass"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hideConfirmEmailPass"
+              >
+                <mat-icon>{{
+                  hideConfirmEmailPass ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+              <mat-error *ngIf="getEmailPassError()">{{
+                getEmailPassError()
+              }}</mat-error>
             </mat-form-field>
             <div class="save">
               <button mat-raised-button><mat-icon>save</mat-icon>Save</button>
             </div>
           </div>
         </form>
-        <form [formGroup]="passwordForm">
+        <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
           <div class="input-container">
             <div class="titles-errors">
               <h3
@@ -111,7 +144,9 @@
                 Caps Lock is on*
               </h3>
               <h3 [style.margin]="'0'" class="title">Password</h3>
-              <h3 [style.margin]="'0'" class="visibilityHidden">eeeeeeee***</h3>
+              <h3 [style.margin]="'0'" class="visibilityHidden remove">
+                eeeeeeee***
+              </h3>
             </div>
             <mat-divider></mat-divider>
             <mat-form-field
@@ -131,6 +166,7 @@
                 required
               />
               <button
+                type="button"
                 mat-icon-button
                 matSuffix
                 (click)="hide = !hide"
@@ -157,21 +193,22 @@
                 autocomplete="off"
                 formControlName="newPassword"
                 matInput
-                [type]="hide ? 'password' : 'text'"
+                [type]="hideNewPass ? 'password' : 'text'"
                 required
               />
-              <mat-error *ngIf="getErrorMessagePassword()">{{
-                getErrorMessagePassword()
+              <mat-error *ngIf="getErrorMessageNewPassword()">{{
+                getErrorMessageNewPassword()
               }}</mat-error>
               <button
+                type="button"
                 mat-icon-button
                 matSuffix
-                (click)="hide = !hide"
+                (click)="hideNewPass = !hideNewPass"
                 [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hide"
+                [attr.aria-pressed]="hideNewPass"
               >
                 <mat-icon>{{
-                  hide ? "visibility_off" : "visibility"
+                  hideNewPass ? "visibility_off" : "visibility"
                 }}</mat-icon>
               </button>
             </mat-form-field>
@@ -187,21 +224,23 @@
                 autocomplete="off"
                 formControlName="confirmPassword"
                 matInput
-                [type]="hide ? 'password' : 'text'"
+                [type]="hideConfirmPass ? 'password' : 'text'"
                 required
+                [errorStateMatcher]="matcher"
               />
-              <mat-error *ngIf="getErrorMessagePassword()">{{
-                getErrorMessagePassword()
-              }}</mat-error>
+              <mat-error *ngIf="passwordForm.hasError('notSame')"
+                >Passwords do not match.</mat-error
+              >
               <button
+                type="button"
                 mat-icon-button
                 matSuffix
-                (click)="hide = !hide"
+                (click)="hideConfirmPass = !hideConfirmPass"
                 [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hide"
+                [attr.aria-pressed]="hideConfirmPass"
               >
                 <mat-icon>{{
-                  hide ? "visibility_off" : "visibility"
+                  hideConfirmPass ? "visibility_off" : "visibility"
                 }}</mat-icon>
               </button>
             </mat-form-field>

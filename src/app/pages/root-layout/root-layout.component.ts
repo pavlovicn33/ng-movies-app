@@ -42,7 +42,7 @@ export class RootLayoutComponent implements OnInit {
   genres: any;
   showFiller = false;
   user: User;
-
+  selectedE:boolean = false
   constructor(
     private authService: AuthService,
     @Inject(DOCUMENT) private document: Document,
@@ -187,7 +187,8 @@ export class RootLayoutComponent implements OnInit {
       .doc(userId)
       .get()
       .subscribe((data: any) => {
-        this.user = data.data();
+        this.user.name = data.data().name;
+        this.user.lastName = data.data().lastName;
       });
     })
     this.db
