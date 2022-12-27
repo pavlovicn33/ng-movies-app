@@ -52,6 +52,13 @@ export class AuthService {
         }
       },
       (err) => {
+        if (err.code == 'auth/too-many-requests') {
+          this.openSnackBar(
+            'Access to this account has been temporarily disabled due to many failed login attempts. Try again later',
+            'X'
+          );
+          return
+        }
         this.openSnackBar(
           'The email adress or password is incorrect. Please try again',
           'X'

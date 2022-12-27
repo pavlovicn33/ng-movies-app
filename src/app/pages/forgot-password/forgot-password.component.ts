@@ -1,27 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/shared/services/auth/auth.service';
-import {
-  style,
-  state,
-  animate,
-  transition,
-  trigger,
-} from '@angular/animations';
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(1200, style({ opacity: 1 })),
-      ]),
-      transition(':leave', [animate(1200, style({ opacity: 0 }))]),
-    ]),
-  ],
 })
 export class ForgotPasswordComponent implements OnInit {
   forgotPasswordUserForm: FormGroup;
@@ -55,7 +39,6 @@ export class ForgotPasswordComponent implements OnInit {
       this.authService.forgotPassword(
         this.forgotPasswordUserForm.value['email']
       );
-      this.display = true;
     }
   }
 
