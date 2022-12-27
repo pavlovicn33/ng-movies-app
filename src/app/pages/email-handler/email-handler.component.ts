@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { initializeApp, getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
@@ -29,11 +29,11 @@ export class EmailHandlerComponent implements OnInit {
   resetPasswordStatus: boolean = false;
   pass: string = '';
   expired: boolean = false;
-
+  recoverEmail: string = '';
+  showSpinner = true;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private spinner: SpinnerService,
     private _snackBar: MatSnackBar
   ) {}
 
@@ -44,8 +44,6 @@ export class EmailHandlerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.spinner.getSpinnerObserver();
-    this.spinner.requestStarted();
     this.route.queryParams.subscribe((params) => {
       const mode = params['mode'];
       const actionCode = params['oobCode'];
@@ -59,14 +57,15 @@ export class EmailHandlerComponent implements OnInit {
         switch (mode) {
           case 'resetPassword':
             this.handleResetPassword(auth, actionCode, lang);
+
             break;
           case 'recoverEmail':
-            this.recoverEmailStatus = true;
-            this.headerText = 'Recover your email';
             this.handleRecoverEmail(auth, actionCode, lang);
+
             break;
           case 'verifyEmail':
             this.handleVerifyEmail(auth, actionCode, lang);
+
             break;
           default:
         }
@@ -77,11 +76,13 @@ export class EmailHandlerComponent implements OnInit {
   getPass(event: any) {
     this.pass = event;
     let actionCode = this.actionCode;
-    if (this.actionCode.length !== 0) {
+    if (Array.isArray(actionCode)) {
       actionCode = this.actionCode[0];
     }
     verifyPasswordResetCode(this.auth, this.actionCode[0])
       .then((email) => {
+        this.showSpinner = false;
+
         this.resetPasswordStatus = true;
         this.headerText = 'Reset Password';
         const newPassword = this.pass;
@@ -93,6 +94,7 @@ export class EmailHandlerComponent implements OnInit {
           .catch((error) => {});
       })
       .catch((error) => {
+        this.showSpinner = false;
         this.expired = true;
         this.resetPasswordStatus = false;
       });
@@ -101,10 +103,14 @@ export class EmailHandlerComponent implements OnInit {
   handleResetPassword(auth: any, actionCode: any, lang: any) {
     verifyPasswordResetCode(auth, actionCode[0])
       .then((email) => {
+        this.showSpinner = false;
+
         this.resetPasswordStatus = true;
         this.headerText = 'Reset Password';
       })
       .catch((error) => {
+        this.showSpinner = false;
+
         this.expired = true;
         this.resetPasswordStatus = false;
       });
@@ -112,19 +118,24 @@ export class EmailHandlerComponent implements OnInit {
 
   handleRecoverEmail(auth: any, actionCode: any, lang: any) {
     let restoredEmail: any = null;
-    checkActionCode(auth, actionCode)
+    let actionCodesplit = actionCode;
+    if (Array.isArray(actionCode)) {
+      actionCodesplit = actionCode[0];
+    }
+    checkActionCode(auth, actionCodesplit)
       .then((info) => {
+        this.showSpinner = false;
+
         this.recoverEmailStatus = true;
-        this.headerText = 'Recover your email';
+        this.headerText = 'Updated email address';
         restoredEmail = info['data']['email'];
-        return applyActionCode(auth, actionCode);
+        this.recoverEmail = restoredEmail;
+        return applyActionCode(auth, actionCodesplit);
       })
-      .then(() => {
-        sendPasswordResetEmail(auth, restoredEmail)
-          .then(() => {})
-          .catch((error) => {});
-      })
+      .then(() => {})
       .catch((error) => {
+        this.showSpinner = false;
+
         this.expired = true;
         this.recoverEmailStatus = false;
       });
@@ -133,12 +144,16 @@ export class EmailHandlerComponent implements OnInit {
   handleVerifyEmail(auth: any, actionCode: any, lang: any) {
     applyActionCode(auth, actionCode)
       .then((resp) => {
+        this.showSpinner = false;
+
         this.verifyEmailStatus = true;
         this.headerText = 'Verify your email';
       })
       .catch((error) => {
+        this.showSpinner = false;
+
         this.expired = true;
-        this.recoverEmailStatus = false;
+        this.verifyEmailStatus = false;
       });
   }
 }

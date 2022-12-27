@@ -14,6 +14,8 @@
         <h1>{{ headerText }}</h1>
       </mat-card-header>
       <mat-card-content>
+        <div class="page-overlay-wrapper" *ngIf="showSpinner">
+          <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>
         <h1 *ngIf="expired">This link has expired.</h1>
         <p *ngIf="expired">
           your request has expired or the link has already been used
