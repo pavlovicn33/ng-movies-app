@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="navbar-container">
+    <div>
+      <h1 [routerLink]="['/home']" class="logo">
+        <span
+          ><img width="180px" src="../../../assets/images/logo.png" alt=""
+        /></span>
+      </h1>
+    </div>
+  </div>
+  <div class="login-form">
+    <mat-card>
+      <mat-card-header>
+        <h1>{{ headerText }}</h1>
+      </mat-card-header>
+      <mat-card-content>
+        <app-verify-email *ngIf="recoverEmailStatus"></app-verify-email>
+        <app-reset-password *ngIf="recoverEmailStatus"></app-reset-password>
+        <app-recover-email *ngIf="recoverEmailStatus"> </app-recover-email>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -2,7 +2,8 @@ import { DOCUMENT } from '@angular/common';
 import { Component, OnInit, Renderer2, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Route, Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/shared/services/auth/auth.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private render: Renderer2,
+    private route: ActivatedRoute,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.loginUserForm = this.fb.group({

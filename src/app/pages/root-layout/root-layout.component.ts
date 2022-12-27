@@ -179,6 +179,7 @@ export class RootLayoutComponent implements OnInit {
   async getUser() {
     const auth = getAuth();
     const userId = auth.currentUser?.uid;
+ 
     this.db.collection("users").doc(userId).ref.onSnapshot({
       includeMetadataChanges:true
     }, (doc:any) => {
@@ -197,6 +198,10 @@ export class RootLayoutComponent implements OnInit {
       .get()
       .subscribe((data: any) => {
         this.user = data.data();
+        if (auth.currentUser?.email) {
+          let mail = auth.currentUser?.email
+          this.user.email = mail
+        }
       });
   }
 }

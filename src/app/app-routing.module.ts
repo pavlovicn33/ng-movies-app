@@ -9,6 +9,7 @@ import { AngularFireAuthGuard, canActivate, redirectUnauthorizedTo } from '@angu
 import { BrowseComponent } from './sidebar-data/browse/browse.component';
 import { BookmarksComponent } from './sidebar-data/bookmarks/bookmarks.component';
 import { SettingsComponent } from './sidebar-data/settings/settings.component';
+import { EmailHandlerComponent } from './pages/email-handler/email-handler.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 
@@ -74,6 +75,11 @@ const routes: Routes = [
   {
     path:'forgot-password',
     component:ForgotPasswordComponent,
+    pathMatch:'full'
+  },
+  {
+    path:'email-handler',
+    component:EmailHandlerComponent,
     pathMatch:'full'
   },
 ];

@@ -32,19 +32,6 @@
   }
 }
 
-.sign-up-button-container {
-  .sign-up-button {
-    margin-top: 25px;
-    margin-bottom: 10px;
-    width: 30%;
-    font-size: 14px;
-  }
-}
-
-.sign-up {
-  padding-top: 25px;
-}
-
 .login-form {
   font-family: "Nunito";
   height: 600px;
@@ -61,63 +48,6 @@
       margin: 0;
     }
   }
-}
-
-.button-container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 25px;
-  button {
-    width: 35%;
-    font-size: 16px;
-  }
-  p {
-    cursor: pointer;
-
-    &:hover {
-      color: #ffffff98;
-    }
-  }
-}
-
-.split {
-  margin-top: 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  p {
-    margin: 0;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  hr {
-    width: 50%;
-    background-color: white;
-    color: white;
-  }
-}
-.caps-lock-error {
-  font-size: 14px;
-  margin-top: 5px;
-  color: #f44336;
-}
-.form-container {
-  width: 90%;
-  padding-top: 25px;
-  .mad-mdc-form-field-error {
-    font-size: 33px !important;
-  }
-  span {
-    cursor: pointer;
-    margin-right: 10px;
-  }
-}
-.mat-mdc-form-field-error {
-  font-size: 14px;
-  margin-top: 5px;
 }
 
 @media screen and (max-height: 700px) {
