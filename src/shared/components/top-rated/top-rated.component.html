@@ -31,7 +31,8 @@
             }})
             <div class="buttons">
               <button
-              class="watch-now"
+                class="watch-now"
+                [routerLink]="['/ngmovies/watch', i.id]"
                 [style.font-family]="'Nunito'"
                 mat-raised-button
                 [style.border-radius]="'25px'"

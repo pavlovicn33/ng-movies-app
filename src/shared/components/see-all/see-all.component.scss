@@ -27,10 +27,11 @@ img {
 .container-img {
   width: 85%;
   height: 95%;
+  cursor: pointer;
   position: relative;
   &:hover > img {
-      filter: blur(4px) brightness(0.5);
-    }
+    filter: blur(4px) brightness(0.5);
+  }
 }
 .overlay {
   display: flex;
@@ -58,7 +59,7 @@ img {
     font-size: 18px;
   }
   &:hover {
-    opacity: 1
+    opacity: 1;
   }
 }
 @-webkit-keyframes popout {

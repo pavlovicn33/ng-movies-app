@@ -1,16 +1,15 @@
 <div>
   <mat-tab-group
-  fitInkBarToContent
-  [style.font-family]="'Nunito'"
-  [style.text-align]="'center'"
+    fitInkBarToContent
+    [style.font-family]="'Nunito'"
+    [style.text-align]="'center'"
   >
-  
-  <mat-tab label="Movies">
+    <mat-tab label="Movies">
       <h1 *ngIf="movies.length == 0">You dont have any movies bookmarked...</h1>
       <mat-grid-list class="set-height" [cols]="cols" rowHeight="1:1.3">
         <div>
           <mat-grid-tile *ngFor="let i of movies">
-            <div class="container-img">
+            <div [routerLink]="['/ngmovies/watch', i.id]" class="container-img">
               <img
                 src="https://image.tmdb.org/t/p/w300{{ i.poster_path }}"
                 alt=""
@@ -44,10 +43,10 @@
       <mat-grid-list class="set-height" [cols]="cols" rowHeight="1:1.3">
         <div>
           <mat-grid-tile *ngFor="let i of shows">
-            <div class="container-img">
+            <div [routerLink]="['/ngmovies/watch', i.id]" class="container-img">
               <img
-              src="https://image.tmdb.org/t/p/w300{{ i.poster_path }}"
-              alt=""
+                src="https://image.tmdb.org/t/p/w300{{ i.poster_path }}"
+                alt=""
               />
               <div class="overlay">
                 <h3>
