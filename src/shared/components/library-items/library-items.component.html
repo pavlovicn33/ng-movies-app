@@ -9,7 +9,7 @@
       <mat-grid-list class="set-height" [cols]="cols" rowHeight="1:1.3">
         <div>
           <mat-grid-tile *ngFor="let i of movies">
-            <div [routerLink]="['/ngmovies/watch', i.id]" class="container-img">
+            <div [routerLink]="['/ngmovies/movie', i.id]" class="container-img">
               <img
                 src="https://image.tmdb.org/t/p/w300{{ i.poster_path }}"
                 alt=""
@@ -20,6 +20,7 @@
                 </h3>
                 <div>
                   <button
+                    (click)="$event.preventDefault(); $event.stopPropagation()"
                     (click)="removeFromFavourites(i)"
                     class="popout"
                     mat-icon-button
@@ -43,7 +44,7 @@
       <mat-grid-list class="set-height" [cols]="cols" rowHeight="1:1.3">
         <div>
           <mat-grid-tile *ngFor="let i of shows">
-            <div [routerLink]="['/ngmovies/watch', i.id]" class="container-img">
+            <div [routerLink]="['/ngmovies/tv', i.id]" class="container-img">
               <img
                 src="https://image.tmdb.org/t/p/w300{{ i.poster_path }}"
                 alt=""

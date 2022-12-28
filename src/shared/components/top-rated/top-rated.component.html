@@ -32,7 +32,7 @@
             <div class="buttons">
               <button
                 class="watch-now"
-                [routerLink]="['/ngmovies/watch', i.id]"
+                [routerLink]="['/ngmovies/',i.media_type, i.id]"
                 [style.font-family]="'Nunito'"
                 mat-raised-button
                 [style.border-radius]="'25px'"
@@ -40,6 +40,7 @@
               >
                 Watch now
               </button>
+              
               <button
                 (click)="addToFavourites(i, 1)"
                 class="popout"
