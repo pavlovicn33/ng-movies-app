@@ -32,15 +32,21 @@ export class AnimationMoviesComponent implements OnInit {
 
   getMovies() {
     this.animationsService.getAnimationMovies().subscribe((data: Movies) => {
-      this.movies = data.results;
+      data.results.forEach((el) => {
+        el.media_type = 'movie';
+        this.movies.push(el);
+      });
       this.pipe.emptyPoster(this.movies);
     });
   }
 
   getTopRated() {
     this.animationsService.getTopRatedMovies().subscribe((data: Movies) => {
-      this.pipe.emptyPoster(data.results);
-      this.topRated = data.results;
+      data.results.forEach((el) => {
+        el.media_type = 'movie';
+        this.topRated.push(el);
+      });
+      this.pipe.emptyPoster(this.topRated);
     });
   }
 

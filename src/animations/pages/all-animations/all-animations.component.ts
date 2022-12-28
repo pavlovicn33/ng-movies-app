@@ -31,10 +31,17 @@ export class AllAnimationsComponent implements OnInit {
   getMovies(number?: number) {
     this.animationService
       .getAnimationMoviesList(number)
-      .subscribe((data: Movies) => {
+      .subscribe((data: any) => {
         this.movies = data;
-        data.results.forEach((element) => {
-          this.results.push(element);
+        data.results.forEach((element: any) => {
+          if (!element.media_type) {
+            if (element.name) {
+              element.media_type = 'tv';
+            } else {
+              element.media_type = 'movie';
+            }
+            this.results.push(element);
+          }
         });
         this.pipe.emptyPoster(this.results);
       });

@@ -28,10 +28,17 @@ export class AllAnimationsShowsComponent implements OnInit {
     this.getShows();
   }
   getShows(number?: number) {
-    this.animationService.getAnimationShowsList(number).subscribe((data: Shows) => {
+    this.animationService.getAnimationShowsList(number).subscribe((data: any) => {
       this.shows = data;
-      data.results.forEach((element) => {
-        this.results.push(element);
+      data.results.forEach((element:any) => {
+        if (!element.media_type) {
+          if (element.name) {
+            element.media_type = 'tv';
+          } else {
+            element.media_type = 'movie';
+          }
+          this.results.push(element);
+        }
       });
       this.pipe.emptyPoster(this.results);
     });

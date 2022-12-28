@@ -17,7 +17,6 @@ import { AllMoviesComponent } from './pages/all-movies/all-movies.component';
     CommonModule,
     SharedModule,
     RouterModule.forChild(MoviesRoutes),
-
-  ]
+  ],
 })
 export class MoviesModule { }

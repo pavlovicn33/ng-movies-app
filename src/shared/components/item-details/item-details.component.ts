@@ -9,6 +9,11 @@ import { ShowsService } from 'src/shared/services/shows/shows.service';
   styleUrls: ['./item-details.component.scss'],
 })
 export class ItemDetailsComponent implements OnInit {
+
+  movie:boolean = false
+  tv:boolean = false
+  person:boolean = false
+
   constructor(
     private route: ActivatedRoute,
     private movieService: MoviesService,
@@ -36,16 +41,19 @@ export class ItemDetailsComponent implements OnInit {
 
   getMovie(id: number) {
     this.movieService.getMovieDetails(id).subscribe((data: any) => {
+      this.movie = true
       console.log(data);
     });
   }
   getShows(id: number) {
     this.showService.getShowDetails(id).subscribe((data: any) => {
+      this.tv = true
       console.log(data);
     });
   }
   getPeople(id: number) {
     this.movieService.getPeopleDetails(id).subscribe((data: any) => {
+      this.person = true
       console.log(data);
     });
   }

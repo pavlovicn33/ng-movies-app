@@ -26,7 +26,10 @@ export class ShowsComponent implements OnInit {
 
   getShows() {
     this.showService.getPopularShows().subscribe((data: Shows) => {
-      this.shows = data.results;
+      data.results.forEach((el) => {
+        el.media_type = 'tv';
+        this.shows.push(el);
+      });
       this.pipe.emptyPoster(this.shows);
     });
   }
@@ -38,6 +41,7 @@ export class ShowsComponent implements OnInit {
           if (this.topRated.length == 20) {
             return;
           }
+          el.media_type = 'tv'
           this.topRated.push(el);
         }
       });

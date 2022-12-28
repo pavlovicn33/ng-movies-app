@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { observable, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Movies } from 'src/shared/models/popularMovies';
+import { MovieDetails } from '../../models/movieDetails';
 import { Videos } from 'src/shared/models/videos';
+import { PeopleDetails } from 'src/shared/models/people';
 
 @Injectable({
   providedIn: 'root'
@@ -38,4 +40,14 @@ export class MoviesService {
   multiSearchNames(page:number,query:string):Observable<any>{
     return this.http.get<any>(`${environment.baseURL}/search/multi${environment.apiKey}&page=${page}&query=${query}&no-spinner`)
   }
+
+  getMovieDetails(id:number):Observable<MovieDetails>{
+    return this.http.get<MovieDetails>(`${environment.baseURL}/movie/${id}${environment.apiKey}`)
+  }
+
+  getPeopleDetails(id:number):Observable<PeopleDetails>{
+    return this.http.get<PeopleDetails>(`${environment.baseURL}/person/${id}${environment.apiKey}`)
+  }
 }
+
+

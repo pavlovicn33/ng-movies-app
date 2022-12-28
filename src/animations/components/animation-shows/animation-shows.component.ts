@@ -11,51 +11,66 @@ import { AnimationsService } from 'src/shared/services/animations/animations.ser
 })
 export class AnimationShowsComponent implements OnInit {
   shows: ResultShow[] = [];
-  topRated:ResultShow[] = []
-  onTheAir:ResultShow[] = []
-  trailers:Videos[] = []
-  onTheAirPage:number = 1
-  constructor(private animationsService: AnimationsService,private pipe:CarouselPipe) {}
+  topRated: ResultShow[] = [];
+  onTheAir: ResultShow[] = [];
+  trailers: Videos[] = [];
+  onTheAirPage: number = 1;
+  constructor(
+    private animationsService: AnimationsService,
+    private pipe: CarouselPipe
+  ) {}
 
   ngOnInit(): void {
     this.getShows();
-    this.getTopRated()
-    this.getOnTheAir(this.onTheAirPage)
+    this.getTopRated();
+    this.getOnTheAir(this.onTheAirPage);
   }
 
   getShows() {
     this.animationsService.getAnimationShows().subscribe((data: Shows) => {
-      this.shows = data.results;
-      this.pipe.emptyPoster(this.shows)
+      data.results.forEach((el) => {
+        el.media_type = 'tv';
+        this.shows.push(el);
+      });
+      this.pipe.emptyPoster(this.shows);
     });
   }
   getTopRated() {
     this.animationsService.getTopRatedShows().subscribe((data: Shows) => {
-      this.pipe.emptyPoster(data.results)
-      this.topRated = data.results;
+      this.pipe.emptyPoster(data.results);
+      data.results.forEach((el) => {
+        el.media_type = 'tv';
+        this.topRated.push(el);
+      });
+      this.pipe.emptyPoster(this.topRated);
     });
   }
 
   getOnTheAir(page: number) {
-    this.animationsService.getUpcomingAnimatedShows(page).subscribe((data: Shows) => {
-      this.onTheAir = data.results.filter((el) => {
-        if (el.backdrop_path) {
-          return el;
+    this.animationsService
+      .getUpcomingAnimatedShows(page)
+      .subscribe((data: Shows) => {
+        this.onTheAir = data.results.filter((el) => {
+          if (el.backdrop_path) {
+            return el;
+          }
+          return;
+        });
+        this.onTheAir = this.onTheAir.filter(
+          (o1) => !this.shows.some((o2) => o1.id === o2.id)
+        );
+        if (
+          this.trailers.length < 10 &&
+          this.onTheAirPage <= data.total_pages
+        ) {
+          this.onTheAirPage += 1;
+          this.getOnTheAir(this.onTheAirPage);
+          this.onTheAir.forEach((el) => {
+            this.getTrailers(el);
+          });
+          return;
         }
-        return;
       });
-      this.onTheAir = this.onTheAir.filter(
-        (o1) => !this.shows.some((o2) => o1.id === o2.id)
-      );
-      if (this.trailers.length < 10 && this.onTheAirPage <= data.total_pages) {
-        this.onTheAirPage += 1;
-        this.getOnTheAir(this.onTheAirPage)
-        this.onTheAir.forEach(el => {
-          this.getTrailers(el)
-        })
-        return;
-      }
-    });
   }
 
   getTrailers(el: any) {

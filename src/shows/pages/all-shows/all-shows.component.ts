@@ -26,10 +26,17 @@ export class AllShowsComponent implements OnInit {
   }
 
   getShows(number?: number) {
-    this.showService.getPopularShowsList(number).subscribe((data: Shows) => {
+    this.showService.getPopularShowsList(number).subscribe((data: any) => {
       this.shows = data;
-      data.results.forEach((element) => {
-        this.results.push(element);
+      data.results.forEach((element: any) => {
+        if (!element.media_type) {
+          if (element.name) {
+            element.media_type = 'tv';
+          } else {
+            element.media_type = 'movie';
+          }
+          this.results.push(element);
+        }
       });
       this.pipe.emptyPoster(this.results);
     });
