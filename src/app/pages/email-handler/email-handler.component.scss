@@ -31,20 +31,10 @@
     }
   }
 }
-
-.sign-up-button-container {
-  .sign-up-button {
-    margin-top: 25px;
-    margin-bottom: 10px;
-    width: 30%;
-    font-size: 14px;
-  }
+p {
+  margin-top: 15px;
+  color: rgba(255, 255, 255, 0.438);
 }
-
-.sign-up {
-  padding-top: 25px;
-}
-
 .login-form {
   font-family: "Nunito";
   height: 600px;
@@ -61,63 +51,6 @@
       margin: 0;
     }
   }
-}
-
-.button-container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 25px;
-  button {
-    width: 35%;
-    font-size: 16px;
-  }
-  p {
-    cursor: pointer;
-
-    &:hover {
-      color: #ffffff98;
-    }
-  }
-}
-
-.split {
-  margin-top: 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  p {
-    margin: 0;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  hr {
-    width: 50%;
-    background-color: white;
-    color: white;
-  }
-}
-.caps-lock-error {
-  font-size: 14px;
-  margin-top: 5px;
-  color: #f44336;
-}
-.form-container {
-  width: 90%;
-  padding-top: 25px;
-  .mad-mdc-form-field-error {
-    font-size: 33px !important;
-  }
-  span {
-    cursor: pointer;
-    margin-right: 10px;
-  }
-}
-.mat-mdc-form-field-error {
-  font-size: 14px;
-  margin-top: 5px;
 }
 
 @media screen and (max-height: 700px) {
@@ -145,5 +78,61 @@
   }
   .form-container {
     font-size: 12px;
+  }
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
   }
 }

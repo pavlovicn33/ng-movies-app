@@ -63,7 +63,7 @@
             >
               Sign In
             </button>
-            <p [routerLink]="['/forgot-password']">Forgot Password?</p>
+              <p [routerLink]="['/forgot-password']">Forgot Password?</p>
           </div>
           <div class="split">
             <hr />
@@ -72,9 +72,11 @@
           </div>
         </form>
         <div class="sign-up">
-          <h2>Do you already have an account?</h2>
+          <h2>You dont have an account?</h2>
           <div class="sign-up-button-container">
             <button
+              class="sign-up-button"
+              [style.margin-right]="'5px'"
               [routerLink]="['/register']"
               [style.font-family]="'Nunito'"
               mat-raised-button

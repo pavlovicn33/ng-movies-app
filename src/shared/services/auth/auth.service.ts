@@ -48,9 +48,17 @@ export class AuthService {
             'Confirm your account through email verification',
             'X'
           );
+          this.sendEmailVerification(res.user)
         }
       },
       (err) => {
+        if (err.code == 'auth/too-many-requests') {
+          this.openSnackBar(
+            'Access to this account has been temporarily disabled due to many failed login attempts. Try again later',
+            'X'
+          );
+          return
+        }
         this.openSnackBar(
           'The email adress or password is incorrect. Please try again',
           'X'
@@ -96,7 +104,7 @@ export class AuthService {
   forgotPassword(email: string) {
     this.fireauth.sendPasswordResetEmail(email).then(
       () => {
-        this.openSnackBar('Email Sent', 'X');
+        this.openSnackBar('Confirmation Email Sent', 'X');
       },
       (err) => {
         this.router.navigate(['/verify-email']);
@@ -106,14 +114,7 @@ export class AuthService {
   }
 
   sendEmailVerification(user: any) {
-    user.sendEmailVerification().subscribe(
-      (res: any) => {
-        this.openSnackBar('Confirmation Email Sent', 'X');
-      },
-      (err: any) => {
-        this.openSnackBar('Something went wrong', 'X');
-      }
-    );
+    user.sendEmailVerification()
   }
 
   updateNameAndLastName(name: string, lastName: string) {
@@ -141,10 +142,15 @@ export class AuthService {
             () => {
               updateEmail(user, newEmail).then(() => {
                 sendEmailVerification(user).then(() => {});
-              });
-              this.openSnackBar('Confirmation Email Sent', 'X');
-              this.db.collection('users').doc(user?.uid).update({
-                email: newEmail,
+                this.openSnackBar('Confirmation Email Sent', 'X');
+                this.db.collection('users').doc(user?.uid).update({
+                  email: newEmail,
+                });
+              },error => {
+                this.openSnackBar(
+                  'The email adress is already in use.',
+                  'X'
+                );
               });
             },
             (error) => {

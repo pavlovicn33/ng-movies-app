@@ -31,6 +31,10 @@ import { BookmarksComponent } from './sidebar-data/bookmarks/bookmarks.component
 import { RecentComponent } from './sidebar-data/recent/recent.component';
 import { SettingsComponent } from './sidebar-data/settings/settings.component';
 import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
+import { EmailHandlerComponent } from './pages/email-handler/email-handler.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { RecoverEmailComponent } from './components/recover-email/recover-email.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +51,10 @@ import { PasswordDialogComponent } from './components/password-dialog/password-d
     BookmarksComponent,
     RecentComponent,
     PasswordDialogComponent,
+    EmailHandlerComponent,
+    ResetPasswordComponent,
+    RecoverEmailComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     InfiniteScrollModule,

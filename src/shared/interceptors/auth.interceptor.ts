@@ -20,24 +20,27 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     this.spinnerService.requestStarted();
-    return this.handle(next,request);
+    return this.handle(next, request);
   }
 
   handle(next: any, request: any) {
     if (request.url.includes('no-spinner')) {
-      this.spinnerService.requestEnded()
+      this.spinnerService.requestEnded();
     }
     return next.handle(request).pipe(
-      tap((event: any) => {
-        if (event instanceof HttpResponse) {
-          setTimeout(() => {
-            this.spinnerService.requestEnded();
-          }, 0);
+      tap(
+        (event: any) => {
+          if (event instanceof HttpResponse) {
+            setTimeout(() => {
+              this.spinnerService.requestEnded();
+            }, 0);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          this.spinnerService.resetSpinner();
+          throw error;
         }
-      }, (error:HttpErrorResponse) => {
-        this.spinnerService.resetSpinner()
-        throw error
-      })
-      );
-    }
-    }
+      )
+    );
+  }
+}

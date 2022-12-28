@@ -144,6 +144,9 @@ export class SettingsComponent {
       .get()
       .subscribe((data: any) => {
         this.user = data.data();
+        if (auth.currentUser?.email) {
+          this.user.email = auth.currentUser?.email;
+        }
       });
   }
 
@@ -172,7 +175,11 @@ export class SettingsComponent {
     if (this.passwordForm.invalid) {
       return;
     }
-    this.authService.updatePassword(this.passwordForm.value.password,this.passwordForm.value.newPassword, this.passwordForm)
+    this.authService.updatePassword(
+      this.passwordForm.value.password,
+      this.passwordForm.value.newPassword,
+      this.passwordForm
+    );
   }
 
   onSubmit() {
@@ -189,8 +196,8 @@ export class SettingsComponent {
     );
   }
 
-  openDeleteModal(){
-    this.authService.deleteAccount()
+  openDeleteModal() {
+    this.authService.deleteAccount();
   }
 
   getNewEmailError() {
