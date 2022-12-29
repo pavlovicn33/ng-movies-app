@@ -1,0 +1,2 @@
+<iframe *ngIf="data.link" height="400px" width="700px" [src]="ytUrl(data.link) | iframe" frameborder="0"></iframe>
+<h2 [style.color]="'white'" [style.margin]="'10px'" [style.font-family]="'Nunito'" *ngIf="!data.link">Trailer is not available for this item</h2>

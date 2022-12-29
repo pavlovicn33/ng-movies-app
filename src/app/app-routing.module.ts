@@ -10,7 +10,7 @@ import { BrowseComponent } from './sidebar-data/browse/browse.component';
 import { BookmarksComponent } from './sidebar-data/bookmarks/bookmarks.component';
 import { SettingsComponent } from './sidebar-data/settings/settings.component';
 import { EmailHandlerComponent } from './pages/email-handler/email-handler.component';
-import { ItemDetailsComponent } from 'src/shared/components/item-details/item-details.component';
+import { ItemDetailsComponent } from 'src/app/pages/item-details/item-details.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 

@@ -9,10 +9,11 @@ import { ShowsService } from 'src/shared/services/shows/shows.service';
   styleUrls: ['./item-details.component.scss'],
 })
 export class ItemDetailsComponent implements OnInit {
+  movie: boolean = false;
+  tv: boolean = false;
+  person: boolean = false;
 
-  movie:boolean = false
-  tv:boolean = false
-  person:boolean = false
+  data: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,19 +42,24 @@ export class ItemDetailsComponent implements OnInit {
 
   getMovie(id: number) {
     this.movieService.getMovieDetails(id).subscribe((data: any) => {
-      this.movie = true
+      this.movie = true;
+      data.media_type = 'movie';
+      this.data = data;
       console.log(data);
     });
   }
   getShows(id: number) {
     this.showService.getShowDetails(id).subscribe((data: any) => {
-      this.tv = true
+      this.tv = true;
+      data.media_type = 'tv';
+      this.data = data;
       console.log(data);
     });
   }
   getPeople(id: number) {
     this.movieService.getPeopleDetails(id).subscribe((data: any) => {
-      this.person = true
+      this.person = true;
+      this.data = data;
       console.log(data);
     });
   }

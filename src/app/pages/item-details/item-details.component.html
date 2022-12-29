@@ -1,0 +1,6 @@
+<div *ngIf="movie || tv">
+  <app-movie-tv-item [data]="data"></app-movie-tv-item>
+</div>
+<div *ngIf="person">
+  <app-person-item [data]="data"></app-person-item>
+</div>

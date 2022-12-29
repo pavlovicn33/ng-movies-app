@@ -51,7 +51,7 @@ import { ScrollableDirective } from './directives/scrollable.directive';
 import { CapsLockDirective } from './directives/caps-lock.directive';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { RouterModule } from '@angular/router';
-import { ItemDetailsComponent } from './components/item-details/item-details.component';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
 @NgModule({
   declarations: [
@@ -67,10 +67,10 @@ import { ItemDetailsComponent } from './components/item-details/item-details.com
     ScrollableDirective,
     CapsLockDirective,
     DialogComponent,
-    ItemDetailsComponent,
+    SafeHtmlPipe,
   ],
   exports: [
-    ItemDetailsComponent,
+    SafeHtmlPipe,
     CapsLockDirective,
     ScrollableDirective,
     LibraryItemsComponent,
@@ -118,7 +118,7 @@ import { ItemDetailsComponent } from './components/item-details/item-details.com
     MatSortModule,
     MatTableModule,
   ],
-  providers: [CarouselPipe],
+  providers: [CarouselPipe, SafeHtmlPipe],
   imports: [
     InfiniteScrollModule,
     RouterModule,

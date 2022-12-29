@@ -121,23 +121,6 @@ export class SettingsComponent {
   async getUser() {
     const auth = getAuth();
     const userId = auth.currentUser?.uid;
-    // this.db
-    //   .collection('users')
-    //   .doc(userId)
-    //   .ref.onSnapshot(
-    //     {
-    //       includeMetadataChanges: true,
-    //     },
-    //     (doc: any) => {
-    //       this.db
-    //         .collection('users')
-    //         .doc(userId)
-    //         .get()
-    //         .subscribe((data: any) => {
-    //           this.user = data.data();
-    //         });
-    //     }
-    // );
     this.db
       .collection('users')
       .doc(userId)

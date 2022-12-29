@@ -1,0 +1,8 @@
+{
+  "/seapi": {
+    "target": "https://seapi.link",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

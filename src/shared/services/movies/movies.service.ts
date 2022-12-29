@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { observable, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -47,6 +47,10 @@ export class MoviesService {
 
   getPeopleDetails(id:number):Observable<PeopleDetails>{
     return this.http.get<PeopleDetails>(`${environment.baseURL}/person/${id}${environment.apiKey}`)
+  }
+
+  getMovieStream(id:number):Observable<any>{
+    return this.http.get<any>(`/seapi/?type=tmdb&id=${id}`)
   }
 }
 

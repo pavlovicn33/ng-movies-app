@@ -1,0 +1,28 @@
+<div  
+
+  [ngStyle]="{
+    'background-image':'linear-gradient(0deg, #050505 0 , rgba(5, 5, 5, 0.1) 100%), url(' + 'https://image.tmdb.org/t/p/original' + data.backdrop_path + ')'}"
+  class="hero-container"
+>
+  <div class="item-info">
+    <div>
+      <img
+        width="200px"
+        height="300px"
+        src="https://image.tmdb.org/t/p/w500{{ data.poster_path }}"
+        alt=""
+      />
+    </div>
+    <div>
+      <h1>{{ data.title || data.name }}</h1>
+      <div class="misc">
+        <button [style.color]="'white'" disabled mat-stroked-button> HD </button>
+        <p *ngIf="data.title" (click)="dialogTrailer()" target="_blank" class="trailer-icon"><mat-icon>videocam</mat-icon> Trailer</p>
+        <p *ngIf="data.name" (click)="dialogTrailer()" target="_blank" class="trailer-icon"><mat-icon>videocam</mat-icon> Trailer</p>
+        <a *ngIf="data.imdb_id" href="https://www.imdb.com/title/{{data.imdb_id}}" target="_blank" class="imbd-link">IMDB</a>
+        <p *ngIf="data.runtime">{{data.runtime}} min</p>
+        <p *ngIf="data.episode_run_time">{{data.episode_run_time[0]}} min</p>
+      </div>
+    </div>
+  </div>
+</div>

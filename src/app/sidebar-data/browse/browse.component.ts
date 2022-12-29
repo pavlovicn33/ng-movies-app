@@ -65,7 +65,6 @@ export class BrowseComponent implements OnInit {
     }
     this.movieService.multiSearch(page, query).subscribe((data: any) => {
       this.items = data;
-      console.log(this.items)
       data.results.forEach((element: any) => {
         if (element.poster_path) {
           this.itemsResult.push(element);

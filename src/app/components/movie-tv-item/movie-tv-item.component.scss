@@ -1,0 +1,48 @@
+.hero-container {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.item-info {
+  width: 70%;
+  margin: auto;
+  font-family: "Nunito";
+  color: white;
+  gap: 35px;
+  padding-top: 200px;
+  padding-bottom: 200px;
+  display: flex;
+  justify-content: center;
+
+  h1 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+
+  img {
+    border-radius: 5px;
+  }
+
+  .imbd-link {
+    color: gold;
+    text-decoration: none;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+  .misc {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .trailer-icon {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}
