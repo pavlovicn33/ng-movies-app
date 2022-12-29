@@ -15,7 +15,6 @@ export const environment = {
   production: false,
   apiKey: '?api_key=8ee7f4d4c46b1cba684adc6118411654',
   baseURL: 'https://api.themoviedb.org/3',
-  streamURL: 'https://seapi.link'
 };
 
 /*

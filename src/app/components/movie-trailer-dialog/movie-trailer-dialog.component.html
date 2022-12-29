@@ -1,2 +1,3 @@
-<iframe *ngIf="data.link" height="400px" width="700px" [src]="ytUrl(data.link) | iframe" frameborder="0"></iframe>
-<h2 [style.color]="'white'" [style.margin]="'10px'" [style.font-family]="'Nunito'" *ngIf="!data.link">Trailer is not available for this item</h2>
+<iframe *ngIf="data.link" height="400px" width="700px" [src]="ytUrl(data.link) | iframe" frameborder="0" allowFullScreen="true"></iframe>
+<iframe *ngIf="data.url" height="400px" width="700px" [src]="data.url | iframe" frameborder="0" allowFullScreen="true"></iframe>
+<h2 [style.color]="'white'" [style.margin]="'10px'" [style.font-family]="'Nunito'" *ngIf="!data.url && !data.link">Item is not available at this time</h2>

@@ -1,5 +1,5 @@
 {
-  "/seapi": {
+  "/?type=": {
     "target": "https://seapi.link",
     "secure": true,
     "changeOrigin": true,

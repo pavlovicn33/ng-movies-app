@@ -11,7 +11,6 @@ export class MovieTrailerDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit(): void {
-    console.log(this.data)
   }
   ytUrl(url: string) {
     let embeddedUrl = 'https://www.youtube-nocookie.com/embed/' + url;

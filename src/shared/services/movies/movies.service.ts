@@ -6,6 +6,7 @@ import { Movies } from 'src/shared/models/popularMovies';
 import { MovieDetails } from '../../models/movieDetails';
 import { Videos } from 'src/shared/models/videos';
 import { PeopleDetails } from 'src/shared/models/people';
+import { Stream, StreamMovieTv } from 'src/shared/models/stream';
 
 @Injectable({
   providedIn: 'root'
@@ -49,8 +50,8 @@ export class MoviesService {
     return this.http.get<PeopleDetails>(`${environment.baseURL}/person/${id}${environment.apiKey}`)
   }
 
-  getMovieStream(id:number):Observable<any>{
-    return this.http.get<any>(`/seapi/?type=tmdb&id=${id}`)
+  getMovieStream(id:number):Observable<Stream>{
+    return this.http.get<Stream>(`https://private-anon-b6f507e52b-superembed.apiary-proxy.com/?type=tmdb&id=${id}`)
   }
 }
 

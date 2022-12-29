@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Stream, StreamMovieTv } from 'src/shared/models/stream';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
 import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trailer-dialog.component';
@@ -15,6 +16,8 @@ export class MovieTvItemComponent implements OnInit {
   data: any;
 
   trailerLink: string = '';
+
+  streamLinks:StreamMovieTv[] = []
 
   constructor(
     private movieService: MoviesService,
@@ -62,10 +65,19 @@ export class MovieTvItemComponent implements OnInit {
       backdropClass: 'dialog-bg',
     });
   }
+  dialogMovie(key:string) {
+    const dialogRef = this.dialog.open(MovieTrailerDialogComponent, {
+      hasBackdrop: true,
+      data: {
+        url:key
+      },
+      backdropClass: 'dialog-bg',
+    });
+  }
 
   getStreamMovie(id:number){
-    this.movieService.getMovieStream(id).subscribe((data:any)=>{
-      console.log(data)
+    this.movieService.getMovieStream(id).subscribe((data:Stream)=>{
+      this.streamLinks = data.results
     })
   }
 }

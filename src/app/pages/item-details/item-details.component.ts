@@ -45,7 +45,6 @@ export class ItemDetailsComponent implements OnInit {
       this.movie = true;
       data.media_type = 'movie';
       this.data = data;
-      console.log(data);
     });
   }
   getShows(id: number) {
@@ -53,14 +52,12 @@ export class ItemDetailsComponent implements OnInit {
       this.tv = true;
       data.media_type = 'tv';
       this.data = data;
-      console.log(data);
     });
   }
   getPeople(id: number) {
     this.movieService.getPeopleDetails(id).subscribe((data: any) => {
       this.person = true;
       this.data = data;
-      console.log(data);
     });
   }
 }
