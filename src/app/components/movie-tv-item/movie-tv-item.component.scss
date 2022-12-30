@@ -82,5 +82,27 @@
         display: flex;
         width: 100%;
         justify-content: space-between;
+        gap: 25px;
+        span{
+            opacity: 0.75;
+            font-size: 14px;
+        }
+
+        .cast-info{
+            cursor: pointer;
+        }
+    }
+}
+@media screen and (max-width:1000px){
+    .item-info{
+        width: 95%;
+        padding-top: 100px;
+        .img-container{
+            display: none;
+        }
+    }
+ 
+    .extra-info{
+        width: 95%;
     }
 }

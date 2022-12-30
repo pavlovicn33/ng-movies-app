@@ -5,7 +5,7 @@
   class="hero-container"
 >
   <div class="item-info">
-    <div>
+    <div class="img-container">
       <img
         width="200px"
         height="300px"
@@ -34,20 +34,23 @@
 </div>
 <div class="extra-info">
   <div class="extra-info-container">
-    <p>Released: {{data.release_date}}</p>
-    <div>
-        Production:
-        <p *ngFor="let i of data.production_companies">{{i.name}}</p>
+      <div [style.width]="'50%'">
+          Production:
+          <span *ngFor="let i of data.production_companies; let isLast=last">{{i.name}}{{isLast ? '' : ','}} </span>
+      </div>
+    <div [style.width]="'50%'">
+        Released:
+        <span>{{data.release_date | date}}</span>
     </div>
   </div>
   <div class="extra-info-container">
-    <div>
+      <div [style.width]="'50%'">
+          Cast:
+          <span class="cast-info"  *ngFor="let i of movieCast; let isLast=last" [routerLink]="['../../cast/', i.id]">{{i.name}}{{isLast ? '' : ','}} </span>
+      </div>
+    <div [style.width]="'50%'">
         Genres:
-        <p *ngFor="let i of data.genres">{{i.name}}</p>
-    </div>
-    <div>
-        Cast:
-        <p *ngFor="let i of movieCast">{{i.name}}</p>
+        <span *ngFor="let i of data.genres; let isLast=last">{{i.name}}{{isLast ? '' : ','}} </span>
     </div>
   </div>
 </div>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Cast, Credits } from 'src/shared/models/cast';
+import { Person } from 'src/shared/models/castMovies';
 import { Shows } from 'src/shared/models/popularTvShows';
 import { TvDetails } from 'src/shared/models/tvDetails';
 import { Videos } from 'src/shared/models/videos';
@@ -47,7 +48,15 @@ export class ShowsService {
       `${environment.baseURL}/tv/${id}${environment.apiKey}`
     );
   }
-  getShowCast(id:number):Observable<Credits>{
-    return this.http.get<Credits>(`${environment.baseURL}/tv/${id}/credits${environment.apiKey}`)
+  getShowCast(id: number): Observable<Credits> {
+    return this.http.get<Credits>(
+      `${environment.baseURL}/tv/${id}/credits${environment.apiKey}`
+    );
+  }
+
+  getCastRelatedMovies(id: number): Observable<Person> {
+    return this.http.get<Person>(
+      `${environment.baseURL}/person/${id}/tv_credits${environment.apiKey}`
+    );
   }
 }

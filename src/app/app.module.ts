@@ -39,6 +39,7 @@ import { PersonItemComponent } from './components/person-item/person-item.compon
 import { ItemDetailsComponent } from './pages/item-details/item-details.component';
 import { MovieTvItemComponent } from './components/movie-tv-item/movie-tv-item.component';
 import { MovieTrailerDialogComponent } from './components/movie-trailer-dialog/movie-trailer-dialog.component';
+import { CastDetailsComponent } from './pages/cast-details/cast-details.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { MovieTrailerDialogComponent } from './components/movie-trailer-dialog/m
     ItemDetailsComponent,
     MovieTvItemComponent,
     MovieTrailerDialogComponent,
+    CastDetailsComponent,
   ],
   imports: [
     InfiniteScrollModule,

@@ -8,6 +8,7 @@ import { Videos } from 'src/shared/models/videos';
 import { PeopleDetails } from 'src/shared/models/people';
 import { Stream, StreamMovieTv } from 'src/shared/models/stream';
 import { Cast, Credits } from 'src/shared/models/cast';
+import { Person } from 'src/shared/models/castMovies';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,10 @@ export class MoviesService {
 
   getMovieCast(id:number):Observable<Credits>{
     return this.http.get<Credits>(`${environment.baseURL}/movie/${id}/credits${environment.apiKey}`)
+  }
+
+  getCastRelatedMovies(id:number):Observable<Person>{
+    return this.http.get<Person>(`${environment.baseURL}/person/${id}/movie_credits${environment.apiKey}`)
   }
 }
 

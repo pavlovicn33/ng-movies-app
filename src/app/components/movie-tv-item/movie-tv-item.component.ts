@@ -48,7 +48,6 @@ export class MovieTvItemComponent implements OnInit {
   }
 
   getTrailerShow(id: number) {
-    console.log(this.data);
     if (this.data.media_type == 'movie') {
       return;
     }
@@ -87,11 +86,8 @@ export class MovieTvItemComponent implements OnInit {
 
   getCastMovie(id: number) {
     this.movieService.getMovieCast(id).subscribe((data: Credits) => {
-      console.log(data);
       data.cast.length = 5
       this.movieCast = data.cast
-      console.log(this.movieCast)
     });
   }
-  //getCast and then put it below image and overrview so its straitgh!!!
 }
