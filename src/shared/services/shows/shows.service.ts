@@ -63,7 +63,7 @@ export class ShowsService {
 
   getSimilar(id: number): Observable<Shows> {
     return this.http.get<Shows>(
-      `${environment.baseURL}/tv/${id}/similar${environment.apiKey}`
+      `${environment.baseURL}/tv/${id}/recommendations${environment.apiKey}`
     );
   }
 }

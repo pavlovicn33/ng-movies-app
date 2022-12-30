@@ -65,7 +65,7 @@ export class MoviesService {
   }
 
   getSimilar(id:number):Observable<Movies>{
-    return this.http.get<Movies>(`${environment.baseURL}/movie/${id}/similar${environment.apiKey}`)
+    return this.http.get<Movies>(`${environment.baseURL}/movie/${id}/recommendations${environment.apiKey}`)
   }
 }
 

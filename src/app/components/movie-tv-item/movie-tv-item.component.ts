@@ -1,7 +1,10 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Cast, Credits } from 'src/shared/models/cast';
+import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
+import { ResultShow, Shows } from 'src/shared/models/popularTvShows';
 import { Stream, StreamMovieTv } from 'src/shared/models/stream';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
@@ -15,6 +18,7 @@ import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trail
 export class MovieTvItemComponent implements OnInit {
   @Input()
   data: any;
+  cols!: number;
 
   trailerLink: string = '';
 
@@ -24,11 +28,41 @@ export class MovieTvItemComponent implements OnInit {
 
   showCast: Cast[] = [];
 
+  similarMovies:ResultMovies[] = []
+  similarShows:ResultShow[] = []
+  private breakpoints: any = { xs: 2, sm: 3, md: 4, lg: 6 };
+
   constructor(
     private movieService: MoviesService,
     private dialog: MatDialog,
-    private ShowService: ShowsService
-  ) {}
+    private ShowService: ShowsService,
+    private breakpointObserver: BreakpointObserver,
+
+  ) {
+    this.breakpointObserver
+      .observe([
+        Breakpoints.XSmall,
+        Breakpoints.Small,
+        Breakpoints.Medium,
+        Breakpoints.Large,
+      ])
+      .subscribe((result) => {
+        if (result.matches) {
+          if (result.breakpoints[Breakpoints.XSmall]) {
+            this.cols = this.breakpoints.xs;
+          }
+          if (result.breakpoints[Breakpoints.Small]) {
+            this.cols = this.breakpoints.sm;
+          }
+          if (result.breakpoints[Breakpoints.Medium]) {
+            this.cols = this.breakpoints.md;
+          }
+          if (result.breakpoints[Breakpoints.Large]) {
+            this.cols = this.breakpoints.lg;
+          }
+        }
+      });
+  }
 
   ngOnInit(): void {
     this.getTrailer(this.data.id);
@@ -36,9 +70,11 @@ export class MovieTvItemComponent implements OnInit {
     this.getStreamMovie(this.data.id);
     if (this.data.release_date) {
       this.getCastMovie(this.data.id);
+      this.getSimilarMovies(this.data.id)
       return;
     }
     if (this.data.first_air_date) {
+      this.getSimilarShows(this.data.id)
       this.getCastShow(this.data.id);
       return;
     }
@@ -104,7 +140,6 @@ export class MovieTvItemComponent implements OnInit {
 
   getCastShow(id: number) {
     this.ShowService.getShowCast(id).subscribe((data: Credits) => {
-      console.log(data)
       if (data.cast.length < 5) {
         this.showCast = data.cast
         return
@@ -112,5 +147,24 @@ export class MovieTvItemComponent implements OnInit {
       data.cast.length = 5;
       this.showCast = data.cast;
     });
+  }
+
+  getSimilarMovies(id:number){
+    this.movieService.getSimilar(id).subscribe((data:Movies) => {
+      data.results.length = 18
+      data.results.forEach(el => {
+        el.media_type = 'movie'
+        this.similarMovies.push(el)
+      })
+    })
+  }
+  getSimilarShows(id:number){
+    this.ShowService.getSimilar(id).subscribe((data:Shows) => {
+      data.results.length = 18
+      data.results.forEach(el => {
+        el.media_type = 'tv'
+        this.similarShows.push(el)
+      })
+    })
   }
 }

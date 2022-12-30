@@ -93,6 +93,15 @@
         }
     }
 }
+.similar-container{
+  width: 90%;
+  margin: auto;
+  
+  h2{
+    font-family: 'Nunito';
+    margin-left: 15px;
+  }
+}
 @media screen and (max-width:1000px){
     .item-info{
         width: 95%;
