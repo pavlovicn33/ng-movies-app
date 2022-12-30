@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Cast, Credits } from 'src/shared/models/cast';
 import { Stream, StreamMovieTv } from 'src/shared/models/stream';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
@@ -17,8 +18,9 @@ export class MovieTvItemComponent implements OnInit {
 
   trailerLink: string = '';
 
-  streamLinks:StreamMovieTv[] = []
+  streamLinks: StreamMovieTv[] = [];
 
+  movieCast: Cast[] = [];
   constructor(
     private movieService: MoviesService,
     private dialog: MatDialog,
@@ -28,7 +30,8 @@ export class MovieTvItemComponent implements OnInit {
   ngOnInit(): void {
     this.getTrailer(this.data.id);
     this.getTrailerShow(this.data.id);
-    this.getStreamMovie(this.data.id)
+    this.getStreamMovie(this.data.id);
+    this.getCastMovie(this.data.id);
   }
 
   getTrailer(id: number) {
@@ -45,6 +48,7 @@ export class MovieTvItemComponent implements OnInit {
   }
 
   getTrailerShow(id: number) {
+    console.log(this.data);
     if (this.data.media_type == 'movie') {
       return;
     }
@@ -65,19 +69,29 @@ export class MovieTvItemComponent implements OnInit {
       backdropClass: 'dialog-bg',
     });
   }
-  dialogMovie(key:string) {
+  dialogMovie(key: string) {
     const dialogRef = this.dialog.open(MovieTrailerDialogComponent, {
       hasBackdrop: true,
       data: {
-        url:key
+        url: key,
       },
       backdropClass: 'dialog-bg',
     });
   }
 
-  getStreamMovie(id:number){
-    this.movieService.getMovieStream(id).subscribe((data:Stream)=>{
-      this.streamLinks = data.results
-    })
+  getStreamMovie(id: number) {
+    this.movieService.getMovieStream(id).subscribe((data: Stream) => {
+      this.streamLinks = data.results;
+    });
   }
+
+  getCastMovie(id: number) {
+    this.movieService.getMovieCast(id).subscribe((data: Credits) => {
+      console.log(data);
+      data.cast.length = 5
+      this.movieCast = data.cast
+      console.log(this.movieCast)
+    });
+  }
+  //getCast and then put it below image and overrview so its straitgh!!!
 }

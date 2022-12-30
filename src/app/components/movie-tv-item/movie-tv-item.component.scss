@@ -10,7 +10,6 @@
   color: white;
   gap: 35px;
   padding-top: 200px;
-  padding-bottom: 200px;
   display: flex;
   justify-content: center;
 
@@ -32,12 +31,15 @@
   }
   .misc {
     display: flex;
+    flex-wrap: wrap;
     gap: 15px;
     align-items: center;
   }
 
   .trailer-icon {
     display: flex;
+    flex-wrap: wrap;
+
     align-items: center;
     gap: 5px;
     cursor: pointer;
@@ -45,4 +47,40 @@
       opacity: 0.5;
     }
   }
+
+  .servers {
+    gap: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    button {
+      font-family: "Nunito";
+      border-radius: 25px;
+    }
+  }
+
+  .overview {
+    h3 {
+      font-size: 16px;
+    }
+    p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.750);
+    }
+  }
+}
+
+.extra-info{
+    width: 70%;
+    margin: auto;
+    font-family: "Nunito";
+    color: white;
+    gap: 35px;
+    padding-bottom: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    .extra-info-container{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
 }

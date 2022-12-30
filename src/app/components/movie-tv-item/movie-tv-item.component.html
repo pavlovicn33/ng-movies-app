@@ -24,9 +24,31 @@
         <p *ngIf="data.episode_run_time">{{data.episode_run_time[0]}} min</p>
       </div>
       <div class="servers">
-        <button (click)="dialogMovie(i.url)"  *ngFor="let i of streamLinks" mat-raised-button>{{i.server}}</button>
+        <button (click)="dialogMovie(i.url)"  *ngFor="let i of streamLinks" mat-raised-button><mat-icon>play_circle_filled</mat-icon> {{i.server}}</button>
       </div>
-
+      <div class="overview">
+        <h3>Overview: </h3>
+        <p>{{data.overview}}</p>
+      </div>
+    </div>
+</div>
+<div class="extra-info">
+  <div class="extra-info-container">
+    <p>Released: {{data.release_date}}</p>
+    <div>
+        Production:
+        <p *ngFor="let i of data.production_companies">{{i.name}}</p>
     </div>
   </div>
+  <div class="extra-info-container">
+    <div>
+        Genres:
+        <p *ngFor="let i of data.genres">{{i.name}}</p>
+    </div>
+    <div>
+        Cast:
+        <p *ngFor="let i of movieCast">{{i.name}}</p>
+    </div>
+  </div>
+</div>
 </div>

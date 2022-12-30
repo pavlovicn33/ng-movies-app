@@ -31,4 +31,10 @@
   .highlight{
     color: mat.get-color-from-palette($accent-palette, 400) !important;
   }
+  .servers{
+    button{
+      color: mat.get-color-from-palette($accent-palette, 400) !important;
+
+    }
+  }
 }

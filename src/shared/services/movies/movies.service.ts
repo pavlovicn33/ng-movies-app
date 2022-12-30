@@ -7,6 +7,7 @@ import { MovieDetails } from '../../models/movieDetails';
 import { Videos } from 'src/shared/models/videos';
 import { PeopleDetails } from 'src/shared/models/people';
 import { Stream, StreamMovieTv } from 'src/shared/models/stream';
+import { Cast, Credits } from 'src/shared/models/cast';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,10 @@ export class MoviesService {
 
   getMovieStream(id:number):Observable<Stream>{
     return this.http.get<Stream>(`https://private-anon-b6f507e52b-superembed.apiary-proxy.com/?type=tmdb&id=${id}`)
+  }
+
+  getMovieCast(id:number):Observable<Credits>{
+    return this.http.get<Credits>(`${environment.baseURL}/movie/${id}/credits${environment.apiKey}`)
   }
 }
 
