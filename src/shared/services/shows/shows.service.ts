@@ -16,7 +16,7 @@ export class ShowsService {
 
   getPopularShows(page?: number): Observable<Shows> {
     return this.http.get<Shows>(
-      `${environment.baseURL}/tv/popular${environment.apiKey}&page=${page}`
+      `${environment.baseURL}/tv/popular${environment.apiKey}&page=${page}&language=en-US&with_original_language=en`
     );
   }
 
@@ -57,6 +57,13 @@ export class ShowsService {
   getCastRelatedMovies(id: number): Observable<Person> {
     return this.http.get<Person>(
       `${environment.baseURL}/person/${id}/tv_credits${environment.apiKey}`
+    );
+  }
+
+
+  getSimilar(id: number): Observable<Shows> {
+    return this.http.get<Shows>(
+      `${environment.baseURL}/tv/${id}/similar${environment.apiKey}`
     );
   }
 }

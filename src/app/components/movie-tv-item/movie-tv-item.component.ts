@@ -21,6 +21,9 @@ export class MovieTvItemComponent implements OnInit {
   streamLinks: StreamMovieTv[] = [];
 
   movieCast: Cast[] = [];
+
+  showCast: Cast[] = [];
+
   constructor(
     private movieService: MoviesService,
     private dialog: MatDialog,
@@ -31,7 +34,14 @@ export class MovieTvItemComponent implements OnInit {
     this.getTrailer(this.data.id);
     this.getTrailerShow(this.data.id);
     this.getStreamMovie(this.data.id);
-    this.getCastMovie(this.data.id);
+    if (this.data.release_date) {
+      this.getCastMovie(this.data.id);
+      return;
+    }
+    if (this.data.first_air_date) {
+      this.getCastShow(this.data.id);
+      return;
+    }
   }
 
   getTrailer(id: number) {
@@ -48,6 +58,7 @@ export class MovieTvItemComponent implements OnInit {
   }
 
   getTrailerShow(id: number) {
+    console.log(this.data);
     if (this.data.media_type == 'movie') {
       return;
     }
@@ -86,8 +97,20 @@ export class MovieTvItemComponent implements OnInit {
 
   getCastMovie(id: number) {
     this.movieService.getMovieCast(id).subscribe((data: Credits) => {
-      data.cast.length = 5
-      this.movieCast = data.cast
+      data.cast.length = 5;
+      this.movieCast = data.cast;
+    });
+  }
+
+  getCastShow(id: number) {
+    this.ShowService.getShowCast(id).subscribe((data: Credits) => {
+      console.log(data)
+      if (data.cast.length < 5) {
+        this.showCast = data.cast
+        return
+      }
+      data.cast.length = 5;
+      this.showCast = data.cast;
     });
   }
 }

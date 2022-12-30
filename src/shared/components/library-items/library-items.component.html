@@ -6,7 +6,7 @@
   >
     <mat-tab label="Movies">
       <h1 *ngIf="actor" [style.margin-top]="'20px'">{{ actor }} Movies:</h1>
-      <h1 *ngIf="movies.length == 0">You dont have any movies bookmarked...</h1>
+      <h1 *ngIf="movies.length == 0">There are no movies at this time...</h1>
       <mat-grid-list class="set-height" [cols]="cols" rowHeight="1:1.3">
         <div>
           <mat-grid-tile *ngFor="let i of movies">
@@ -52,7 +52,7 @@
     </mat-tab>
     <mat-tab label="Shows‌‌‌‌">
       <h1 *ngIf="actor" [style.margin-top]="'20px'">{{ actor }} Tv Shows:</h1>
-      <h1 *ngIf="shows.length == 0">You dont have any shows bookmarks...</h1>
+      <h1 *ngIf="shows.length == 0">There are no shows at this time...</h1>
       <mat-grid-list class="set-height" [cols]="cols" rowHeight="1:1.3">
         <div>
           <mat-grid-tile *ngFor="let i of shows">

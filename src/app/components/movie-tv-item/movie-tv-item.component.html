@@ -21,9 +21,13 @@
         <p *ngIf="data.name" (click)="dialogTrailer()" target="_blank" class="trailer-icon"><mat-icon>videocam</mat-icon> Trailer</p>
         <a *ngIf="data.imdb_id" href="https://www.imdb.com/title/{{data.imdb_id}}" target="_blank" class="imbd-link">IMDB</a>
         <p *ngIf="data.runtime">{{data.runtime}} min</p>
-        <p *ngIf="data.episode_run_time">{{data.episode_run_time[0]}} min</p>
+        <span *ngIf="!data.release_date">
+
+            <p *ngIf="data.episode_run_time.length > 0">{{data.episode_run_time[0]}} min</p>
+        </span>
+
       </div>
-      <div class="servers">
+      <div *ngIf="data.release_date" class="servers">
         <button (click)="dialogMovie(i.url)"  *ngFor="let i of streamLinks" mat-raised-button><mat-icon>play_circle_filled</mat-icon> {{i.server}}</button>
       </div>
       <div class="overview">
@@ -34,24 +38,43 @@
 </div>
 <div class="extra-info">
   <div class="extra-info-container">
-      <div [style.width]="'50%'">
+      <div *ngIf="data.production_companies.length > 0" [style.width]="'50%'">
           Production:
           <span *ngFor="let i of data.production_companies; let isLast=last">{{i.name}}{{isLast ? '' : ','}} </span>
       </div>
-    <div [style.width]="'50%'">
+      <div *ngIf="data.production_companies.length == 0" [style.width]="'50%'">
+          Production:
+          <span *ngFor="let i of data.production_countries; let isLast=last">{{i.name}}{{isLast ? '' : ','}} </span>
+      </div>
+    <div *ngIf="data.release_date" [style.width]="'50%'">
         Released:
         <span>{{data.release_date | date}}</span>
     </div>
+    <div *ngIf="data.first_air_date" [style.width]="'50%'">
+        Released:
+        <span>{{data.first_air_date | date}}</span>
+    </div>
   </div>
   <div class="extra-info-container">
-      <div [style.width]="'50%'">
-          Cast:
-          <span class="cast-info"  *ngFor="let i of movieCast; let isLast=last" [routerLink]="['../../cast/', i.id]">{{i.name}}{{isLast ? '' : ','}} </span>
-      </div>
-    <div [style.width]="'50%'">
+    <strong  [style.width]="'50%'" *ngIf="movieCast.length > 0">
+        <div *ngIf="data.release_date">
+            Cast:
+            <span class="cast-info"  *ngFor="let i of movieCast; let isLast=last" [routerLink]="['../../cast/', i.id,i.name]">{{i.name}}{{isLast ? '' : ','}} </span>
+        </div>
+    </strong>
+    <strong  [style.width]="'50%'"  *ngIf="showCast.length > 0">
+        <div *ngIf="data.first_air_date" >
+            Cast:
+            <span class="cast-info"  *ngFor="let i of showCast; let isLast=last" [routerLink]="['../../cast/', i.id,i.name]">{{i.name}}{{isLast ? '' : ','}} </span>
+        </div>
+    </strong>
+        <div [style.width]="'50%'">
         Genres:
         <span *ngFor="let i of data.genres; let isLast=last">{{i.name}}{{isLast ? '' : ','}} </span>
     </div>
   </div>
 </div>
+</div>
+<div class="similar-container">
+
 </div>

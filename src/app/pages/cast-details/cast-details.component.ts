@@ -30,7 +30,7 @@ export class CastDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((data: any) => {
       let id = data['ids'];
-      this.getCastMovie(id);
+      this.actorName = data['name']
       this.movieService.getCastRelatedMovies(id).subscribe((data: Person) => {
         data.cast.forEach((el) => {
           if (!el.poster_path) {
@@ -52,9 +52,5 @@ export class CastDetailsComponent implements OnInit {
       });
     });
   }
-  getCastMovie(id: number) {
-    this.movieService.getMovieCast(id).subscribe((data: Credits) => {
-      this.actorName = data.cast[0].name;
-    });
-  }
+
 }

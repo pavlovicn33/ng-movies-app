@@ -63,6 +63,10 @@ export class MoviesService {
   getCastRelatedMovies(id:number):Observable<Person>{
     return this.http.get<Person>(`${environment.baseURL}/person/${id}/movie_credits${environment.apiKey}`)
   }
+
+  getSimilar(id:number):Observable<Movies>{
+    return this.http.get<Movies>(`${environment.baseURL}/movie/${id}/similar${environment.apiKey}`)
+  }
 }
 
 

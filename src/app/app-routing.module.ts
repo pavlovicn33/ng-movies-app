@@ -64,7 +64,7 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
-        path: 'cast/:ids',
+        path: 'cast/:ids/:name',
         component: CastDetailsComponent,
         pathMatch: 'full',
       },
