@@ -120,9 +120,52 @@
       </div>
     </div>
   </div>
+  <div *ngIf="data.release_date" class="padding"></div>
+  <div class="seasons-container" *ngIf="data.seasons">
+    <mat-form-field appearance="outline">
+      <mat-select
+        (selectionChange)="changeSeason($event)"
+        [(value)]="selectedSeason"
+      >
+        <mat-option *ngFor="let i of obj" [value]="i">
+          <span>{{ i.name }}</span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div
+    >
+      <splide
+        [options]="{
+          type: 'loop',
+          arrows: true,
+          snap: true,
+          drag: true,
+          focus: 'center',
+          pagination: false,
+          autoWidth: true,
+          autoplay: true,
+          gap: 20,
+          perPage: 1
+        }"
+      >
+        <splide-slide       *ngFor="
+        let item of [].constructor(selectedSeason.episodes);
+        let i = index
+      ">
+        <h1>Episode {{i + 1}}</h1>
+        </splide-slide>
+      </splide>
+    </div>
+  </div>
 </div>
 <div class="similar-container">
-    <h2>You may also like</h2>
-    <app-see-all *ngIf="similarMovies.length > 1" [results]="similarMovies"></app-see-all>
-    <app-see-all *ngIf="similarShows.length > 1" [results]="similarShows"></app-see-all>
+  <h2>You may also like</h2>
+  <app-see-all
+    *ngIf="similarMovies.length > 1"
+    [results]="similarMovies"
+  ></app-see-all>
+  <app-see-all
+    *ngIf="similarShows.length > 1"
+    [results]="similarShows"
+  ></app-see-all>
 </div>

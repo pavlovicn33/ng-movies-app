@@ -64,54 +64,62 @@
     }
     p {
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.750);
+      color: rgba(255, 255, 255, 0.75);
     }
   }
 }
 
-.extra-info{
-    width: 70%;
-    margin: auto;
-    font-family: "Nunito";
-    color: white;
-    gap: 35px;
-    padding-bottom: 200px;
+.extra-info {
+  width: 70%;
+  margin: auto;
+  font-family: "Nunito";
+  color: white;
+  gap: 35px;
+  padding-bottom: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  .extra-info-container {
     display: flex;
-    flex-wrap: wrap;
-    .extra-info-container{
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        gap: 25px;
-        span{
-            opacity: 0.75;
-            font-size: 14px;
-        }
-
-        .cast-info{
-            cursor: pointer;
-        }
+    width: 100%;
+    justify-content: space-between;
+    gap: 25px;
+    span {
+      opacity: 0.75;
+      font-size: 14px;
     }
+
+    .cast-info {
+      cursor: pointer;
+    }
+  }
 }
-.similar-container{
+.similar-container {
   width: 90%;
   margin: auto;
-  
-  h2{
-    font-family: 'Nunito';
+
+  h2 {
+    font-family: "Nunito";
     margin-left: 15px;
   }
 }
-@media screen and (max-width:1000px){
-    .item-info{
-        width: 95%;
-        padding-top: 100px;
-        .img-container{
-            display: none;
-        }
+.padding {
+  padding-bottom: 100px;
+}
+.seasons-container {
+  width: 95%;
+  margin: auto;
+}
+
+@media screen and (max-width: 1000px) {
+  .item-info {
+    width: 95%;
+    padding-top: 100px;
+    .img-container {
+      display: none;
     }
- 
-    .extra-info{
-        width: 95%;
-    }
+  }
+
+  .extra-info {
+    width: 95%;
+  }
 }

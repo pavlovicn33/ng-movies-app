@@ -18,6 +18,7 @@ import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trail
 export class MovieTvItemComponent implements OnInit {
   @Input()
   data: any;
+
   cols!: number;
 
   trailerLink: string = '';
@@ -28,16 +29,26 @@ export class MovieTvItemComponent implements OnInit {
 
   showCast: Cast[] = [];
 
-  similarMovies:ResultMovies[] = []
-  similarShows:ResultShow[] = []
+  similarMovies: ResultMovies[] = [];
+
+  similarShows: ResultShow[] = [];
+
+  seasonNumber: number = 0;
+
+  obj: any[] = [];
+
+  selectedSeason: any = {
+    name: 'Season 1',
+    episodes: 0,
+  };
+
   private breakpoints: any = { xs: 2, sm: 3, md: 4, lg: 6 };
 
   constructor(
     private movieService: MoviesService,
     private dialog: MatDialog,
     private ShowService: ShowsService,
-    private breakpointObserver: BreakpointObserver,
-
+    private breakpointObserver: BreakpointObserver
   ) {
     this.breakpointObserver
       .observe([
@@ -70,14 +81,49 @@ export class MovieTvItemComponent implements OnInit {
     this.getStreamMovie(this.data.id);
     if (this.data.release_date) {
       this.getCastMovie(this.data.id);
-      this.getSimilarMovies(this.data.id)
+      this.getSimilarMovies(this.data.id);
       return;
     }
     if (this.data.first_air_date) {
-      this.getSimilarShows(this.data.id)
+      this.removeExtra();
+      this.getSimilarShows(this.data.id);
       this.getCastShow(this.data.id);
       return;
     }
+  }
+
+  changeSeason(event: any) {
+    console.log(event);
+    console.log(this.selectedSeason);
+  }
+
+  getSeason(id:number,season:number,ep:number){
+    this.ShowService.getShowStreams(id,season,ep).subscribe((data:Stream) => {
+      console.log(data)
+    })
+  }
+
+  removeExtra() {
+    let status = true;
+    this.data.seasons.forEach((element: any, i: any) => {
+      if (element.name == 'Specials') {
+        status = false
+        return;
+      }
+      if (status == true) {
+        i++
+      }
+      let obj: any = {};
+      let name = `Season ${i}`;
+      let episodes = `${element.episode_count}`;
+      obj.name = name;
+      obj.episodes = Number(episodes);
+      this.obj.push(obj);
+    });
+    this.selectedSeason = this.obj[0]
+    // let split = this.selectedSeason.name
+    // let seasonNumber = Number(split[1])
+    // this.getSeason(this.data.id,seasonNumber,1)
   }
 
   getTrailer(id: number) {
@@ -141,30 +187,30 @@ export class MovieTvItemComponent implements OnInit {
   getCastShow(id: number) {
     this.ShowService.getShowCast(id).subscribe((data: Credits) => {
       if (data.cast.length < 5) {
-        this.showCast = data.cast
-        return
+        this.showCast = data.cast;
+        return;
       }
       data.cast.length = 5;
       this.showCast = data.cast;
     });
   }
 
-  getSimilarMovies(id:number){
-    this.movieService.getSimilar(id).subscribe((data:Movies) => {
-      data.results.length = 18
-      data.results.forEach(el => {
-        el.media_type = 'movie'
-        this.similarMovies.push(el)
-      })
-    })
+  getSimilarMovies(id: number) {
+    this.movieService.getSimilar(id).subscribe((data: Movies) => {
+      data.results.length = 18;
+      data.results.forEach((el) => {
+        el.media_type = 'movie';
+        this.similarMovies.push(el);
+      });
+    });
   }
-  getSimilarShows(id:number){
-    this.ShowService.getSimilar(id).subscribe((data:Shows) => {
-      data.results.length = 18
-      data.results.forEach(el => {
-        el.media_type = 'tv'
-        this.similarShows.push(el)
-      })
-    })
+  getSimilarShows(id: number) {
+    this.ShowService.getSimilar(id).subscribe((data: Shows) => {
+      data.results.length = 18;
+      data.results.forEach((el) => {
+        el.media_type = 'tv';
+        this.similarShows.push(el);
+      });
+    });
   }
 }
