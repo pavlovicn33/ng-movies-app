@@ -132,27 +132,42 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <div
-    >
+    <div>
       <splide
         [options]="{
-          type: 'loop',
-          arrows: true,
+          type: 'slide',
+          arrows: false,
           snap: true,
           drag: true,
-          focus: 'center',
           pagination: false,
           autoWidth: true,
-          autoplay: true,
           gap: 20,
           perPage: 1
         }"
       >
-        <splide-slide       *ngFor="
-        let item of [].constructor(selectedSeason.episodes);
-        let i = index
-      ">
-        <h1>Episode {{i + 1}}</h1>
+        <splide-slide
+          *ngFor="
+            let item of [].constructor(selectedSeason.episodes);
+            let i = index
+          "
+        >
+        <img
+        [style.border-radius]="'10px'"
+        height="200px"
+        width="150px"
+          src="https://image.tmdb.org/t/p/w200{{
+            posterUrl
+          }}"
+          alt=""
+        />
+          <div class="overlay2">
+            <div class="middle">
+              <mat-icon (click)="openEpisode(i + 1)"
+                >play_circle_outline</mat-icon
+              >
+            </div>
+          </div>
+          <h3 [style.font-family]="'Nunito'">Episode {{ i + 1 }}</h3>
         </splide-slide>
       </splide>
     </div>

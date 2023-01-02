@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Cast, Credits } from 'src/shared/models/cast';
 import { Person } from 'src/shared/models/castMovies';
 import { Shows } from 'src/shared/models/popularTvShows';
+import { SeasonPosters } from 'src/shared/models/seasonPosters';
 import { Stream } from 'src/shared/models/stream';
 import { TvDetails } from 'src/shared/models/tvDetails';
 import { Videos } from 'src/shared/models/videos';
@@ -70,5 +71,9 @@ export class ShowsService {
 
   getShowStreams(id:number, season:number, episode:number):Observable<Stream>{
     return this.http.get<Stream>(`https://private-anon-b6f507e52b-superembed.apiary-proxy.com/?type=tmdb&id=${id}&season=${season}&episode=${episode}&max_results=1`)
+  }
+
+  getSeasonImages(id:number, season:number):Observable<SeasonPosters>{
+    return this.http.get<SeasonPosters>(`${environment.baseURL}/tv/${id}/season/${season}/images${environment.apiKey}&include_image_language=en,null&no-spinner`)
   }
 }

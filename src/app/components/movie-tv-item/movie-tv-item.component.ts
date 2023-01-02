@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Cast, Credits } from 'src/shared/models/cast';
 import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
 import { ResultShow, Shows } from 'src/shared/models/popularTvShows';
+import { Poster, SeasonPosters } from 'src/shared/models/seasonPosters';
 import { Stream, StreamMovieTv } from 'src/shared/models/stream';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
@@ -36,6 +37,10 @@ export class MovieTvItemComponent implements OnInit {
   seasonNumber: number = 0;
 
   obj: any[] = [];
+
+  season: number = 0;
+
+  posterUrl: string = '';
 
   selectedSeason: any = {
     name: 'Season 1',
@@ -76,6 +81,9 @@ export class MovieTvItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let seasonNumber = this.selectedSeason.name.split(' ');
+    this.season = Number(seasonNumber[1]);
+    this.getImages(this.data.id, 1);
     this.getTrailer(this.data.id);
     this.getTrailerShow(this.data.id);
     this.getStreamMovie(this.data.id);
@@ -92,26 +100,41 @@ export class MovieTvItemComponent implements OnInit {
     }
   }
 
-  changeSeason(event: any) {
-    console.log(event);
-    console.log(this.selectedSeason);
+  getImages(id: number, season: number) {
+    this.ShowService.getSeasonImages(id, season).subscribe(
+      (data: SeasonPosters) => {
+        this.posterUrl = data.posters[0].file_path;
+      }
+    );
   }
 
-  getSeason(id:number,season:number,ep:number){
-    this.ShowService.getShowStreams(id,season,ep).subscribe((data:Stream) => {
-      console.log(data)
-    })
+  changeSeason(event: any) {
+    let seasonNumber = event.value.name.split(' ');
+    this.season = Number(seasonNumber[1]);
+    this.getImages(this.data.id, this.season);
+  }
+
+  getSeason(id: number, season: number, ep: number) {
+    this.ShowService.getShowStreams(id, season, ep).subscribe(
+      (data: Stream) => {
+        console.log(data);
+      }
+    );
+  }
+
+  openEpisode(event: any) {
+    this.getSeason(this.data.id, this.season, event);
   }
 
   removeExtra() {
     let status = true;
     this.data.seasons.forEach((element: any, i: any) => {
       if (element.name == 'Specials') {
-        status = false
+        status = false;
         return;
       }
       if (status == true) {
-        i++
+        i++;
       }
       let obj: any = {};
       let name = `Season ${i}`;
@@ -120,10 +143,7 @@ export class MovieTvItemComponent implements OnInit {
       obj.episodes = Number(episodes);
       this.obj.push(obj);
     });
-    this.selectedSeason = this.obj[0]
-    // let split = this.selectedSeason.name
-    // let seasonNumber = Number(split[1])
-    // this.getSeason(this.data.id,seasonNumber,1)
+    this.selectedSeason = this.obj[0];
   }
 
   getTrailer(id: number) {
@@ -140,7 +160,6 @@ export class MovieTvItemComponent implements OnInit {
   }
 
   getTrailerShow(id: number) {
-    console.log(this.data);
     if (this.data.media_type == 'movie') {
       return;
     }
