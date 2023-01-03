@@ -124,6 +124,7 @@
   <div class="seasons-container" *ngIf="data.seasons">
     <mat-form-field appearance="outline">
       <mat-select
+        *ngIf="data.seasons"
         (selectionChange)="changeSeason($event)"
         [(value)]="selectedSeason"
       >
@@ -151,15 +152,13 @@
             let i = index
           "
         >
-        <img
-        [style.border-radius]="'10px'"
-        height="200px"
-        width="150px"
-          src="https://image.tmdb.org/t/p/w200{{
-            posterUrl
-          }}"
-          alt=""
-        />
+          <img
+            [style.border-radius]="'10px'"
+            height="200px"
+            width="150px"
+            src="https://image.tmdb.org/t/p/w200{{ posterUrl }}"
+            alt=""
+          />
           <div class="overlay2">
             <div class="middle">
               <mat-icon (click)="openEpisode(i + 1)"
@@ -167,7 +166,9 @@
               >
             </div>
           </div>
-          <h3 [style.font-family]="'Nunito'">Episode {{ i + 1 }}</h3>
+          <h3 [style.color]="'white'" [style.font-family]="'Nunito'">
+            Episode {{ i + 1 }}
+          </h3>
         </splide-slide>
       </splide>
     </div>

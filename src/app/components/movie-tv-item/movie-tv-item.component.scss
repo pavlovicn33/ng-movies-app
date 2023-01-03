@@ -139,6 +139,25 @@
     }
   }
 }
+:host::ng-deep {
+  .mat-mdc-select-value {
+    color: rgb(255, 255, 255) !important;
+  }
+  .mdc-notched-outline__notch {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+  }
+  .mdc-notched-outline__trailing {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .mdc-notched-outline__leading {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+  }
+  .mat-mdc-select-arrow {
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
+}
+
 @keyframes grow {
   from {
     box-shadow: 0px 0px 1em #000;

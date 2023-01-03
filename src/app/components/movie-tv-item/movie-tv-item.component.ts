@@ -42,6 +42,8 @@ export class MovieTvItemComponent implements OnInit {
 
   posterUrl: string = '';
 
+  resultEpisodes: any
+
   selectedSeason: any = {
     name: 'Season 1',
     episodes: 0,
@@ -83,7 +85,6 @@ export class MovieTvItemComponent implements OnInit {
   ngOnInit(): void {
     let seasonNumber = this.selectedSeason.name.split(' ');
     this.season = Number(seasonNumber[1]);
-    this.getImages(this.data.id, 1);
     this.getTrailer(this.data.id);
     this.getTrailerShow(this.data.id);
     this.getStreamMovie(this.data.id);
@@ -93,6 +94,7 @@ export class MovieTvItemComponent implements OnInit {
       return;
     }
     if (this.data.first_air_date) {
+      this.getImages(this.data.id, 1);
       this.removeExtra();
       this.getSimilarShows(this.data.id);
       this.getCastShow(this.data.id);
@@ -117,12 +119,14 @@ export class MovieTvItemComponent implements OnInit {
   getSeason(id: number, season: number, ep: number) {
     this.ShowService.getShowStreams(id, season, ep).subscribe(
       (data: Stream) => {
-        console.log(data);
+        this.resultEpisodes = data.results;
+        console.log(this.resultEpisodes)
+        this.dialogEpisode(this.resultEpisodes);
       }
-    );
-  }
-
-  openEpisode(event: any) {
+      );
+    }
+    
+    openEpisode(event: any) {
     this.getSeason(this.data.id, this.season, event);
   }
 
@@ -185,6 +189,15 @@ export class MovieTvItemComponent implements OnInit {
       hasBackdrop: true,
       data: {
         url: key,
+      },
+      backdropClass: 'dialog-bg',
+    });
+  }
+  dialogEpisode(results: any) {
+    const dialogRef = this.dialog.open(MovieTrailerDialogComponent, {
+      hasBackdrop: true,
+      data: {
+        streamLinks: results,
       },
       backdropClass: 'dialog-bg',
     });

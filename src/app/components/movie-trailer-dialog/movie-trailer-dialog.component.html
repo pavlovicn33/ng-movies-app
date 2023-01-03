@@ -1,3 +1,40 @@
-<iframe *ngIf="data.link" height="400px" width="700px" [src]="ytUrl(data.link) | iframe" frameborder="0" allowFullScreen="true"></iframe>
-<iframe *ngIf="data.url" height="400px" width="700px" [src]="data.url | iframe" frameborder="0" allowFullScreen="true"></iframe>
-<h2 [style.color]="'white'" [style.margin]="'10px'" [style.font-family]="'Nunito'" *ngIf="!data.url && !data.link">Item is not available at this time</h2>
+<iframe
+  *ngIf="data.link"
+  height="400px"
+  width="700px"
+  [src]="ytUrl(data.link) | iframe"
+  frameborder="0"
+  allowFullScreen="true"
+></iframe>
+<iframe
+  *ngIf="data.url"
+  height="400px"
+  width="700px"
+  [src]="data.url | iframe"
+  frameborder="0"
+  allowFullScreen="true"
+></iframe>
+<h2
+  [style.color]="'white'"
+  [style.margin]="'10px'"
+  [style.font-family]="'Nunito'"
+  *ngIf="!data.url && !data.link && !data.streamLinks"
+>
+  Item is not available at this time
+</h2>
+<div *ngIf="data.streamLinks" [style.text-align]="'center'">
+  <iframe
+    [src]="episodeUrl | iframe"
+    height="400px"
+    width="700px"
+    frameborder="0"
+    allowFullScreen="true"
+  ></iframe>
+  <div [style.padding]="'10px'" *ngIf="data.streamLinks" class="servers">
+    <div *ngFor="let i of linksList">
+      <button *ngIf="i.exact_match" (click)="changeUrl(i.url)" mat-raised-button>
+        <mat-icon>play_circle_filled</mat-icon> {{ i.server }}
+      </button>
+    </div>
+  </div>
+</div>
