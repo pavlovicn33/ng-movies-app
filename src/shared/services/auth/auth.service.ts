@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -15,6 +16,7 @@ import {
   deleteUser,
 } from 'firebase/auth';
 import { PasswordDialogComponent } from 'src/app/components/password-dialog/password-dialog.component';
+import { environment } from 'src/environments/environment';
 import { DialogComponent } from 'src/shared/components/dialog/dialog.component';
 
 @Injectable({
@@ -27,7 +29,8 @@ export class AuthService {
     private router: Router,
     private _snackBar: MatSnackBar,
     private db: AngularFirestore,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private http: HttpClient
   ) {}
 
   openSnackBar(message: string, action: string) {
@@ -36,19 +39,27 @@ export class AuthService {
     });
   }
 
+  getSessionTmdb() {
+    this.http.get(
+      `${environment.baseURL}/authentication/guest_session/new${environment.apiKey}`
+    ).subscribe((data:any) => {
+      localStorage.setItem('sessionTmdb', `${data.guest_session_id}`);
+    });
+  }
+
   login(email: string, password: string) {
     this.fireauth.signInWithEmailAndPassword(email, password).then(
       (res) => {
-        localStorage.setItem('token', 'true');
-
         if (res.user?.emailVerified == true) {
+          localStorage.setItem('token', 'true');
+          this.getSessionTmdb()
           this.router.navigate(['/ngmovies']);
         } else {
           this.openSnackBar(
             'Confirm your account through email verification',
             'X'
           );
-          this.sendEmailVerification(res.user)
+          this.sendEmailVerification(res.user);
         }
       },
       (err) => {
@@ -57,7 +68,7 @@ export class AuthService {
             'Access to this account has been temporarily disabled due to many failed login attempts. Try again later',
             'X'
           );
-          return
+          return;
         }
         this.openSnackBar(
           'The email adress or password is incorrect. Please try again',
@@ -114,7 +125,7 @@ export class AuthService {
   }
 
   sendEmailVerification(user: any) {
-    user.sendEmailVerification()
+    user.sendEmailVerification();
   }
 
   updateNameAndLastName(name: string, lastName: string) {
@@ -140,18 +151,18 @@ export class AuthService {
           const credential = EmailAuthProvider.credential(user.email, password);
           reauthenticateWithCredential(user, credential).then(
             () => {
-              updateEmail(user, newEmail).then(() => {
-                sendEmailVerification(user).then(() => {});
-                this.openSnackBar('Confirmation Email Sent', 'X');
-                this.db.collection('users').doc(user?.uid).update({
-                  email: newEmail,
-                });
-              },error => {
-                this.openSnackBar(
-                  'The email adress is already in use.',
-                  'X'
-                );
-              });
+              updateEmail(user, newEmail).then(
+                () => {
+                  sendEmailVerification(user).then(() => {});
+                  this.openSnackBar('Confirmation Email Sent', 'X');
+                  this.db.collection('users').doc(user?.uid).update({
+                    email: newEmail,
+                  });
+                },
+                (error) => {
+                  this.openSnackBar('The email adress is already in use.', 'X');
+                }
+              );
             },
             (error) => {
               form.reset();

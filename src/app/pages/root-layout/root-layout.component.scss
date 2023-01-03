@@ -79,11 +79,12 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
   font-family: "Nunito";
   overflow: hidden;
   .mat-mdc-selection-list {
+    display: flex;
+    flex-direction: column;
     padding-top: 0;
     width: 100%;
     .mat-mdc-list-item {
       width: 100%;
-
       span {
         display: flex;
         align-items: center;
@@ -102,9 +103,9 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
     margin-left: 16px;
   }
 }
-
 .logout {
-  margin-top: 35px;
+  position: absolute;
+  bottom: 0;
 }
 
 .divider {
@@ -312,5 +313,10 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
 @media screen and (max-height: 830px) {
   ::ng-deep .cdk-overlay-container .flag-menu {
     margin-top: 4rem;
+  }
+}
+@media screen and (max-height: 800px) {
+  .logout{
+    position: relative;
   }
 }

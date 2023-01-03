@@ -4,9 +4,96 @@
   [style.justify-content]="'space-between'"
   [style.align-items]="'center'"
 >
-  <p class="snackBarData" matSnackBarLabel>{{ data }}
+  <p class="snackBarData" matSnackBarLabel>
+    <span *ngIf="!data.text">{{ data }}</span
+    ><span *ngIf="data.text">{{ data.text }}</span>
+    <span *ngIf="data.text"
+      ><ul class="rate-area">
+        <input
+        (click)="sendRating($event)"
+        type="radio"
+        id="10-star"
+        name="crating"
+        value="10"
+        />
+        <label for="10-star" title="Amazing">10 stars</label>
+        <input
+        (click)="sendRating($event)"
+        type="radio"
+        id="9-star"
+        name="crating"
+        value="9"
+        />
+        <label for="9-star" title="Average">9 stars</label>
+        <input
+        (click)="sendRating($event)"
+        type="radio"
+        id="8-star"
+        name="crating"
+        value="8"
+        />
+        <label for="8-star" title="Good">8 stars</label>
+        <input
+        (click)="sendRating($event)"
+        type="radio"
+        id="7-star"
+        name="crating"
+        value="7"
+        />
+        <label for="7-star" title="Amazing">7 stars</label>
+        <input
+        (click)="sendRating($event)"
+        type="radio"
+        id="6-star"
+        name="crating"
+        value="6"
+        />
+        <label for="6-star" title="Bad">6 star</label>
+        <input
+        (click)="sendRating($event)"
+        type="radio"
+        id="5-star"
+        name="crating"
+        value="5"
+        />
+        <label for="5-star" title="Amazing">5 stars</label>
+        <input
+        (click)="sendRating($event)"
+        type="radio"
+        id="4-star"
+        name="crating"
+        value="4"
+        />
+        <label for="4-star" title="Good">4 stars</label>
+        <input
+        (click)="sendRating($event)"
+        type="radio"
+        id="3-star"
+        name="crating"
+        value="3"
+        />
+        <label for="3-star" title="Average">3 stars</label>
+        <input
+        (click)="sendRating($event)"
+        type="radio"
+        id="2-star"
+        name="crating"
+        value="2"
+        />
+        <label for="2-star" title="Not Good">2 stars</label>
+        <input
+        (click)="sendRating($event)"
+        type="radio"
+        id="1-star"
+        name="crating"
+        value="1"
+        />
+        <label for="1-star" title="Terrible">1 stars</label>
+        </ul
+    ></span>
     <mat-icon *ngIf="data == 'Added to bookmarks!'">check</mat-icon>
   </p>
-  <button class="close" mat-icon-button (click)="undo()"><mat-icon>close</mat-icon></button>
-
+  <button class="close" mat-icon-button (click)="undo()">
+    <mat-icon>close</mat-icon>
+  </button>
 </div>

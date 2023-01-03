@@ -1,5 +1,32 @@
-p{
-    display: flex;
-    align-items: center;
-    gap: 10px;
+p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
+.rate-area {
+  float: left;
+  border-style: none;
+  margin: 0;
+}
+
+.rate-area:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+  clip: rect(0, 0, 0, 0);
+}
+
+.rate-area:not(:checked) > label {
+  float: right;
+  width: 0.8em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 25px;
+  line-height: 16px;
+  color: rgb(138, 138, 138);
+}
+
+.rate-area:not(:checked) > label:before {
+  content: "★";
+}
+

@@ -13,12 +13,15 @@ export class MovieTrailerDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit(): void {
-    this.data.streamLinks.forEach((element: any) => {
-      if (element.exact_match == true) {
-        this.linksList.push(element)
-      }
-    });
-    this.episodeUrl = this.linksList[0].url
+    if (this.data.streamLinks) {
+      
+      this.data.streamLinks.forEach((element: any) => {
+        if (element.exact_match == true) {
+          this.linksList.push(element)
+        }
+      });
+      this.episodeUrl = this.linksList[0].url
+    }
   }
   ytUrl(url: string) {
     let embeddedUrl = 'https://www.youtube-nocookie.com/embed/' + url;

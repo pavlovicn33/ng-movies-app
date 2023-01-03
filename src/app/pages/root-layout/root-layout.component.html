@@ -1,24 +1,24 @@
 <mat-drawer-container class="sidebar-container" [hasBackdrop]="false">
   <mat-drawer id="side" mode="side" opened position="start">
-    <div>
-      <h1 class="logo">
-        <span>
-          <img
-            *ngIf="labelPosition == 'dark'"
-            width="180px"
-            src="../../../assets/images/logo.png"
-            alt=""
-          />
-          <img
-            *ngIf="labelPosition == 'light'"
-            width="180px"
-            src="../../../assets/images/logo-dark.png"
-            alt=""
-          />
-        </span>
-      </h1>
-    </div>
     <div class="menu-list">
+      <div>
+        <h1 class="logo">
+          <span>
+            <img
+              *ngIf="labelPosition == 'dark'"
+              width="180px"
+              src="../../../assets/images/logo.png"
+              alt=""
+            />
+            <img
+              *ngIf="labelPosition == 'light'"
+              width="180px"
+              src="../../../assets/images/logo-dark.png"
+              alt=""
+            />
+          </span>
+        </h1>
+      </div>
       <h2>Menu</h2>
       <mat-selection-list #shoes [multiple]="false">
         <mat-list-option

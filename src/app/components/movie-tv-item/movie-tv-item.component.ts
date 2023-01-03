@@ -1,7 +1,9 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
+import { SnackbarComponent } from 'src/shared/components/snackbar/snackbar.component';
 import { Cast, Credits } from 'src/shared/models/cast';
 import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
 import { ResultShow, Shows } from 'src/shared/models/popularTvShows';
@@ -42,7 +44,7 @@ export class MovieTvItemComponent implements OnInit {
 
   posterUrl: string = '';
 
-  resultEpisodes: any
+  resultEpisodes: any;
 
   selectedSeason: any = {
     name: 'Season 1',
@@ -55,7 +57,8 @@ export class MovieTvItemComponent implements OnInit {
     private movieService: MoviesService,
     private dialog: MatDialog,
     private ShowService: ShowsService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private snackBar: MatSnackBar
   ) {
     this.breakpointObserver
       .observe([
@@ -120,13 +123,12 @@ export class MovieTvItemComponent implements OnInit {
     this.ShowService.getShowStreams(id, season, ep).subscribe(
       (data: Stream) => {
         this.resultEpisodes = data.results;
-        console.log(this.resultEpisodes)
         this.dialogEpisode(this.resultEpisodes);
       }
-      );
-    }
-    
-    openEpisode(event: any) {
+    );
+  }
+
+  openEpisode(event: any) {
     this.getSeason(this.data.id, this.season, event);
   }
 
@@ -185,12 +187,23 @@ export class MovieTvItemComponent implements OnInit {
     });
   }
   dialogMovie(key: string) {
+    console.log(this.data);
     const dialogRef = this.dialog.open(MovieTrailerDialogComponent, {
       hasBackdrop: true,
       data: {
         url: key,
       },
       backdropClass: 'dialog-bg',
+    });
+    dialogRef.afterClosed().subscribe((data: any) => {
+      this.snackBar.openFromComponent(SnackbarComponent, {
+        data: {
+          text: 'Did you like the movie? Rate it!',
+          itemId: this.data.id,
+          type: 'movie',
+        },
+        duration: 5000,
+      });
     });
   }
   dialogEpisode(results: any) {
@@ -200,6 +213,8 @@ export class MovieTvItemComponent implements OnInit {
         streamLinks: results,
       },
       backdropClass: 'dialog-bg',
+    });
+    dialogRef.afterClosed().subscribe((data: any) => {
     });
   }
 

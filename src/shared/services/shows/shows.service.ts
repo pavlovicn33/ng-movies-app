@@ -76,4 +76,8 @@ export class ShowsService {
   getSeasonImages(id:number, season:number):Observable<SeasonPosters>{
     return this.http.get<SeasonPosters>(`${environment.baseURL}/tv/${id}/season/${season}/images${environment.apiKey}&include_image_language=en,null&no-spinner`)
   }
+
+  rateShow(rating:number, id:number):Observable<any>{
+    return this.http.post(`${environment.baseURL}/tv/${id}/rating${environment.apiKey}`, rating)
+  }
 }
