@@ -7,8 +7,11 @@
   [scrollWindow]="false"
 >
   <mat-grid-list class="set-height" [cols]="cols" rowHeight="1:1.3">
-    <mat-grid-tile *ngFor="let i of results ">
-      <div class="container-img">
+    <mat-grid-tile *ngFor="let i of results">
+      <div
+        [routerLink]="['/ngmovies/', i.media_type, i.id]"
+        class="container-img"
+      >
         <img
           src="https://image.tmdb.org/t/p/w300{{
             i.poster_path || i.profile_path
@@ -25,6 +28,7 @@
           </h3>
           <div>
             <button
+              (click)="$event.preventDefault(); $event.stopPropagation()"
               *ngIf="!i.profile_path"
               (click)="addToFavourites(i, 1)"
               class="popout"

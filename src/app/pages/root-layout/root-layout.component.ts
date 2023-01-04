@@ -157,6 +157,7 @@ export class RootLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+ 
     this.router.navigate(['ngmovies/movies']);
     this.getUser();
     let obj = {

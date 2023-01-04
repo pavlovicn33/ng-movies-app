@@ -1,0 +1,196 @@
+.hero-container {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.item-info {
+  width: 70%;
+  margin: auto;
+  font-family: "Nunito";
+  color: white;
+  gap: 35px;
+  padding-top: 200px;
+  display: flex;
+  justify-content: center;
+
+  h1 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+
+  img {
+    border-radius: 5px;
+  }
+
+  .rate-show {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: gold;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+    }
+    mat-icon {
+      color: gold;
+    }
+  }
+
+  .imbd-link {
+    color: gold;
+    text-decoration: none;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+  .misc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .trailer-icon {
+    display: flex;
+    flex-wrap: wrap;
+
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  .servers {
+    gap: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    button {
+      font-family: "Nunito";
+      border-radius: 25px;
+    }
+  }
+
+  .overview {
+    h3 {
+      font-size: 16px;
+    }
+    p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.75);
+    }
+  }
+}
+
+.extra-info {
+  width: 70%;
+  margin: auto;
+  font-family: "Nunito";
+  color: white;
+  gap: 35px;
+  padding-bottom: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  .extra-info-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 25px;
+    span {
+      opacity: 0.75;
+      font-size: 14px;
+    }
+
+    .cast-info {
+      cursor: pointer;
+    }
+  }
+}
+.similar-container {
+  width: 90%;
+  margin: auto;
+
+  h2 {
+    font-family: "Nunito";
+    margin-left: 15px;
+  }
+}
+.padding {
+  padding-bottom: 100px;
+}
+.seasons-container {
+  width: 95%;
+  margin: auto;
+}
+.overlay2 {
+  border-radius: 10px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+
+  .middle {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+
+    mat-icon {
+      border-radius: 50px;
+      color: white;
+      transform: scale(2);
+      cursor: pointer;
+
+      &:active {
+        animation: grow 1s infinite;
+      }
+    }
+  }
+}
+:host::ng-deep {
+  .mat-mdc-select-value {
+    color: rgb(255, 255, 255) !important;
+  }
+  .mdc-notched-outline__notch {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+  }
+  .mdc-notched-outline__trailing {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .mdc-notched-outline__leading {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+  }
+  .mat-mdc-select-arrow {
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
+}
+
+@keyframes grow {
+  from {
+    box-shadow: 0px 0px 1em #000;
+  }
+  to {
+    box-shadow: 0px 0px 3em #000;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .item-info {
+    width: 95%;
+    padding-top: 100px;
+    .img-container {
+      display: none;
+    }
+  }
+
+  .extra-info {
+    width: 95%;
+  }
+}

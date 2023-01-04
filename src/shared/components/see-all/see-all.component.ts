@@ -41,7 +41,7 @@ export class SeeAllComponent implements OnInit {
     this.data = {
       page: 1,
       total_pages: 1,
-      results: [],
+      results: this.results,
       total_results: 1,
     };
 

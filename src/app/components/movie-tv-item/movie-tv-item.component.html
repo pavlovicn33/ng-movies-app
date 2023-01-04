@@ -1,0 +1,203 @@
+<div
+  [ngStyle]="{
+    'background-image':
+      'linear-gradient(0deg, #050505 0 , rgba(5, 5, 5, 0.1) 100%), url(' +
+      'https://image.tmdb.org/t/p/original' +
+      data.backdrop_path +
+      ')'
+  }"
+  class="hero-container"
+>
+  <div class="item-info">
+    <div class="img-container">
+      <img
+        width="200px"
+        height="300px"
+        src="https://image.tmdb.org/t/p/w500{{ data.poster_path }}"
+        alt=""
+      />
+    </div>
+    <div>
+      <h1>{{ data.title || data.name }}</h1>
+      <div class="misc">
+        <button [style.color]="'white'" disabled mat-stroked-button>HD</button>
+        <p
+          *ngIf="data.title"
+          (click)="dialogTrailer()"
+          target="_blank"
+          class="trailer-icon"
+        >
+          <mat-icon>videocam</mat-icon> Trailer
+        </p>
+        <p
+          *ngIf="data.name"
+          (click)="dialogTrailer()"
+          target="_blank"
+          class="trailer-icon"
+        >
+          <mat-icon>videocam</mat-icon> Trailer
+        </p>
+        <a
+          *ngIf="data.imdb_id"
+          href="https://www.imdb.com/title/{{ data.imdb_id }}"
+          target="_blank"
+          class="imbd-link"
+          >IMDB</a
+        >
+        <p (click)="rateShow()" *ngIf="!data.title" class="rate-show">
+          <mat-icon>star</mat-icon>
+          Rate the show
+        </p>
+        <p *ngIf="data.runtime">{{ data.runtime }} min</p>
+        <span *ngIf="!data.release_date">
+          <span *ngIf="data.episode_run_time">
+            <p *ngIf="data.episode_run_time.length >= 1">
+              {{ data.episode_run_time[0] }} min
+            </p>
+          </span>
+        </span>
+      </div>
+      <div *ngIf="data.release_date" class="servers">
+        <button
+          (click)="dialogMovie(i.url)"
+          *ngFor="let i of streamLinks"
+          mat-raised-button
+        >
+          <mat-icon>play_circle_filled</mat-icon> {{ i.server }}
+        </button>
+      </div>
+      <div class="overview">
+        <h3>Overview:</h3>
+        <p>{{ data.overview }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="extra-info">
+    <div class="extra-info-container">
+      <div *ngIf="data.production_companies.length > 0" [style.width]="'50%'">
+        Production:
+        <span *ngFor="let i of data.production_companies; let isLast = last"
+          >{{ i.name }}{{ isLast ? "" : "," }}
+        </span>
+      </div>
+      <div *ngIf="data.production_companies.length == 0" [style.width]="'50%'">
+        Production:
+        <span *ngFor="let i of data.production_countries; let isLast = last"
+          >{{ i.name }}{{ isLast ? "" : "," }}
+        </span>
+      </div>
+      <div *ngIf="data.release_date" [style.width]="'50%'">
+        Released:
+        <span>{{ data.release_date | date }}</span>
+      </div>
+      <div *ngIf="data.first_air_date" [style.width]="'50%'">
+        Released:
+        <span>{{ data.first_air_date | date }}</span>
+      </div>
+    </div>
+    <div class="extra-info-container">
+      <strong [style.width]="'50%'" *ngIf="movieCast.length > 0">
+        <div *ngIf="data.release_date">
+          Cast:
+          <span
+            class="cast-info"
+  
+            *ngFor="let i of movieCast; let isLast = last"
+            [routerLink]="['../../cast/', i.id, i.name]"
+            >{{ i.name }}{{ isLast ? "" : "," }}
+          </span>
+        </div>
+      </strong>
+      <strong [style.width]="'50%'" *ngIf="showCast.length > 0">
+        <div *ngIf="data.first_air_date">
+          Cast:
+          <span
+            class="cast-info"
+            *ngFor="let i of showCast; let isLast = last"
+            [routerLink]="['../../cast/', i.id, i.name]"
+            >{{ i.name }}{{ isLast ? "" : "," }}
+          </span>
+        </div>
+      </strong>
+      <div [style.width]="'50%'">
+        Genres:
+        <span *ngFor="let i of data.genres; let isLast = last"
+          >{{ i.name }}{{ isLast ? "" : "," }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="data.release_date" class="padding"></div>
+  <div class="seasons-container" *ngIf="data.seasons">
+    <mat-form-field appearance="outline">
+      <mat-select
+        *ngIf="data.seasons"
+        (selectionChange)="changeSeason($event)"
+        [(value)]="selectedSeason"
+      >
+        <mat-option *ngFor="let i of obj" [value]="i">
+          <span>{{ i.name }}</span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <splide
+        [options]="{
+          type: 'slide',
+          arrows: false,
+          snap: true,
+          drag: true,
+          pagination: false,
+          autoWidth: true,
+          gap: 20,
+          perPage: 1
+        }"
+      >
+        <splide-slide
+          *ngFor="
+            let item of [].constructor(selectedSeason.episodes);
+            let i = index
+          "
+        >
+          <img
+            [style.border-radius]="'10px'"
+            width="150px"
+            height="200px"
+            *ngIf="defaultImage"
+            src="../../../assets/images/istockphoto-1147544807-612x612.jpg"
+            alt=""
+          />
+          <img
+            *ngIf="!defaultImage"
+            [style.border-radius]="'10px'"
+            height="200px"
+            width="150px"
+            src="https://image.tmdb.org/t/p/w200{{ posterUrl }}"
+            alt=""
+          />
+          <div class="overlay2">
+            <div class="middle">
+              <mat-icon (click)="openEpisode(i + 1)"
+                >play_circle_outline</mat-icon
+              >
+            </div>
+          </div>
+          <h3 [style.color]="'white'" [style.font-family]="'Nunito'">
+            Episode {{ i + 1 }}
+          </h3>
+        </splide-slide>
+      </splide>
+    </div>
+  </div>
+</div>
+<div *ngIf="similarMovies.length > 1 || similarShows.length > 1" class="similar-container">
+  <h2>You may also like</h2>
+  <app-see-all
+    *ngIf="similarMovies.length > 1"
+    [results]="similarMovies"
+  ></app-see-all>
+  <app-see-all
+    *ngIf="similarShows.length > 1"
+    [results]="similarShows"
+  ></app-see-all>
+</div>

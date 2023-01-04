@@ -28,7 +28,6 @@ export class CarouselComponent implements OnInit {
   ngOnInit(): void {
     this.getBookmarked();
   }
-
   ngOnChanges() {
     this.pipe.emptyPoster(this.data);
   }

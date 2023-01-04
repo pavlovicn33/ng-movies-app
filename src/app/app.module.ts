@@ -35,6 +35,13 @@ import { EmailHandlerComponent } from './pages/email-handler/email-handler.compo
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { RecoverEmailComponent } from './components/recover-email/recover-email.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { PersonItemComponent } from './components/person-item/person-item.component';
+import { ItemDetailsComponent } from './pages/item-details/item-details.component';
+import { MovieTvItemComponent } from './components/movie-tv-item/movie-tv-item.component';
+import { MovieTrailerDialogComponent } from './components/movie-trailer-dialog/movie-trailer-dialog.component';
+import { CastDetailsComponent } from './pages/cast-details/cast-details.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -55,6 +62,12 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     ResetPasswordComponent,
     RecoverEmailComponent,
     VerifyEmailComponent,
+    PersonItemComponent,
+    ItemDetailsComponent,
+    MovieTvItemComponent,
+    MovieTrailerDialogComponent,
+    CastDetailsComponent,
+    NotFoundComponent,
   ],
   imports: [
     InfiniteScrollModule,

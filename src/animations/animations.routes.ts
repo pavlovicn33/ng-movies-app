@@ -1,7 +1,7 @@
 import { Routes } from "@angular/router";
-import { AllAnimationsShowsComponent } from "./all-animations-shows/all-animations-shows.component";
-import { AllAnimationsComponent } from "./all-animations/all-animations.component";
-import { AnimationsComponent } from "./animations/animations.component";
+import { AllAnimationsShowsComponent } from "./pages/all-animations-shows/all-animations-shows.component";
+import { AllAnimationsComponent } from "./pages/all-animations/all-animations.component";
+import { AnimationsComponent } from "./pages/animations/animations.component";
 
 export const AnimationsRoutes: Routes = [
     {

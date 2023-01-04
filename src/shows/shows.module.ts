@@ -11,7 +11,7 @@ import { AllShowsComponent } from './pages/all-shows/all-shows.component';
 @NgModule({
   declarations: [
     ShowsComponent,
-    AllShowsComponent
+    AllShowsComponent,
   ],
   imports: [
     CommonModule,

@@ -26,7 +26,12 @@ export class ShowsComponent implements OnInit {
 
   getShows() {
     this.showService.getPopularShows().subscribe((data: Shows) => {
-      this.shows = data.results;
+      data.results.forEach((el) => {
+        if (el.backdrop_path) {
+          el.media_type = 'tv';
+          this.shows.push(el);
+        }
+      });
       this.pipe.emptyPoster(this.shows);
     });
   }
@@ -38,6 +43,7 @@ export class ShowsComponent implements OnInit {
           if (this.topRated.length == 20) {
             return;
           }
+          el.media_type = 'tv';
           this.topRated.push(el);
         }
       });
@@ -61,10 +67,10 @@ export class ShowsComponent implements OnInit {
       );
       if (this.trailers.length < 10 && this.onTheAirPage <= data.total_pages) {
         this.onTheAirPage += 1;
-        this.getOnTheAir(this.onTheAirPage)
-        this.onTheAir.forEach(el => {
-          this.getTrailers(el)
-        })
+        this.getOnTheAir(this.onTheAirPage);
+        this.onTheAir.forEach((el) => {
+          this.getTrailers(el);
+        });
         return;
       }
     });

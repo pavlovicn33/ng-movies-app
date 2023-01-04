@@ -17,5 +17,5 @@ export const ShowsRoutes: Routes = [
         path:'all-shows',
         pathMatch:'full',
         component:AllShowsComponent,
-    }
+    },
 ]

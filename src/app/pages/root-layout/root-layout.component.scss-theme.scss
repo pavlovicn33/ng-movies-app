@@ -16,19 +16,43 @@
       color: mat.get-color-from-palette($accent-palette, 500) !important;
     }
   }
-  .search-icon{
+  .search-icon {
     color: mat.get-color-from-palette($accent-palette, 500) !important;
   }
-  
-  .color-accent{
+
+  .color-accent {
     color: mat.get-color-from-palette($accent-palette, 500) !important;
   }
-  .save{
-    button{
-      background-color: mat.get-color-from-palette($accent-palette, 500) !important;
+  .save {
+    button {
+      background-color: mat.get-color-from-palette(
+        $accent-palette,
+        500
+      ) !important;
     }
   }
-  .highlight{
+  .highlight {
     color: mat.get-color-from-palette($accent-palette, 400) !important;
+  }
+  .servers {
+    button {
+      color: mat.get-color-from-palette($accent-palette, 400) !important;
+    }
+  }
+
+  .cast-info {
+    &:hover {
+      color: mat.get-color-from-palette($accent-palette, 400) !important;
+    }
+  }
+
+  .rate-area > input:checked ~ label {
+    color: mat.get-color-from-palette($accent-palette, 400) !important;
+    text-shadow: none;
+  }
+  .rate-area:not(:checked) > label:hover,
+  .rate-area:not(:checked) > label:hover ~ label {
+    color: mat.get-color-from-palette($accent-palette, 400) !important;
+    text-shadow: none;
   }
 }

@@ -10,8 +10,8 @@ import { MoviesService } from 'src/shared/services/movies/movies.service';
 })
 export class AllMoviesComponent implements OnInit {
   movies: Movies;
-  results: ResultMovies[] = []
-  constructor(private movieService: MoviesService, private pipe:CarouselPipe) {
+  results: ResultMovies[] = [];
+  constructor(private movieService: MoviesService, private pipe: CarouselPipe) {
     this.movies = {
       page: 1,
       total_pages: 1,
@@ -24,17 +24,24 @@ export class AllMoviesComponent implements OnInit {
     this.getMovies();
   }
 
-  getMovies(number?:number) {
-    this.movieService.getPopularMoviesList(number).subscribe((data: Movies) => {
-      this.movies = data
-      data.results.forEach(element => {
-          this.results.push(element)
+  getMovies(number?: number) {
+    this.movieService.getPopularMoviesList(number).subscribe((data: any) => {
+      this.movies = data;
+      data.results.forEach((element: any) => {
+        if (!element.media_type) {
+          if (element.name) {
+            element.media_type = 'tv';
+          } else {
+            element.media_type = 'movie';
+          }
+          this.results.push(element);
+        }
       });
-      this.pipe.emptyPoster(this.results);      
+      this.pipe.emptyPoster(this.results);
     });
   }
 
-  sendPage(number:number) {    
-    this.getMovies(number)
+  sendPage(number: number) {
+    this.getMovies(number);
   }
 }

@@ -37,7 +37,10 @@ export class MoviesComponent implements OnInit {
 
   getMovies() {
     this.movieService.getPopularMovies().subscribe((data: Movies) => {
-      this.movies = data.results;
+      data.results.forEach((el) => {
+        el.media_type = 'movie';
+        this.movies.push(el);
+      });
       this.pipe.emptyPoster(this.movies);
     });
   }
@@ -88,6 +91,7 @@ export class MoviesComponent implements OnInit {
           if (this.topRated.length == 20) {
             return;
           }
+          el.media_type = 'movie';
           this.topRated.push(el);
         }
       });

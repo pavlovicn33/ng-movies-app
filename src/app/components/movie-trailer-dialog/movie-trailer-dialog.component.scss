@@ -1,0 +1,10 @@
+.servers {
+    gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 650px;
+    button {
+      font-family: "Nunito";
+      border-radius: 25px;
+    }
+  }
