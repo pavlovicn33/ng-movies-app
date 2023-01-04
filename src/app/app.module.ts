@@ -40,6 +40,7 @@ import { ItemDetailsComponent } from './pages/item-details/item-details.componen
 import { MovieTvItemComponent } from './components/movie-tv-item/movie-tv-item.component';
 import { MovieTrailerDialogComponent } from './components/movie-trailer-dialog/movie-trailer-dialog.component';
 import { CastDetailsComponent } from './pages/cast-details/cast-details.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { CastDetailsComponent } from './pages/cast-details/cast-details.componen
     MovieTvItemComponent,
     MovieTrailerDialogComponent,
     CastDetailsComponent,
+    NotFoundComponent,
   ],
   imports: [
     InfiniteScrollModule,

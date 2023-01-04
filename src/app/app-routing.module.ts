@@ -16,6 +16,7 @@ import { SettingsComponent } from './sidebar-data/settings/settings.component';
 import { EmailHandlerComponent } from './pages/email-handler/email-handler.component';
 import { ItemDetailsComponent } from 'src/app/pages/item-details/item-details.component';
 import { CastDetailsComponent } from './pages/cast-details/cast-details.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 
@@ -100,6 +101,11 @@ const routes: Routes = [
     component: EmailHandlerComponent,
     pathMatch: 'full',
   },
+  {
+    path:'**',
+    component:NotFoundComponent,
+    pathMatch:'full'
+  }
 ];
 
 @NgModule({

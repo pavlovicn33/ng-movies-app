@@ -46,7 +46,7 @@ export class MovieTvItemComponent implements OnInit {
 
   resultEpisodes: any;
 
-  defaultImage:boolean = false
+  defaultImage: boolean = false;
 
   selectedSeason: any = {
     name: 'Season 1',
@@ -87,7 +87,8 @@ export class MovieTvItemComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
+  ngOnChanges() {
+    console.log(this.data)
     let seasonNumber = this.selectedSeason.name.split(' ');
     this.season = Number(seasonNumber[1]);
     this.getTrailer(this.data.id);
@@ -107,12 +108,14 @@ export class MovieTvItemComponent implements OnInit {
     }
   }
 
+  ngOnInit(): void {}
+
   getImages(id: number, season: number) {
     this.ShowService.getSeasonImages(id, season).subscribe(
       (data: SeasonPosters) => {
         if (data.posters.length == 0) {
-          this.defaultImage = true
-          return
+          this.defaultImage = true;
+          return;
         }
         this.posterUrl = data.posters[0].file_path;
       }
@@ -257,21 +260,21 @@ export class MovieTvItemComponent implements OnInit {
   }
 
   getSimilarMovies(id: number) {
+    console.log(id)
     this.movieService.getSimilar(id).subscribe((data: Movies) => {
-      data.results.length = 18;
       data.results.forEach((el) => {
         el.media_type = 'movie';
-        this.similarMovies.push(el);
       });
+      this.similarMovies = data.results;
+      console.log(this.similarMovies)
     });
   }
   getSimilarShows(id: number) {
     this.ShowService.getSimilar(id).subscribe((data: Shows) => {
-      data.results.length = 18;
       data.results.forEach((el) => {
         el.media_type = 'tv';
-        this.similarShows.push(el);
       });
+      this.similarShows = data.results;
     });
   }
 }
