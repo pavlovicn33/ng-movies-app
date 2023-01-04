@@ -46,6 +46,8 @@ export class MovieTvItemComponent implements OnInit {
 
   resultEpisodes: any;
 
+  defaultImage:boolean = false
+
   selectedSeason: any = {
     name: 'Season 1',
     episodes: 0,
@@ -108,6 +110,10 @@ export class MovieTvItemComponent implements OnInit {
   getImages(id: number, season: number) {
     this.ShowService.getSeasonImages(id, season).subscribe(
       (data: SeasonPosters) => {
+        if (data.posters.length == 0) {
+          this.defaultImage = true
+          return
+        }
         this.posterUrl = data.posters[0].file_path;
       }
     );
@@ -187,7 +193,6 @@ export class MovieTvItemComponent implements OnInit {
     });
   }
   dialogMovie(key: string) {
-    console.log(this.data);
     const dialogRef = this.dialog.open(MovieTrailerDialogComponent, {
       hasBackdrop: true,
       data: {
@@ -214,7 +219,16 @@ export class MovieTvItemComponent implements OnInit {
       },
       backdropClass: 'dialog-bg',
     });
-    dialogRef.afterClosed().subscribe((data: any) => {
+  }
+
+  rateShow() {
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      data: {
+        text: 'Did you like the show? Rate it!',
+        itemId: this.data.id,
+        type: 'tv',
+      },
+      duration: 5000,
     });
   }
 

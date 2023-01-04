@@ -44,6 +44,10 @@
           class="imbd-link"
           >IMDB</a
         >
+        <p (click)="rateShow()" *ngIf="!data.title" class="rate-show">
+          <mat-icon>star</mat-icon>
+          Rate the show
+        </p>
         <p *ngIf="data.runtime">{{ data.runtime }} min</p>
         <span *ngIf="!data.release_date">
           <p *ngIf="data.episode_run_time.length > 0">
@@ -153,6 +157,15 @@
           "
         >
           <img
+            [style.border-radius]="'10px'"
+            width="150px"
+            height="200px"
+            *ngIf="defaultImage"
+            src="../../../assets/images/istockphoto-1147544807-612x612.jpg"
+            alt=""
+          />
+          <img
+            *ngIf="!defaultImage"
             [style.border-radius]="'10px'"
             height="200px"
             width="150px"

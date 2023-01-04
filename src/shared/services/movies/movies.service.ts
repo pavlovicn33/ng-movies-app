@@ -70,7 +70,6 @@ export class MoviesService {
 
   rateMovie(rating:number, id:number):Observable<any>{
     const session = localStorage.getItem('sessionTmdb')
-
     return this.http.post(`${environment.baseURL}/movie/${id}/rating${environment.apiKey}&guest_session_id=${session}`, {value:rating})
   }
 }

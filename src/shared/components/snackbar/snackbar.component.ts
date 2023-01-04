@@ -22,9 +22,7 @@ export class SnackbarComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
 
-  ngOnInit(): void {
-    console.log(this.data);
-  }
+  ngOnInit(): void {}
 
   undo() {
     this.snackBarRef.dismissWithAction();
@@ -49,6 +47,7 @@ export class SnackbarComponent implements OnInit {
         .subscribe((data: any) => {
           this.snackBar.openFromComponent(SnackbarComponent, {
             data: 'Thanks for sharing your rating with us and the community.',
+            duration: 3000,
           });
         });
     }

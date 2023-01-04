@@ -78,6 +78,7 @@ export class ShowsService {
   }
 
   rateShow(rating:number, id:number):Observable<any>{
-    return this.http.post(`${environment.baseURL}/tv/${id}/rating${environment.apiKey}`, rating)
+    const session = localStorage.getItem('sessionTmdb')
+    return this.http.post(`${environment.baseURL}/tv/${id}/rating${environment.apiKey}&guest_session_id=${session}`, {value:rating})
   }
 }

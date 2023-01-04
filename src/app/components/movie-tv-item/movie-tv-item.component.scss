@@ -22,6 +22,21 @@
     border-radius: 5px;
   }
 
+  .rate-show {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: gold;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+    }
+    mat-icon {
+      color: gold;
+    }
+  }
+
   .imbd-link {
     color: gold;
     text-decoration: none;
