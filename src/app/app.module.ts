@@ -41,6 +41,7 @@ import { MovieTvItemComponent } from './components/movie-tv-item/movie-tv-item.c
 import { MovieTrailerDialogComponent } from './components/movie-trailer-dialog/movie-trailer-dialog.component';
 import { CastDetailsComponent } from './pages/cast-details/cast-details.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [

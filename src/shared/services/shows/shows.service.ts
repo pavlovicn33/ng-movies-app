@@ -36,7 +36,7 @@ export class ShowsService {
 
   getLatest(page?: number): Observable<Shows> {
     return this.http.get<Shows>(
-      `${environment.baseURL}/tv/on_the_air${environment.apiKey}&page=${page}`
+      `${environment.baseURL}/tv/on_the_air${environment.apiKey}&page=${page}&with_original_language=en`
     );
   }
 

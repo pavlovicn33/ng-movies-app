@@ -7,7 +7,6 @@ import { RegisterComponent } from './pages/register/register.component';
 import { RootLayoutComponent } from './pages/root-layout/root-layout.component';
 import {
   AngularFireAuthGuard,
-  canActivate,
   redirectUnauthorizedTo,
 } from '@angular/fire/compat/auth-guard';
 import { BrowseComponent } from './sidebar-data/browse/browse.component';
@@ -102,10 +101,10 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path:'**',
-    component:NotFoundComponent,
-    pathMatch:'full'
-  }
+    path: '**',
+    component: NotFoundComponent,
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

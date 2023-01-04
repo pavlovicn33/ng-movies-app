@@ -2,13 +2,15 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DomSanitizer } from '@angular/platform-browser';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter, Subject, takeUntil } from 'rxjs';
 import { SnackbarComponent } from 'src/shared/components/snackbar/snackbar.component';
 import { Cast, Credits } from 'src/shared/models/cast';
 import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
 import { ResultShow, Shows } from 'src/shared/models/popularTvShows';
-import { Poster, SeasonPosters } from 'src/shared/models/seasonPosters';
+import { SeasonPosters } from 'src/shared/models/seasonPosters';
 import { Stream, StreamMovieTv } from 'src/shared/models/stream';
+import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
 import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trailer-dialog.component';
@@ -48,6 +50,8 @@ export class MovieTvItemComponent implements OnInit {
 
   defaultImage: boolean = false;
 
+  unsubscribe$ = new Subject<void>()
+
   selectedSeason: any = {
     name: 'Season 1',
     episodes: 0,
@@ -60,7 +64,9 @@ export class MovieTvItemComponent implements OnInit {
     private dialog: MatDialog,
     private ShowService: ShowsService,
     private breakpointObserver: BreakpointObserver,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private carouselPipe: CarouselPipe
   ) {
     this.breakpointObserver
       .observe([
@@ -88,6 +94,10 @@ export class MovieTvItemComponent implements OnInit {
   }
 
   ngOnChanges() {
+    this.posterUrl = '';
+    this.trailerLink = '';
+    this.defaultImage = false;
+    this.obj = [];
     let seasonNumber = this.selectedSeason.name.split(' ');
     this.season = Number(seasonNumber[1]);
     this.getTrailer(this.data.id);
@@ -99,18 +109,33 @@ export class MovieTvItemComponent implements OnInit {
       return;
     }
     if (this.data.first_air_date) {
+      this.getCastShow(this.data.id);
       this.getImages(this.data.id, 1);
       this.removeExtra();
       this.getSimilarShows(this.data.id);
-      this.getCastShow(this.data.id);
       return;
     }
   }
 
-  ngOnInit(): void {}
+  ngOnDestroy(){
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
+  }
+
+  ngOnInit(): void {
+    this.router.events
+    .pipe(filter((event) => event instanceof NavigationEnd))
+    .subscribe(() => {
+      let e = document.querySelector('.mat-drawer-content');
+      if (e) {
+        e.scrollTop = 0;
+      }
+    });
+  }
 
   getImages(id: number, season: number) {
-    this.ShowService.getSeasonImages(id, season).subscribe(
+    this.defaultImage = false;
+    this.ShowService.getSeasonImages(id, season).pipe(takeUntil(this.unsubscribe$)).subscribe(
       (data: SeasonPosters) => {
         if (data.posters.length == 0) {
           this.defaultImage = true;
@@ -128,7 +153,7 @@ export class MovieTvItemComponent implements OnInit {
   }
 
   getSeason(id: number, season: number, ep: number) {
-    this.ShowService.getShowStreams(id, season, ep).subscribe(
+    this.ShowService.getShowStreams(id, season, ep).pipe(takeUntil(this.unsubscribe$)).subscribe(
       (data: Stream) => {
         this.resultEpisodes = data.results;
         this.dialogEpisode(this.resultEpisodes);
@@ -164,7 +189,7 @@ export class MovieTvItemComponent implements OnInit {
     if (this.data.media_type == 'tv') {
       return;
     }
-    this.movieService.getTrailers(id).subscribe((data: any) => {
+    this.movieService.getTrailers(id).pipe(takeUntil(this.unsubscribe$)).subscribe((data: any) => {
       data.results.forEach((element: any) => {
         if (element.type == 'Trailer' && element.site == 'YouTube') {
           this.trailerLink = element.key;
@@ -177,7 +202,7 @@ export class MovieTvItemComponent implements OnInit {
     if (this.data.media_type == 'movie') {
       return;
     }
-    this.ShowService.getTrailers(id).subscribe((data: any) => {
+    this.ShowService.getTrailers(id).pipe(takeUntil(this.unsubscribe$)).subscribe((data: any) => {
       data.results.forEach((element: any) => {
         if (element.type == 'Trailer' && element.site == 'YouTube') {
           this.trailerLink = element.key;
@@ -202,7 +227,7 @@ export class MovieTvItemComponent implements OnInit {
       },
       backdropClass: 'dialog-bg',
     });
-    dialogRef.afterClosed().subscribe((data: any) => {
+    dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe((data: any) => {
       this.snackBar.openFromComponent(SnackbarComponent, {
         data: {
           text: 'Did you like the movie? Rate it!',
@@ -235,20 +260,24 @@ export class MovieTvItemComponent implements OnInit {
   }
 
   getStreamMovie(id: number) {
-    this.movieService.getMovieStream(id).subscribe((data: Stream) => {
+    this.movieService.getMovieStream(id).pipe(takeUntil(this.unsubscribe$)).subscribe((data: Stream) => {
       this.streamLinks = data.results;
     });
   }
 
   getCastMovie(id: number) {
-    this.movieService.getMovieCast(id).subscribe((data: Credits) => {
+    this.movieService.getMovieCast(id).pipe(takeUntil(this.unsubscribe$)).subscribe((data: Credits) => {
+      if (data.cast.length < 5) {
+        this.movieCast = data.cast;
+        return;
+      }
       data.cast.length = 5;
       this.movieCast = data.cast;
     });
   }
 
   getCastShow(id: number) {
-    this.ShowService.getShowCast(id).subscribe((data: Credits) => {
+    this.ShowService.getShowCast(id).pipe(takeUntil(this.unsubscribe$)).subscribe((data: Credits) => {
       if (data.cast.length < 5) {
         this.showCast = data.cast;
         return;
@@ -259,16 +288,22 @@ export class MovieTvItemComponent implements OnInit {
   }
 
   getSimilarMovies(id: number) {
-    this.movieService.getSimilar(id).subscribe((data: Movies) => {
-      data.results.forEach((el) => {
+    this.movieService.getSimilar(id).pipe(takeUntil(this.unsubscribe$)).subscribe((data: Movies) => {
+      data.results.forEach((el, i) => {
+        if (!el.poster_path) {
+          data.results.splice(i);
+        }
         el.media_type = 'movie';
       });
       this.similarMovies = data.results;
     });
   }
   getSimilarShows(id: number) {
-    this.ShowService.getSimilar(id).subscribe((data: Shows) => {
-      data.results.forEach((el) => {
+    this.ShowService.getSimilar(id).pipe(takeUntil(this.unsubscribe$)).subscribe((data: Shows) => {
+      data.results.forEach((el, i) => {
+        if (!el.poster_path) {
+          data.results.splice(i);
+        }
         el.media_type = 'tv';
       });
       this.similarShows = data.results;

@@ -18,7 +18,7 @@
   [style.color]="'white'"
   [style.margin]="'10px'"
   [style.font-family]="'Nunito'"
-  *ngIf="!data.url && !data.link && !data.streamLinks"
+  *ngIf="!data.url && !data.link && data.streamLinks.length == 0"
 >
   Item is not available at this time
 </h2>

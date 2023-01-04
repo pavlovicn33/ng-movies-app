@@ -50,9 +50,11 @@
         </p>
         <p *ngIf="data.runtime">{{ data.runtime }} min</p>
         <span *ngIf="!data.release_date">
-          <p *ngIf="data.episode_run_time.length > 0">
-            {{ data.episode_run_time[0] }} min
-          </p>
+          <span *ngIf="data.episode_run_time">
+            <p *ngIf="data.episode_run_time.length >= 1">
+              {{ data.episode_run_time[0] }} min
+            </p>
+          </span>
         </span>
       </div>
       <div *ngIf="data.release_date" class="servers">
@@ -99,6 +101,7 @@
           Cast:
           <span
             class="cast-info"
+  
             *ngFor="let i of movieCast; let isLast = last"
             [routerLink]="['../../cast/', i.id, i.name]"
             >{{ i.name }}{{ isLast ? "" : "," }}
@@ -187,7 +190,7 @@
     </div>
   </div>
 </div>
-<div class="similar-container">
+<div *ngIf="similarMovies.length > 1 || similarShows.length > 1" class="similar-container">
   <h2>You may also like</h2>
   <app-see-all
     *ngIf="similarMovies.length > 1"

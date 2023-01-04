@@ -14,6 +14,5 @@ export class PersonItemComponent implements OnInit{
   constructor() {}
 
   ngOnInit(): void {
-      console.log(this.data)
   }
 }
