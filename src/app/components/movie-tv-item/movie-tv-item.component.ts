@@ -88,7 +88,6 @@ export class MovieTvItemComponent implements OnInit {
   }
 
   ngOnChanges() {
-    console.log(this.data)
     let seasonNumber = this.selectedSeason.name.split(' ');
     this.season = Number(seasonNumber[1]);
     this.getTrailer(this.data.id);
@@ -260,13 +259,11 @@ export class MovieTvItemComponent implements OnInit {
   }
 
   getSimilarMovies(id: number) {
-    console.log(id)
     this.movieService.getSimilar(id).subscribe((data: Movies) => {
       data.results.forEach((el) => {
         el.media_type = 'movie';
       });
       this.similarMovies = data.results;
-      console.log(this.similarMovies)
     });
   }
   getSimilarShows(id: number) {

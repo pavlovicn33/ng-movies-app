@@ -1,1 +1,40 @@
-<p>person-item works!</p>
+<div
+  [ngStyle]="{
+    'background-image':
+      'linear-gradient(0deg, #050505 0 , rgba(5, 5, 5, 0.1) 100%)'
+  }"
+  class="hero-container"
+>
+  <div class="item-info">
+    <div class="img-container">
+      <img
+        width="200px"
+        height="300px"
+        src="https://image.tmdb.org/t/p/w500{{ data.profile_path }}"
+        alt=""
+      />
+    </div>
+    <div>
+      <h1>{{ data.name }}</h1>
+      <div class="misc">
+        <p>Born: {{ data.birthday | date }}</p>
+        <p *ngIf="data.deathday">Died: {{ data.deathday | date }}</p>
+        <a
+          *ngIf="data.imdb_id"
+          href="https://www.imdb.com/name/{{ data.imdb_id }}"
+          target="_blank"
+          class="imbd-link"
+          >IMDB</a
+        >
+        <p>Known For: {{ data.known_for_department }}</p>
+      </div>
+      <div class="misc">
+        <p class="media" [routerLink]="['../../cast/', data.id, data.name]">Movies And Shows</p>
+      </div>
+      <div class="overview">
+        <h3>Overview:</h3>
+        <p>{{ data.biography }}</p>
+      </div>
+    </div>
+  </div>
+</div>
