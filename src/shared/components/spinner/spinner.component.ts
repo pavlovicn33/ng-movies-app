@@ -8,15 +8,10 @@ import { SpinnerService } from 'src/shared/services/spinner/spinner.service';
 })
 export class SpinnerComponent implements OnInit {
 
-  showSpinner:boolean = false
-
-  constructor(private spinnerService:SpinnerService,private cdRef:ChangeDetectorRef) {
+  constructor(public spinnerService:SpinnerService) {
   }
 
   ngOnInit(): void {
-    this.spinnerService.getSpinnerObserver().subscribe((status:any) => {
-      this.showSpinner = status === 'start'
-      this.cdRef.detectChanges()
-    })
+
   }
 }

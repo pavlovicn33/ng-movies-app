@@ -272,9 +272,9 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
 
 @media screen and (max-width: 625px) {
   .toolbar {
-    min-height: 175px !important;
+    min-height: 115px !important;
     flex-direction: column-reverse;
-    justify-content: space-between;
+    justify-content: space-evenly;
     gap: 5px;
 
     .divider {
@@ -289,8 +289,12 @@ $color-config-gray: mat.get-color-config(mat.$gray-palette, 500);
   }
 
   .profile-container {
-    margin-top: 25px;
-    padding-bottom: 25px;
+    margin-top: 5px;
+  }
+
+  ul{
+    margin-top: 0px;
+    margin-bottom: 5px;
   }
 
   .hamburger {

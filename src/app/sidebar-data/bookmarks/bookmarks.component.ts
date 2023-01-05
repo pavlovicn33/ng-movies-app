@@ -26,8 +26,7 @@ export class BookmarksComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.spinner.getSpinnerObserver();
-    this.spinner.requestStarted();
+    this.spinner.setLoading(true)
     this.getBookmarkedMovies(this.page);
     this.getBookmarkedShows(this.page);
   }
@@ -45,7 +44,8 @@ export class BookmarksComponent implements OnInit {
         this.movies = movie.sort((a: any, b: any) => {
           return b.createdAt - a.createdAt;
         });
-        this.spinner.requestEnded();
+        this.spinner.setLoading(false)
+
       });
   }
   getBookmarkedShows(page: number) {

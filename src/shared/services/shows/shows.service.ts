@@ -81,4 +81,8 @@ export class ShowsService {
     const session = localStorage.getItem('sessionTmdb')
     return this.http.post(`${environment.baseURL}/tv/${id}/rating${environment.apiKey}&guest_session_id=${session}`, {value:rating})
   }
+
+  discoverMovie(genre:string):Observable<Shows>{
+    return this.http.get<Shows>(`${environment.baseURL}/discover/tv${environment.apiKey}&with_genres=${genre}`)
+  }
 }

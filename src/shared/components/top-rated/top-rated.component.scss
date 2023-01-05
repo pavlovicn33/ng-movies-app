@@ -69,6 +69,10 @@ img {
   }
 }
 
+.eye-icon{
+  display: none;
+}
+
 @-webkit-keyframes popout {
   50% {
     -webkit-transform: scale(1.2);
@@ -107,6 +111,10 @@ img {
       object-fit: cover;
       max-width: 100% !important;
       height: auto !important;
+    }
+
+    .eye-icon{
+      display: block;
     }
 
     .overlay {

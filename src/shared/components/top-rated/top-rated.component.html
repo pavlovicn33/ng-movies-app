@@ -30,6 +30,7 @@
                 : (i.first_air_date | date : "yyyy")
             }})
             <div class="buttons">
+              <button [routerLink]="['/ngmovies/',i.media_type, i.id]" class="eye-icon" mat-icon-button><mat-icon>remove_red_eye</mat-icon></button>
               <button
                 class="watch-now"
                 [routerLink]="['/ngmovies/',i.media_type, i.id]"
