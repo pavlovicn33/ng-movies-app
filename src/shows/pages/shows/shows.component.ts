@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { ResultShow, Shows } from 'src/shared/models/popularTvShows';
 import { Videos } from 'src/shared/models/videos';
 import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
@@ -16,6 +17,8 @@ export class ShowsComponent implements OnInit {
   onTheAir: ResultShow[] = [];
   trailers: Videos[] = [];
   onTheAirPage: number = 1;
+  unsubscribe$ = new Subject<void>();
+
   constructor(private showService: ShowsService, private pipe: CarouselPipe) {}
 
   ngOnInit(): void {
@@ -25,7 +28,7 @@ export class ShowsComponent implements OnInit {
   }
 
   getShows() {
-    this.showService.getPopularShows().subscribe((data: Shows) => {
+    this.showService.getPopularShows().pipe(takeUntil(this.unsubscribe$)).subscribe((data: Shows) => {
       data.results.forEach((el) => {
         if (el.backdrop_path) {
           el.media_type = 'tv';
@@ -37,7 +40,7 @@ export class ShowsComponent implements OnInit {
   }
 
   getTopRated(page: number) {
-    this.showService.getTopRated(page).subscribe((data: Shows) => {
+    this.showService.getTopRated(page).pipe(takeUntil(this.unsubscribe$)).subscribe((data: Shows) => {
       data.results.forEach((el) => {
         if (!el.genre_ids.includes(16)) {
           if (this.topRated.length == 20) {
@@ -55,7 +58,7 @@ export class ShowsComponent implements OnInit {
   }
 
   getOnTheAir(page: number) {
-    this.showService.getLatest(page).subscribe((data: Shows) => {
+    this.showService.getLatest(page).pipe(takeUntil(this.unsubscribe$)).subscribe((data: Shows) => {
       this.onTheAir = data.results.filter((el) => {
         if (el.backdrop_path && !el.genre_ids.includes(16)) {
           return el;
@@ -77,7 +80,7 @@ export class ShowsComponent implements OnInit {
   }
 
   getTrailers(el: any) {
-    this.showService.getTrailers(el.id).subscribe((data: Videos) => {
+    this.showService.getTrailers(el.id).pipe(takeUntil(this.unsubscribe$)).subscribe((data: Videos) => {
       if (data.results.length >= 1) {
         data.results.forEach((ele) => {
           if (ele.type == 'Trailer') {
@@ -90,5 +93,10 @@ export class ShowsComponent implements OnInit {
         return;
       }
     });
+  }
+
+  ngOnDestroy(){
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
   }
 }

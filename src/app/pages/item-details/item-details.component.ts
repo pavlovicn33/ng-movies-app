@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
 
@@ -12,6 +13,7 @@ export class ItemDetailsComponent implements OnInit {
   movie: boolean = false;
   tv: boolean = false;
   person: boolean = false;
+  unsubscribe$ = new Subject<void>()
 
   data: any;
 
@@ -41,23 +43,28 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   getMovie(id: number) {
-    this.movieService.getMovieDetails(id).subscribe((data: any) => {
+    this.movieService.getMovieDetails(id).pipe(takeUntil(this.unsubscribe$)).subscribe((data: any) => {
       this.movie = true;
       data.media_type = 'movie';
       this.data = data;
     });
   }
   getShows(id: number) {
-    this.showService.getShowDetails(id).subscribe((data: any) => {
+    this.showService.getShowDetails(id).pipe(takeUntil(this.unsubscribe$)).subscribe((data: any) => {
       this.tv = true;
       data.media_type = 'tv';
       this.data = data;
     });
   }
   getPeople(id: number) {
-    this.movieService.getPeopleDetails(id).subscribe((data: any) => {
+    this.movieService.getPeopleDetails(id).pipe(takeUntil(this.unsubscribe$)).subscribe((data: any) => {
       this.person = true;
       this.data = data;
     });
+  }
+
+  ngOnDestroy(){
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
   }
 }

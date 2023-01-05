@@ -117,10 +117,7 @@ export class MovieTvItemComponent implements OnInit {
     }
   }
 
-  ngOnDestroy(){
-    this.unsubscribe$.next()
-    this.unsubscribe$.complete()
-  }
+
 
   ngOnInit(): void {
     this.router.events
@@ -308,5 +305,10 @@ export class MovieTvItemComponent implements OnInit {
       });
       this.similarShows = data.results;
     });
+  }
+
+  ngOnDestroy(){
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
 import { Videos } from 'src/shared/models/videos';
 import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
@@ -19,6 +20,8 @@ export class AnimationMoviesComponent implements OnInit {
 
   trailerList: Videos[] = [];
 
+  unsubscribe$ = new Subject<void>()
+
   constructor(
     private animationsService: AnimationsService,
     private pipe: CarouselPipe
@@ -31,7 +34,7 @@ export class AnimationMoviesComponent implements OnInit {
   }
 
   getMovies() {
-    this.animationsService.getAnimationMovies().subscribe((data: Movies) => {
+    this.animationsService.getAnimationMovies().pipe(takeUntil(this.unsubscribe$)).subscribe((data: Movies) => {
       data.results.forEach((el) => {
         el.media_type = 'movie';
         this.movies.push(el);
@@ -41,7 +44,7 @@ export class AnimationMoviesComponent implements OnInit {
   }
 
   getTopRated() {
-    this.animationsService.getTopRatedMovies().subscribe((data: Movies) => {
+    this.animationsService.getTopRatedMovies().pipe(takeUntil(this.unsubscribe$)).subscribe((data: Movies) => {
       data.results.forEach((el) => {
         el.media_type = 'movie';
         this.topRated.push(el);
@@ -53,7 +56,7 @@ export class AnimationMoviesComponent implements OnInit {
   getUpcomingMovies(page: number) {
     let dateToday = new Date();
     this.animationsService
-      .getUpcomingAnimatedMovies(page)
+      .getUpcomingAnimatedMovies(page).pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: Movies) => {
         this.upcomingMovies = data.results.filter((el) => {
           if (new Date(el.release_date) > dateToday) {
@@ -74,7 +77,7 @@ export class AnimationMoviesComponent implements OnInit {
 
   getTrailers(el: any) {
     this.animationsService
-      .getTrailersMovies(el.id)
+      .getTrailersMovies(el.id).pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: Videos) => {
         if (data.results.length >= 1) {
           data.results.forEach((ele) => {
@@ -98,5 +101,10 @@ export class AnimationMoviesComponent implements OnInit {
           return;
         }
       });
+  }
+
+  ngOnDestroy(){
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
   }
 }

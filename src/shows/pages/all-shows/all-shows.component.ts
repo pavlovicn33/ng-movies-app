@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { ResultShow, Shows } from 'src/shared/models/popularTvShows';
 import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
@@ -10,6 +11,7 @@ import { ShowsService } from 'src/shared/services/shows/shows.service';
 })
 export class AllShowsComponent implements OnInit {
   shows: Shows;
+  unsubscribe$ = new Subject<void>();
 
   results: ResultShow[] = [];
   constructor(private showService: ShowsService, private pipe: CarouselPipe) {
@@ -26,7 +28,7 @@ export class AllShowsComponent implements OnInit {
   }
 
   getShows(number?: number) {
-    this.showService.getPopularShowsList(number).subscribe((data: any) => {
+    this.showService.getPopularShowsList(number).pipe(takeUntil(this.unsubscribe$)).subscribe((data: any) => {
       this.shows = data;
       data.results.forEach((element: any) => {
         if (!element.media_type) {
@@ -44,5 +46,9 @@ export class AllShowsComponent implements OnInit {
 
   sendPage(number: number) {
     this.getShows(number);
+  }
+  ngOnDestroy(){
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
   }
 }

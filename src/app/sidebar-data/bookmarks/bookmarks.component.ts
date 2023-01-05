@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject, takeUntil } from 'rxjs';
 import { SnackbarComponent } from 'src/shared/components/snackbar/snackbar.component';
 import { ResultMovies } from 'src/shared/models/popularMovies';
 import { ResultShow } from 'src/shared/models/popularTvShows';
@@ -14,6 +15,7 @@ import { SpinnerService } from 'src/shared/services/spinner/spinner.service';
 export class BookmarksComponent implements OnInit {
   movies: any[] = [];
   shows: any[] = [];
+  unsubscribe$ = new Subject<void>()
 
   page: number = 1;
 
@@ -32,7 +34,7 @@ export class BookmarksComponent implements OnInit {
 
   getBookmarkedMovies(page: number) {
     this.bookmarkService
-      .getBookmarkedPaginatedMovies(page)
+      .getBookmarkedPaginatedMovies(page).pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: any) => {
         let movie: any[] = [];
         data.forEach((element: any) => {
@@ -48,7 +50,7 @@ export class BookmarksComponent implements OnInit {
   }
   getBookmarkedShows(page: number) {
     this.bookmarkService
-      .getBookmarkedPaginatedShows(page)
+      .getBookmarkedPaginatedShows(page).pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: any) => {
         let show: any[] = [];
         data.forEach((element: any) => {
@@ -75,4 +77,9 @@ export class BookmarksComponent implements OnInit {
     this.getBookmarkedMovies(this.page);
     this.getBookmarkedShows(this.page);
   }
+  ngOnDestroy(){
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
+  }
+  
 }

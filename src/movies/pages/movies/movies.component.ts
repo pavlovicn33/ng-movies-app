@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
 import { Videos } from 'src/shared/models/videos';
 import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
@@ -24,6 +25,8 @@ export class MoviesComponent implements OnInit {
 
   topRated: ResultMovies[] = [];
 
+  unsubscribe$ = new Subject<void>();
+
   constructor(
     private movieService: MoviesService,
     private pipe: CarouselPipe
@@ -36,7 +39,7 @@ export class MoviesComponent implements OnInit {
   }
 
   getMovies() {
-    this.movieService.getPopularMovies().subscribe((data: Movies) => {
+    this.movieService.getPopularMovies().pipe(takeUntil(this.unsubscribe$)).subscribe((data: Movies) => {
       data.results.forEach((el) => {
         el.media_type = 'movie';
         this.movies.push(el);
@@ -46,7 +49,7 @@ export class MoviesComponent implements OnInit {
   }
   getUpcomingMovies(page: number) {
     let dateToday = new Date();
-    this.movieService.getUpcomingMovies(page).subscribe((data: Movies) => {
+    this.movieService.getUpcomingMovies(page).pipe(takeUntil(this.unsubscribe$)).subscribe((data: Movies) => {
       this.upcomingMovies = data.results.filter((el) => {
         if (
           new Date(el.release_date) > dateToday &&
@@ -68,7 +71,7 @@ export class MoviesComponent implements OnInit {
   }
 
   getTrailers(el: any) {
-    this.movieService.getTrailers(el.id).subscribe((data: Videos) => {
+    this.movieService.getTrailers(el.id).pipe(takeUntil(this.unsubscribe$)).subscribe((data: Videos) => {
       if (data.results.length >= 1) {
         data.results.forEach((ele) => {
           if (ele.type == 'Trailer') {
@@ -85,7 +88,7 @@ export class MoviesComponent implements OnInit {
   }
 
   getTopRated(pageTop: number) {
-    this.movieService.getTopRated(pageTop).subscribe((data: Movies) => {
+    this.movieService.getTopRated(pageTop).pipe(takeUntil(this.unsubscribe$)).subscribe((data: Movies) => {
       data.results.forEach((el) => {
         if (!el.genre_ids.includes(16)) {
           if (this.topRated.length == 20) {
@@ -100,5 +103,11 @@ export class MoviesComponent implements OnInit {
         this.getTopRated(this.pageTop);
       }
     });
+  }
+
+  
+  ngOnDestroy(){
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
   }
 }
