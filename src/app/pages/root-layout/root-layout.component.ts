@@ -42,7 +42,7 @@ export class RootLayoutComponent implements OnInit {
   genres: any;
   showFiller = false;
   user: User;
-  selectedE:boolean = false
+  selectedE: boolean = false;
   constructor(
     private authService: AuthService,
     @Inject(DOCUMENT) private document: Document,
@@ -136,14 +136,38 @@ export class RootLayoutComponent implements OnInit {
       },
     ];
     this.genres = [
-      'Action',
-      'Comedy',
-      'Sci fi',
-      'Drama',
-      'Thriller',
-      'Western',
-      'Horror',
-      'Romance',
+      {
+        title: 'Action',
+        src: 'action',
+      },
+      {
+        title: 'Comedy',
+        src: 'comedy',
+      },
+      {
+        title: 'Sci fi',
+        src: 'science fiction',
+      },
+      {
+        title: 'Drama',
+        src: 'drama',
+      },
+      {
+        title: 'Thriller',
+        src: 'thriller',
+      },
+      {
+        title: 'Western',
+        src: 'western',
+      },
+      {
+        title: 'Horror',
+        src: 'horror',
+      },
+      {
+        title: 'Romance',
+        src: 'romance',
+      },
     ];
     this.user = {
       name: '',
@@ -157,7 +181,6 @@ export class RootLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
- 
     this.router.navigate(['ngmovies/movies']);
     this.getUser();
     let obj = {
@@ -180,19 +203,25 @@ export class RootLayoutComponent implements OnInit {
   async getUser() {
     const auth = getAuth();
     const userId = auth.currentUser?.uid;
- 
-    this.db.collection("users").doc(userId).ref.onSnapshot({
-      includeMetadataChanges:true
-    }, (doc:any) => {
-      this.db
+
+    this.db
       .collection('users')
       .doc(userId)
-      .get()
-      .subscribe((data: any) => {
-        this.user.name = data.data().name;
-        this.user.lastName = data.data().lastName;
-      });
-    })
+      .ref.onSnapshot(
+        {
+          includeMetadataChanges: true,
+        },
+        (doc: any) => {
+          this.db
+            .collection('users')
+            .doc(userId)
+            .get()
+            .subscribe((data: any) => {
+              this.user.name = data.data().name;
+              this.user.lastName = data.data().lastName;
+            });
+        }
+      );
     this.db
       .collection('users')
       .doc(userId)
@@ -200,8 +229,8 @@ export class RootLayoutComponent implements OnInit {
       .subscribe((data: any) => {
         this.user = data.data();
         if (auth.currentUser?.email) {
-          let mail = auth.currentUser?.email
-          this.user.email = mail
+          let mail = auth.currentUser?.email;
+          this.user.email = mail;
         }
       });
   }

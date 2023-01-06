@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { ResultShow, Shows } from 'src/shared/models/popularTvShows';
 import { Videos } from 'src/shared/models/videos';
 import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
@@ -15,6 +16,8 @@ export class AnimationShowsComponent implements OnInit {
   onTheAir: ResultShow[] = [];
   trailers: Videos[] = [];
   onTheAirPage: number = 1;
+  unsubscribe$ = new Subject<void>()
+
   constructor(
     private animationsService: AnimationsService,
     private pipe: CarouselPipe
@@ -27,7 +30,7 @@ export class AnimationShowsComponent implements OnInit {
   }
 
   getShows() {
-    this.animationsService.getAnimationShows().subscribe((data: Shows) => {
+    this.animationsService.getAnimationShows().pipe(takeUntil(this.unsubscribe$)).subscribe((data: Shows) => {
       data.results.forEach((el) => {
         el.media_type = 'tv';
         this.shows.push(el);
@@ -36,7 +39,7 @@ export class AnimationShowsComponent implements OnInit {
     });
   }
   getTopRated() {
-    this.animationsService.getTopRatedShows().subscribe((data: Shows) => {
+    this.animationsService.getTopRatedShows().pipe(takeUntil(this.unsubscribe$)).subscribe((data: Shows) => {
       this.pipe.emptyPoster(data.results);
       data.results.forEach((el) => {
         el.media_type = 'tv';
@@ -48,7 +51,7 @@ export class AnimationShowsComponent implements OnInit {
 
   getOnTheAir(page: number) {
     this.animationsService
-      .getUpcomingAnimatedShows(page)
+      .getUpcomingAnimatedShows(page).pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: Shows) => {
         this.onTheAir = data.results.filter((el) => {
           if (el.backdrop_path) {
@@ -74,7 +77,7 @@ export class AnimationShowsComponent implements OnInit {
   }
 
   getTrailers(el: any) {
-    this.animationsService.getTrailersShows(el.id).subscribe((data: Videos) => {
+    this.animationsService.getTrailersShows(el.id).pipe(takeUntil(this.unsubscribe$)).subscribe((data: Videos) => {
       if (data.results.length >= 1) {
         data.results.forEach((ele) => {
           if (ele.type == 'Trailer') {
@@ -97,5 +100,10 @@ export class AnimationShowsComponent implements OnInit {
         return;
       }
     });
+  }
+
+  ngOnDestroy(){
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
   }
 }

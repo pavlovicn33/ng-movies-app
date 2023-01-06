@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Cast, Credits } from 'src/shared/models/cast';
 import { Person } from 'src/shared/models/castMovies';
+import { Genres } from 'src/shared/models/genres';
 import { Shows } from 'src/shared/models/popularTvShows';
 import { SeasonPosters } from 'src/shared/models/seasonPosters';
 import { Stream } from 'src/shared/models/stream';
@@ -80,5 +81,13 @@ export class ShowsService {
   rateShow(rating:number, id:number):Observable<any>{
     const session = localStorage.getItem('sessionTmdb')
     return this.http.post(`${environment.baseURL}/tv/${id}/rating${environment.apiKey}&guest_session_id=${session}`, {value:rating})
+  }
+
+  discoverShow(genre:number, page?:number):Observable<Shows>{
+    return this.http.get<Shows>(`${environment.baseURL}/discover/tv${environment.apiKey}&with_genres=${genre}&page${page}&no-spinner`)
+  }
+
+  getTvGenres():Observable<Genres> {
+    return this.http.get<Genres>(`${environment.baseURL}/genre/tv/list${environment.apiKey}`)
   }
 }

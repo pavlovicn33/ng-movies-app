@@ -17,8 +17,9 @@
 <h2
   [style.color]="'white'"
   [style.margin]="'10px'"
+  [style.text-align]="'center'"
   [style.font-family]="'Nunito'"
-  *ngIf="!data.url && !data.link && data.streamLinks.length == 0"
+  *ngIf="!data.url && !data.link && linksList.length == 0"
 >
   Item is not available at this time
 </h2>
@@ -30,7 +31,7 @@
     frameborder="0"
     allowFullScreen="true"
   ></iframe>
-  <div [style.padding]="'10px'" *ngIf="data.streamLinks" class="servers">
+  <div [style.padding]="'10px'" *ngIf="data.linksList > 0"lass="servers">
     <div *ngFor="let i of linksList">
       <button *ngIf="i.exact_match" (click)="changeUrl(i.url)" mat-raised-button>
         <mat-icon>play_circle_filled</mat-icon> {{ i.server }}

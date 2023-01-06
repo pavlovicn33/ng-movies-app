@@ -1,6 +1,7 @@
 .hero-container {
   background-position: 50% 50%;
   background-repeat: no-repeat;
+  min-height: 100%;
   background-size: cover;
 }
 .item-info {
@@ -108,6 +109,11 @@
     }
   }
 }
+
+.genre-info{
+  cursor: pointer;
+}
+
 .similar-container {
   width: 90%;
   margin: auto;

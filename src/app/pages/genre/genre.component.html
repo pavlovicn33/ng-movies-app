@@ -1,0 +1,26 @@
+<div
+  class="container"
+  infinite-scroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="300"
+  (scrolled)="onScroll()"
+  [scrollWindow]="false"
+>
+  <mat-tab-group
+
+    fitInkBarToContent
+    [style.font-family]="'Nunito'"
+    [style.text-align]="'center'"
+  >
+    <mat-tab  *ngIf="movieList.length != 0" label="Movies">
+      <app-see-all
+        [results]="movieList"
+      ></app-see-all>
+    </mat-tab>
+    <mat-tab *ngIf="showList.length != 0" label="Shows‌‌‌‌">
+      <app-see-all
+        [results]="showList"
+      ></app-see-all>
+    </mat-tab>
+  </mat-tab-group>
+</div>

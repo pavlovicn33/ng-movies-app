@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
 import { ResultShow, Shows } from 'src/shared/models/popularTvShows';
 import { TableSubscription } from 'src/shared/models/subscription';
@@ -16,6 +17,7 @@ export class HomeComponent implements OnInit {
   shows: ResultShow[] = [];
   displayedColumns: string[] = [];
   dataSource: TableSubscription[] = [];
+  unsubscribe$ = new Subject<void>()
 
   constructor(
     private movieService: MoviesService,
@@ -62,16 +64,20 @@ export class HomeComponent implements OnInit {
   }
 
   getMovies() {
-    this.movieService.getPopularMovies().subscribe((data: Movies) => {
+    this.movieService.getPopularMovies().pipe(takeUntil(this.unsubscribe$)).subscribe((data: Movies) => {
       this.movies = data.results;
       this.pipe.emptyPoster(this.movies)
     });
   }
 
   getShows() {
-    this.tvService.getPopularShows().subscribe((data: Shows) => {
+    this.tvService.getPopularShows().pipe(takeUntil(this.unsubscribe$)).subscribe((data: Shows) => {
       this.shows = data.results;
       this.pipe.emptyPoster(this.shows)
     });
+  }
+  ngOnDestroy(){
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
   }
 }

@@ -16,6 +16,7 @@ import { EmailHandlerComponent } from './pages/email-handler/email-handler.compo
 import { ItemDetailsComponent } from 'src/app/pages/item-details/item-details.component';
 import { CastDetailsComponent } from './pages/cast-details/cast-details.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { GenreComponent } from './pages/genre/genre.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 
@@ -47,6 +48,11 @@ const routes: Routes = [
           import('../animations/animations.module').then(
             (m) => m.AnimationsModule
           ),
+      },
+      {
+        path:'genre/:genre',
+        component:GenreComponent,
+        pathMatch:'full'
       },
       {
         path: 'settings',

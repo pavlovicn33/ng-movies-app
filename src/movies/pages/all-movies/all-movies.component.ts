@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
 import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
@@ -11,6 +12,8 @@ import { MoviesService } from 'src/shared/services/movies/movies.service';
 export class AllMoviesComponent implements OnInit {
   movies: Movies;
   results: ResultMovies[] = [];
+  unsubscribe$ = new Subject<void>();
+
   constructor(private movieService: MoviesService, private pipe: CarouselPipe) {
     this.movies = {
       page: 1,
@@ -25,7 +28,7 @@ export class AllMoviesComponent implements OnInit {
   }
 
   getMovies(number?: number) {
-    this.movieService.getPopularMoviesList(number).subscribe((data: any) => {
+    this.movieService.getPopularMoviesList(number).pipe(takeUntil(this.unsubscribe$)).subscribe((data: any) => {
       this.movies = data;
       data.results.forEach((element: any) => {
         if (!element.media_type) {
@@ -44,4 +47,10 @@ export class AllMoviesComponent implements OnInit {
   sendPage(number: number) {
     this.getMovies(number);
   }
+
+  ngOnDestroy(){
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
+  }
+  
 }

@@ -9,6 +9,7 @@ import { PeopleDetails } from 'src/shared/models/people';
 import { Stream, StreamMovieTv } from 'src/shared/models/stream';
 import { Cast, Credits } from 'src/shared/models/cast';
 import { Person } from 'src/shared/models/castMovies';
+import { Genres } from 'src/shared/models/genres';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +72,14 @@ export class MoviesService {
   rateMovie(rating:number, id:number):Observable<any>{
     const session = localStorage.getItem('sessionTmdb')
     return this.http.post(`${environment.baseURL}/movie/${id}/rating${environment.apiKey}&guest_session_id=${session}`, {value:rating})
+  }
+
+  discoverMovie(genre:number, page?:number):Observable<Movies>{
+    return this.http.get<Movies>(`${environment.baseURL}/discover/movie${environment.apiKey}&with_genres=${genre}&page=${page}&no-spinner`)
+  }
+
+  getMovieGenres():Observable<Genres> {
+    return this.http.get<Genres>(`${environment.baseURL}/genre/movie/list${environment.apiKey}`)
   }
 }
 
