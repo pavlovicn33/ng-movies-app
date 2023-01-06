@@ -17,6 +17,7 @@ import { ItemDetailsComponent } from 'src/app/pages/item-details/item-details.co
 import { CastDetailsComponent } from './pages/cast-details/cast-details.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { GenreComponent } from './pages/genre/genre.component';
+import { RecentComponent } from './sidebar-data/recent/recent.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 
@@ -79,6 +80,11 @@ const routes: Routes = [
         component: ItemDetailsComponent,
         pathMatch: 'full',
       },
+      {
+        path:'recent',
+        component:RecentComponent,
+        pathMatch:'full'
+      }
     ],
   },
   {

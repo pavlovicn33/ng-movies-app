@@ -81,7 +81,7 @@ export class LibraryItemsComponent {
       return;
     }
     this.bookmarked.forEach((element: any) => {
-      if (movie.id == element.id) {
+      if (movie.id == element.id && movie.media_type == element.media_type) {
         this.status = 2;
       }
     });

@@ -12,6 +12,7 @@ import { SeasonPosters } from 'src/shared/models/seasonPosters';
 import { Stream, StreamMovieTv } from 'src/shared/models/stream';
 import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
+import { RecentService } from 'src/shared/services/recent/recent.service';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
 import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trailer-dialog.component';
 
@@ -52,6 +53,8 @@ export class MovieTvItemComponent implements OnInit {
 
   unsubscribe$ = new Subject<void>();
 
+  recent: any[] = [];
+
   selectedSeason: any = {
     name: 'Season 1',
     episodes: 0,
@@ -66,7 +69,7 @@ export class MovieTvItemComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private snackBar: MatSnackBar,
     private router: Router,
-    private carouselPipe: CarouselPipe
+    private recentService: RecentService
   ) {
     this.breakpointObserver
       .observe([
@@ -94,6 +97,7 @@ export class MovieTvItemComponent implements OnInit {
   }
 
   ngOnChanges() {
+    this.getRecent();
     this.posterUrl = '';
     this.trailerLink = '';
     this.defaultImage = false;
@@ -326,8 +330,27 @@ export class MovieTvItemComponent implements OnInit {
       });
   }
 
+  getRecent() {
+    this.recentService.getMovies().subscribe((data: any) => {
+      this.recent = data;
+    });
+  }
+
   ngOnDestroy() {
+    let status = 1
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+    this.recent.forEach((element: any) => {
+      if (
+        this.data.id == element.id &&
+        this.data.media_type == element.media_type
+      ) {
+        status = 2
+        return;
+      }
+    });
+    if (status == 1) {
+      this.recentService.addMovie(this.data);
+    }
   }
 }

@@ -75,6 +75,7 @@ export class RootLayoutComponent implements OnInit {
       {
         icon: 'access_time',
         title: 'Recent',
+        link:'recent'
       },
       {
         icon: 'bookmark_border',
