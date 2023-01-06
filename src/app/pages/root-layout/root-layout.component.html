@@ -305,9 +305,9 @@
               </mat-list-option>
               <mat-divider></mat-divider>
               <h2>Genre</h2>
-              <mat-list-option *ngFor="let i of genres" [value]="i">
-                <span>
-                  {{ i }}
+              <mat-list-option *ngFor="let i of genres" [value]="i" [routerLink]="['/ngmovies/genre/' + i.src]">
+                <span >
+                  {{ i.title }}
                 </span>
               </mat-list-option>
             </mat-selection-list>

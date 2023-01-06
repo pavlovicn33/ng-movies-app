@@ -121,7 +121,7 @@
       </strong>
       <div [style.width]="'50%'">
         Genres:
-        <span *ngFor="let i of data.genres; let isLast = last"
+        <span class="genre-info" [routerLink]="['../../genre/', i.name]" *ngFor="let i of data.genres; let isLast = last"
           >{{ i.name }}{{ isLast ? "" : "," }}
         </span>
       </div>

@@ -16,7 +16,10 @@ export class AuthInterceptor implements HttpInterceptor {
   private totalRequests = 0;
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log('caught')
+    if (request.url.includes('no-spinner')) {
+      this.spinnerService.setLoading(false);
+      return next.handle(request)
+    }
     this.totalRequests++;
     this.spinnerService.setLoading(true);
     return next.handle(request).pipe(

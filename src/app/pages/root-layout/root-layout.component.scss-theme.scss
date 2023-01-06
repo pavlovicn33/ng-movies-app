@@ -45,6 +45,11 @@
       color: mat.get-color-from-palette($accent-palette, 400) !important;
     }
   }
+  .genre-info {
+    &:hover {
+      color: mat.get-color-from-palette($accent-palette, 400) !important;
+    }
+  }
 
   .rate-area > input:checked ~ label {
     color: mat.get-color-from-palette($accent-palette, 400) !important;

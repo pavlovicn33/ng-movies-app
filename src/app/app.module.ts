@@ -42,6 +42,7 @@ import { MovieTrailerDialogComponent } from './components/movie-trailer-dialog/m
 import { CastDetailsComponent } from './pages/cast-details/cast-details.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RouterModule } from '@angular/router';
+import { GenreComponent } from './pages/genre/genre.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { RouterModule } from '@angular/router';
     MovieTrailerDialogComponent,
     CastDetailsComponent,
     NotFoundComponent,
+    GenreComponent,
   ],
   imports: [
     InfiniteScrollModule,

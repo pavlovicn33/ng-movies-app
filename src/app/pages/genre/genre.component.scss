@@ -1,0 +1,14 @@
+.container  {
+  overflow: scroll;
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+::ng-deep{
+  .mat-mdc-tab-body-content::-webkit-scrollbar {
+    display: none !important;
+  }
+}
