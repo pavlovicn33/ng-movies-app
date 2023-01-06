@@ -8,9 +8,10 @@ import {
   OnChanges,
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NavigationEnd, Router } from '@angular/router';
 import { BookmarkedService } from 'src/shared/services/bookmarked/bookmarked.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
-
+import { filter } from 'rxjs'
 @Component({
   selector: 'app-library-items',
   templateUrl: './library-items.component.html',
@@ -31,6 +32,8 @@ export class LibraryItemsComponent {
 
   status: number = 1;
 
+  currentRoute: string = '';
+
   start!: number;
   end!: number;
   pageSize: number = 10;
@@ -40,7 +43,8 @@ export class LibraryItemsComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private bookmarkService: BookmarkedService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private router: Router
   ) {
     this.breakpointObserver
       .observe([
@@ -68,7 +72,8 @@ export class LibraryItemsComponent {
   }
 
   ngOnInit(): void {
-    this.getBookmarked()
+    this.currentRoute = this.router.url.split('/ngmovies/')[1];
+    this.getBookmarked();
   }
 
   removeFromFavourites(movie: any) {
@@ -101,7 +106,7 @@ export class LibraryItemsComponent {
       });
     }
   }
-  
+
   getBookmarked() {
     this.bookmarkService.getMovies().subscribe((data: any) => {
       this.bookmarked = data;

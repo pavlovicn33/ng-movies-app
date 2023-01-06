@@ -22,6 +22,7 @@ export class RecentService {
     const auth = getAuth();
     const userId = auth.currentUser?.uid;
     const id = this.db.createId();
+    movie.recentCollection = true
     movie.fsId = id;
     movie.createdAt = new Date();
     return new Promise<any>((resolve, reject) => {

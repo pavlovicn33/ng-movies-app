@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
 import { RecentService } from 'src/shared/services/recent/recent.service';
 import { SpinnerService } from 'src/shared/services/spinner/spinner.service';
@@ -13,12 +14,14 @@ export class RecentComponent implements OnInit {
 
   shows: any[] = [];
 
+  route:string = ''
   constructor(
     private recentService: RecentService,
-    private spinner: SpinnerService
+    private spinner: SpinnerService,
   ) {}
 
   ngOnInit(): void {
+    this.spinner.setLoading(true)
     this.getBookmarkedMovies()
     this.getBookmarkedShows()
   }
