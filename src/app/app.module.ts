@@ -43,6 +43,7 @@ import { CastDetailsComponent } from './pages/cast-details/cast-details.componen
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RouterModule } from '@angular/router';
 import { GenreComponent } from './pages/genre/genre.component';
+import { DiscoverComponent } from './sidebar-data/discover/discover.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { GenreComponent } from './pages/genre/genre.component';
     CastDetailsComponent,
     NotFoundComponent,
     GenreComponent,
+    DiscoverComponent,
   ],
   imports: [
     InfiniteScrollModule,

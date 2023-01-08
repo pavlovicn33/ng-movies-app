@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="filter-container">
+    <mat-button-toggle-group [style.font-family]="'Nunito'" [(ngModel)]="mediaType" aria-label="Font Style">
+      <mat-button-toggle value="movie">Movies</mat-button-toggle>
+      <mat-button-toggle value="tv">TV Shows</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <app-see-all [results]="movieList"></app-see-all>
+</div>

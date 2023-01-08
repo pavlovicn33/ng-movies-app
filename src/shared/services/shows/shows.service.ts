@@ -83,7 +83,7 @@ export class ShowsService {
     return this.http.post(`${environment.baseURL}/tv/${id}/rating${environment.apiKey}&guest_session_id=${session}`, {value:rating})
   }
 
-  discoverShow(genre:number, page?:number):Observable<Shows>{
+  discoverShow(genre?:number, page?:number):Observable<Shows>{
     return this.http.get<Shows>(`${environment.baseURL}/discover/tv${environment.apiKey}&with_genres=${genre}&page${page}&no-spinner`)
   }
 

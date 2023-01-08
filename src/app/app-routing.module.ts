@@ -18,6 +18,7 @@ import { CastDetailsComponent } from './pages/cast-details/cast-details.componen
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { GenreComponent } from './pages/genre/genre.component';
 import { RecentComponent } from './sidebar-data/recent/recent.component';
+import { DiscoverComponent } from './sidebar-data/discover/discover.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 
@@ -78,6 +79,11 @@ const routes: Routes = [
       {
         path: ':media_type/:id',
         component: ItemDetailsComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'discover',
+        component: DiscoverComponent,
         pathMatch: 'full',
       },
       {

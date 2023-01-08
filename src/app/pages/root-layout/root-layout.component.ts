@@ -63,8 +63,9 @@ export class RootLayoutComponent implements OnInit {
         link: 'browse',
       },
       {
-        icon: 'people',
-        title: 'Community',
+        icon: 'apps',
+        title: 'Discovery',
+        link:'discover'
       },
       {
         icon: 'alarm',
