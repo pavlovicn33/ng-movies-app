@@ -1,5 +1,12 @@
-.filter-container{
-    width: 96%;
-    margin: auto;
-    margin-top: 35px;
+.filter-container {
+  position: fixed;
+  z-index: 9999;
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.container {
+  height: 100% !important;
 }

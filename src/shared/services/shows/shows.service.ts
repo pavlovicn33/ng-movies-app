@@ -63,31 +63,48 @@ export class ShowsService {
     );
   }
 
-
   getSimilar(id: number): Observable<Shows> {
     return this.http.get<Shows>(
       `${environment.baseURL}/tv/${id}/recommendations${environment.apiKey}`
     );
   }
 
-  getShowStreams(id:number, season:number, episode:number):Observable<Stream>{
-    return this.http.get<Stream>(`https://private-anon-b6f507e52b-superembed.apiary-proxy.com/?type=tmdb&id=${id}&season=${season}&episode=${episode}&max_results=1`)
+  getShowStreams(
+    id: number,
+    season: number,
+    episode: number
+  ): Observable<Stream> {
+    return this.http.get<Stream>(
+      `https://private-anon-b6f507e52b-superembed.apiary-proxy.com/?type=tmdb&id=${id}&season=${season}&episode=${episode}&max_results=1`
+    );
   }
 
-  getSeasonImages(id:number, season:number):Observable<SeasonPosters>{
-    return this.http.get<SeasonPosters>(`${environment.baseURL}/tv/${id}/season/${season}/images${environment.apiKey}&include_image_language=en,null&no-spinner`)
+  getSeasonImages(id: number, season: number): Observable<SeasonPosters> {
+    return this.http.get<SeasonPosters>(
+      `${environment.baseURL}/tv/${id}/season/${season}/images${environment.apiKey}&include_image_language=en,null&no-spinner`
+    );
   }
 
-  rateShow(rating:number, id:number):Observable<any>{
-    const session = localStorage.getItem('sessionTmdb')
-    return this.http.post(`${environment.baseURL}/tv/${id}/rating${environment.apiKey}&guest_session_id=${session}`, {value:rating})
+  rateShow(rating: number, id: number): Observable<any> {
+    const session = localStorage.getItem('sessionTmdb');
+    return this.http.post(
+      `${environment.baseURL}/tv/${id}/rating${environment.apiKey}&guest_session_id=${session}`,
+      { value: rating }
+    );
   }
 
-  discoverShow(genre?:number, page?:number):Observable<Shows>{
-    return this.http.get<Shows>(`${environment.baseURL}/discover/tv${environment.apiKey}&with_genres=${genre}&page${page}&no-spinner`)
+  discoverShow(genre?: any, page?: number): Observable<Shows> {
+    if (genre == 0) {
+      genre = null;
+    }
+    return this.http.get<Shows>(
+      `${environment.baseURL}/discover/tv${environment.apiKey}&with_genres=${genre}&page=${page}&no-spinner`
+    );
   }
 
-  getTvGenres():Observable<Genres> {
-    return this.http.get<Genres>(`${environment.baseURL}/genre/tv/list${environment.apiKey}`)
+  getTvGenres(): Observable<Genres> {
+    return this.http.get<Genres>(
+      `${environment.baseURL}/genre/tv/list${environment.apiKey}`
+    );
   }
 }

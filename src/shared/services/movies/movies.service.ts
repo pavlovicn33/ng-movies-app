@@ -74,7 +74,10 @@ export class MoviesService {
     return this.http.post(`${environment.baseURL}/movie/${id}/rating${environment.apiKey}&guest_session_id=${session}`, {value:rating})
   }
 
-  discoverMovie(genre?:number, page?:number):Observable<Movies>{
+  discoverMovie(genre?:any, page?:number):Observable<Movies>{
+    if (genre == 0) {
+      genre = null
+    }
     return this.http.get<Movies>(`${environment.baseURL}/discover/movie${environment.apiKey}&with_genres=${genre}&page=${page}&no-spinner`)
   }
 
