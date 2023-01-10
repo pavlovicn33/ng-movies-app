@@ -84,6 +84,10 @@ export class MoviesService {
   getMovieGenres():Observable<Genres> {
     return this.http.get<Genres>(`${environment.baseURL}/genre/movie/list${environment.apiKey}`)
   }
+
+  getCountries():Observable<any>{
+    return this.http.get(`${environment.baseURL}/configuration/countries${environment.apiKey}`)
+  }
 }
 
 

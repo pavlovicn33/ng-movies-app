@@ -6,6 +6,9 @@
   gap: 10px;
   margin-left: 20px;
 }
+.filters-button{
+  display: none;
+}
 .container {
   position: fixed;
   width: 100%;
@@ -24,7 +27,6 @@
   }
 
   ::ng-deep {
-    
     .mat-mdc-text-field-wrapper {
       height: 35px !important;
       align-items: center !important;
@@ -35,16 +37,67 @@
     }
   }
 }
-@media screen and (max-width: 1150px) {
 
+.year-select {
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper {
+      height: 35px !important;
+      align-items: center !important;
+      width: 110px !important;
+    }
+  }
 }
-@media screen and (max-width: 1000px) {
-  
+.select-country {
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper {
+      height: 35px !important;
+      align-items: center !important;
+      width: 200px !important;
+    }
+  }
 }
-
-@media screen and (max-width: 900px) {
- 
+::ng-deep {
+  .mat-mdc-option .mdc-list-item__primary-text {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+}
+@media screen and (max-width: 1060px) {
+  .container{
+    height: 11.75% !important;
+  }
+  .padding{
+    padding-top: 90px !important;
+  }
+  .filter-container {
+    justify-content: center;
+    margin-right: 210px;
+    flex-wrap: wrap;
+  }
 }
 @media screen and (max-width: 800px) {
- 
+  .filter-container{
+    margin-right: 0px;
+  }
+}
+@media screen and (max-width: 460px ) {
+  .filters-button-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .filters-button{
+    text-align: center;
+    display: block;
+  }
+  .filter-container{
+    margin-right: 20px;
+  }
+  .padding{
+    padding-top: 10px !important;
+  }
+  .container{
+    display: none;
+  }
 }

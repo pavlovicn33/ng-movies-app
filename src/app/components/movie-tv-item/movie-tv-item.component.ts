@@ -69,7 +69,8 @@ export class MovieTvItemComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private snackBar: MatSnackBar,
     private router: Router,
-    private recentService: RecentService
+    private recentService: RecentService,
+    private pipe:CarouselPipe
   ) {
     this.breakpointObserver
       .observe([
@@ -303,6 +304,7 @@ export class MovieTvItemComponent implements OnInit {
   }
 
   getSimilarMovies(id: number) {
+    let e:any[] = []
     this.movieService
       .getSimilar(id)
       .pipe(takeUntil(this.unsubscribe$))
@@ -312,11 +314,14 @@ export class MovieTvItemComponent implements OnInit {
             return;
           }
           el.media_type = 'movie';
+          e.push(el)
         });
-        this.similarMovies = data.results;
+        this.similarMovies = e;
+
       });
   }
   getSimilarShows(id: number) {
+    let e:any[] = []
     this.ShowService.getSimilar(id)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: Shows) => {
@@ -325,8 +330,9 @@ export class MovieTvItemComponent implements OnInit {
             return;
           }
           el.media_type = 'tv';
+          e.push(el)
         });
-        this.similarShows = data.results;
+        this.similarShows = e;
       });
   }
 

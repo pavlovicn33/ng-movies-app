@@ -13,24 +13,25 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
-      "architect": { 
+      "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": [
-              "moment"
-           ],
+            "allowedCommonJsDependencies": ["moment"],
             "outputPath": "dist/angular-movies",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/svg-country-flags/svg/",
+                "output": "./assets/svg-country-flags/svg/"
+              }
             ],
             "styles": [
               "src/styles.scss",
@@ -38,9 +39,7 @@
               "node_modules/@splidejs/splide/dist/css/splide-core.min.css",
               "node_modules/@splidejs/splide/dist/css/splide.min.css"
             ],
-            "scripts": [
-              "node_modules/@splidejs/splide/dist/js/splide.js"
-            ]
+            "scripts": ["node_modules/@splidejs/splide/dist/js/splide.js"]
           },
           "configurations": {
             "production": {
@@ -92,19 +91,11 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         },

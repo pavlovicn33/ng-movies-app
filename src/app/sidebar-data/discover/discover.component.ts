@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, Subject, takeUntil } from 'rxjs';
@@ -9,6 +9,7 @@ import { ResultShow, Shows } from 'src/shared/models/popularTvShows';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
 import { SpinnerService } from 'src/shared/services/spinner/spinner.service';
+import { Country } from '@angular-material-extensions/select-country';
 import {
   MomentDateAdapter,
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
@@ -21,6 +22,7 @@ import {
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { Moment } from 'moment';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 export const MY_FORMATS = {
   parse: {
@@ -64,11 +66,13 @@ export class DiscoverComponent implements OnInit {
   dateStart = new FormControl({ value: moment(1874), disabled: true });
   dateEnd = new FormControl({ value: moment(), disabled: true });
   status: boolean = false;
+  predefinedCountries: any[] = [];
+  @ViewChild('templateBottomSheet') TemplateBottomSheet!: TemplateRef<any>;
   constructor(
     private movieService: MoviesService,
     private tvService: ShowsService,
     private spinner: SpinnerService,
-    private router: Router
+    private bottomSheet: MatBottomSheet
   ) {
     this.movieData = {
       page: 1,
@@ -88,7 +92,6 @@ export class DiscoverComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.spinner.setLoading(true);
     this.getMovies(
       0,
       1,
@@ -97,6 +100,31 @@ export class DiscoverComponent implements OnInit {
     );
     this.getMovieGenres();
     this.getTvGenres();
+    this.getCountries();
+  }
+
+  openTemplateSheetMenu() {
+    this.bottomSheet.open(this.TemplateBottomSheet);
+  }
+
+  closeTemplateSheetMenu() {
+    this.bottomSheet.dismiss();
+  }
+
+  getCountries() {
+    this.movieService
+      .getCountries()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((data: any) => {
+        this.predefinedCountries = data;
+      });
+  }
+
+  onCountrySelected(event: any) {
+    this.predefinedCountries.forEach((element) => {
+      if (element.english_name == event.name) {
+      }
+    });
   }
 
   yearSelectedStart(event: Moment, picker: MatDatepicker<any>) {
@@ -107,8 +135,6 @@ export class DiscoverComponent implements OnInit {
     picker.close();
     if (this.mediaType == 'movie') {
       if (this.dateStart.value?.year() && this.dateEnd.value?.year()) {
-        console.log(this.dateStart.value?.year());
-        console.log(this.dateEnd.value?.year());
         this.movieList = [];
         this.getMovies(
           this.selectedGenre,
@@ -120,9 +146,6 @@ export class DiscoverComponent implements OnInit {
     }
     if (this.mediaType == 'tv') {
       if (this.dateStart.value?.year() && this.dateEnd.value?.year()) {
-        console.log(this.dateStart.value?.year());
-        console.log(this.dateEnd.value?.year());
-        console.log('qweq')
         this.tvList = [];
         this.getTv(
           this.selectedGenre,
@@ -143,8 +166,6 @@ export class DiscoverComponent implements OnInit {
     if (this.mediaType == 'movie') {
       if (this.dateStart.value?.year() && this.dateEnd.value?.year()) {
         this.status = false;
-        console.log(this.dateStart.value?.year());
-        console.log(this.dateEnd.value?.year());
         this.movieList = [];
         this.getMovies(
           this.selectedGenre,
@@ -153,14 +174,11 @@ export class DiscoverComponent implements OnInit {
           this.dateEnd.value.year()
         );
       }
-
     }
 
     if (this.mediaType == 'tv') {
       if (this.dateStart.value?.year() && this.dateEnd.value?.year()) {
-        this.status = false
-        console.log(this.dateStart.value?.year());
-        console.log(this.dateEnd.value?.year());
+        this.status = false;
         this.tvList = [];
         this.getTv(
           this.selectedGenre,
@@ -174,7 +192,6 @@ export class DiscoverComponent implements OnInit {
 
   onValChange(event: any) {
     this.dateStart = new FormControl({ value: moment(1874), disabled: true });
-    console.log(this.dateStart.value?.year());
     this.dateEnd = new FormControl({ value: moment(), disabled: true });
     this.status = false;
     this.selectedGenre = 0;
@@ -240,7 +257,6 @@ export class DiscoverComponent implements OnInit {
           this.status = true;
         }
       });
-    this.spinner.setLoading(false);
   }
 
   getMovieGenres() {

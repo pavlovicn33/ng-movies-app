@@ -73,7 +73,7 @@ export class GenreComponent implements OnInit {
   }
   getMovies(genre: number, page?: number) {
     this.movieService
-      .discoverMovie(genre, page)
+      .discoverMovie(genre, page,1874, new Date().getFullYear())
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: Movies) => {
         this.movieData = data;
@@ -89,7 +89,7 @@ export class GenreComponent implements OnInit {
 
   getShows(genre: number, page?: number) {
     this.showService
-      .discoverShow(genre, page)
+      .discoverShow(genre, page,1874, new Date().getFullYear())
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: Shows) => {
         this.showData = data;

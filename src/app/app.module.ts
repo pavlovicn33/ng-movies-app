@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -41,10 +40,9 @@ import { MovieTvItemComponent } from './components/movie-tv-item/movie-tv-item.c
 import { MovieTrailerDialogComponent } from './components/movie-trailer-dialog/movie-trailer-dialog.component';
 import { CastDetailsComponent } from './pages/cast-details/cast-details.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { RouterModule } from '@angular/router';
 import { GenreComponent } from './pages/genre/genre.component';
 import { DiscoverComponent } from './sidebar-data/discover/discover.component';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectCountryModule } from "@angular-material-extensions/select-country";
 
 @NgModule({
   declarations: [
@@ -75,6 +73,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     DiscoverComponent,
   ],
   imports: [
+    MatSelectCountryModule.forRoot('de'),
     InfiniteScrollModule,
     BrowserModule,
     SharedModule,
