@@ -44,6 +44,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RouterModule } from '@angular/router';
 import { GenreComponent } from './pages/genre/genre.component';
 import { DiscoverComponent } from './sidebar-data/discover/discover.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [

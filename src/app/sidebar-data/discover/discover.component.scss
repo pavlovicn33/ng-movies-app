@@ -1,12 +1,56 @@
 .filter-container {
-  position: fixed;
-  z-index: 9999;
-  width: 95%;
-  margin: 0 auto;
   display: flex;
-  justify-content: start;
+  justify-content: space-around;
   align-items: center;
+  margin-top: 15px;
 }
 .container {
-  height: 100% !important;
+  position: fixed;
+  width: 87%;
+  z-index: 1;
+  background-color: #303030;
+  height: 6.5% !important;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  margin-bottom: 50px;
+
+  .mat-button-toggle-standalone,
+  .mat-button-toggle-group {
+    height: 32.5px !important;
+    align-items: center !important;
+  }
+
+  ::ng-deep {
+    
+    .mat-mdc-text-field-wrapper {
+      height: 35px !important;
+      align-items: center !important;
+      width: 175px !important;
+    }
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none !important;
+    }
+  }
+}
+@media screen and (max-width: 1150px) {
+  .container {
+    width: 83%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .container {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .container {
+    width: 77.5%;
+  }
+}
+@media screen and (max-width: 800px) {
+  .container {
+    width: 100%;
+  }
 }

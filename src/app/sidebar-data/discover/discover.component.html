@@ -1,4 +1,4 @@
-<div class="container">
+<div id="filters" class="container">
   <div class="filter-container">
     <mat-button-toggle-group
       (change)="onValChange($event.value)"
@@ -10,7 +10,7 @@
       <mat-button-toggle value="tv">TV Shows</mat-button-toggle>
     </mat-button-toggle-group>
     <div class="genres-container">
-      <mat-form-field appearance="outline" style="margin-bottom: -1.25em">
+      <mat-form-field appearance="outline">
         <mat-select
           placeholder="Genres"
           (selectionChange)="genreChange($event)"
@@ -25,12 +25,53 @@
         </mat-select>
       </mat-form-field>
     </div>
+    <div>
+      <mat-form-field color="accent" appearance="outline">
+        <mat-label>From</mat-label>
+        <input
+          [max]="maxDate"
+          matInput
+          [matDatepicker]="picker"
+          [formControl]="dateStart"
+        />
+        <mat-datepicker-toggle
+          [disabled]="false"
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          startView="multi-year"
+          (yearSelected)="yearSelectedStart($event, picker)"
+          [disabled]="false"
+          #picker
+        ></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field color="accent" appearance="outline">
+        <mat-label>To</mat-label>
+        <input
+          [max]="maxDate"
+          matInput
+          [matDatepicker]="pickerEnd"
+          [formControl]="dateEnd"
+        />
+        <mat-datepicker-toggle
+          [disabled]="false"
+          matIconSuffix
+          [for]="pickerEnd"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          startView="multi-year"
+          (yearSelected)="yearSelectedEnd($event, pickerEnd)"
+          [disabled]="false"
+          #pickerEnd
+        ></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
 </div>
-<div   class="placholder"  [style.padding-top]="'105px'">
-</div>
+<div [style.padding-top]="'55px'"></div>
 <app-see-all
-(nextPage)="sendPage($event, mediaType)"
-    [data]="mediaType == 'movie' ? movieData : tvData"
-    [results]="mediaType == 'movie' ? movieList : tvList"
-  ></app-see-all>
-</div>
+  (nextPage)="sendPage($event, mediaType)"
+  [data]="mediaType == 'movie' ? movieData : tvData"
+  [results]="mediaType == 'movie' ? movieList : tvList"
+></app-see-all>
