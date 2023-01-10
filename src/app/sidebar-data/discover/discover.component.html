@@ -30,6 +30,7 @@
         <mat-label>From</mat-label>
         <input
           [max]="maxDate"
+          [min]="minDate"
           matInput
           [matDatepicker]="picker"
           [formControl]="dateStart"
@@ -46,6 +47,8 @@
           #picker
         ></mat-datepicker>
       </mat-form-field>
+    </div>
+    <div>
       <mat-form-field color="accent" appearance="outline">
         <mat-label>To</mat-label>
         <input
@@ -70,6 +73,7 @@
   </div>
 </div>
 <div [style.padding-top]="'55px'"></div>
+<h1 [style.font-family]="'Nunito'" [style.text-align]="'center'" *ngIf="status">No data for this filter...</h1>
 <app-see-all
   (nextPage)="sendPage($event, mediaType)"
   [data]="mediaType == 'movie' ? movieData : tvData"

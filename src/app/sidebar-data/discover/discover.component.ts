@@ -39,9 +39,6 @@ export const MY_FORMATS = {
   templateUrl: './discover.component.html',
   styleUrls: ['./discover.component.scss'],
   providers: [
-    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
-    // application's root module. We provide it at the component level here, due to limitations of
-    // our example generation script.
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
@@ -63,12 +60,10 @@ export class DiscoverComponent implements OnInit {
   selectedGenreName: string = '';
   selectedGenre: number = 0;
   maxDate = new Date();
-
-  dateStart = new FormControl({value: moment(), disabled:true});
-
-  dateEnd = new FormControl({value: moment(), disabled:true});
-
-  
+  minDate = new Date(1874, 1, 1);
+  dateStart = new FormControl({ value: moment(1874), disabled: true });
+  dateEnd = new FormControl({ value: moment(), disabled: true });
+  status: boolean = false;
   constructor(
     private movieService: MoviesService,
     private tvService: ShowsService,
@@ -94,53 +89,143 @@ export class DiscoverComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.setLoading(true);
-    this.getMovies(0, 1);
+    this.getMovies(
+      0,
+      1,
+      this.minDate.getFullYear(),
+      this.maxDate.getFullYear()
+    );
     this.getMovieGenres();
     this.getTvGenres();
   }
 
   yearSelectedStart(event: Moment, picker: MatDatepicker<any>) {
-
-    // const ctrlValue = this.dateStart.value;
-    // ctrlValue!.year(event.year());
-    // this.dateStart.setValue(ctrlValue);
-    // picker.close();
-    // console.log(this.dateStart.value?.year());    
-    // picker.close()
+    const ctrlValue = this.dateStart.value;
+    ctrlValue!.year(event.year());
+    this.dateStart.setValue(ctrlValue);
+    picker.close();
+    picker.close();
+    if (this.mediaType == 'movie') {
+      if (this.dateStart.value?.year() && this.dateEnd.value?.year()) {
+        console.log(this.dateStart.value?.year());
+        console.log(this.dateEnd.value?.year());
+        this.movieList = [];
+        this.getMovies(
+          this.selectedGenre,
+          1,
+          this.dateStart.value.year(),
+          this.dateEnd.value?.year()
+        );
+      }
+    }
+    if (this.mediaType == 'tv') {
+      if (this.dateStart.value?.year() && this.dateEnd.value?.year()) {
+        console.log(this.dateStart.value?.year());
+        console.log(this.dateEnd.value?.year());
+        console.log('qweq')
+        this.tvList = [];
+        this.getTv(
+          this.selectedGenre,
+          1,
+          this.dateStart.value.year(),
+          this.dateEnd.value?.year()
+        );
+      }
+    }
   }
   yearSelectedEnd(event: Moment, picker: MatDatepicker<any>) {
-    // const ctrlValue = this.dateStart.value;
-    // ctrlValue!.year(event.year());
-    // this.dateEnd.setValue(ctrlValue);
-    // picker.close();
-    // console.log(this.dateEnd.value?.year());    
-    // picker.close()
+    const ctrlValue = this.dateEnd.value;
+    ctrlValue!.year(event.year());
+    this.dateEnd.setValue(ctrlValue);
+    picker.close();
+    picker.close();
+
+    if (this.mediaType == 'movie') {
+      if (this.dateStart.value?.year() && this.dateEnd.value?.year()) {
+        this.status = false;
+        console.log(this.dateStart.value?.year());
+        console.log(this.dateEnd.value?.year());
+        this.movieList = [];
+        this.getMovies(
+          this.selectedGenre,
+          1,
+          this.dateStart.value.year(),
+          this.dateEnd.value.year()
+        );
+      }
+
+    }
+
+    if (this.mediaType == 'tv') {
+      if (this.dateStart.value?.year() && this.dateEnd.value?.year()) {
+        this.status = false
+        console.log(this.dateStart.value?.year());
+        console.log(this.dateEnd.value?.year());
+        this.tvList = [];
+        this.getTv(
+          this.selectedGenre,
+          1,
+          this.dateStart.value.year(),
+          this.dateEnd.value.year()
+        );
+      }
+    }
   }
 
   onValChange(event: any) {
+    this.dateStart = new FormControl({ value: moment(1874), disabled: true });
+    console.log(this.dateStart.value?.year());
+    this.dateEnd = new FormControl({ value: moment(), disabled: true });
+    this.status = false;
     this.selectedGenre = 0;
     this.selectedGenreName = '';
     this.mediaType = event;
     this.movieList = [];
     this.tvList = [];
-    this.getMovies(0, 1);
-    this.getTv(0, 1);
+    if (this.mediaType == 'movie') {
+      this.getMovies(
+        0,
+        1,
+        this.minDate.getFullYear(),
+        this.maxDate.getFullYear()
+      );
+      return;
+    }
+    this.getTv(0, 1, this.minDate.getFullYear(), this.maxDate.getFullYear());
   }
 
   genreChange(event: any) {
     this.movieList = [];
     this.tvList = [];
     this.selectedGenre = event.value.id;
-    if (this.mediaType == 'movie') {
-      this.getMovies(event.value.id, 1);
-    } else if (this.mediaType == 'tv') {
-      this.getTv(event.value.id, 1);
+    if (
+      this.mediaType == 'movie' &&
+      this.dateStart.value?.year &&
+      this.dateEnd.value?.year()
+    ) {
+      this.getMovies(
+        event.value.id,
+        1,
+        this.dateStart.value.year(),
+        this.dateEnd.value.year()
+      );
+    } else if (
+      this.mediaType == 'tv' &&
+      this.dateStart.value?.year &&
+      this.dateEnd.value?.year()
+    ) {
+      this.getTv(
+        event.value.id,
+        1,
+        this.dateStart.value.year(),
+        this.dateEnd.value.year()
+      );
     }
   }
 
-  getMovies(genre: number, page: number) {
+  getMovies(genre: number, page: number, from: number, to: number) {
     this.movieService
-      .discoverMovie(genre, page)
+      .discoverMovie(genre, page, from, to)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: Movies) => {
         this.movieData = data;
@@ -151,6 +236,9 @@ export class DiscoverComponent implements OnInit {
           el.media_type = 'movie';
           this.movieList.push(el);
         });
+        if (this.movieList.length == 0) {
+          this.status = true;
+        }
       });
     this.spinner.setLoading(false);
   }
@@ -164,9 +252,9 @@ export class DiscoverComponent implements OnInit {
       });
   }
 
-  getTv(genre: number, page: number) {
+  getTv(genre: number, page: number, from: number, to: number) {
     this.tvService
-      .discoverShow(genre, page)
+      .discoverShow(genre, page, from, to)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: Shows) => {
         this.tvData = data;
@@ -177,6 +265,9 @@ export class DiscoverComponent implements OnInit {
           el.media_type = 'tv';
           this.tvList.push(el);
         });
+        if (this.tvList.length == 0) {
+          this.status = true;
+        }
       });
   }
 
@@ -191,11 +282,27 @@ export class DiscoverComponent implements OnInit {
 
   sendPage(number: number, mediaType: string) {
     if (mediaType == 'movie') {
-      this.getMovies(this.selectedGenre, number);
+      if (this.dateStart.value?.year() && this.dateEnd.value?.year()) {
+        this.getMovies(
+          this.selectedGenre,
+          number,
+          this.dateStart.value.year(),
+          this.dateEnd.value?.year()
+        );
+        return;
+      }
       return;
     }
     if (mediaType == 'tv') {
-      this.getTv(this.selectedGenre, number);
+      if (this.dateStart.value?.year() && this.dateEnd.value?.year()) {
+        this.getTv(
+          this.selectedGenre,
+          number,
+          this.dateStart.value.year(),
+          this.dateEnd.value?.year()
+        );
+        return;
+      }
       return;
     }
   }

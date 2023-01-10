@@ -1,12 +1,14 @@
 .filter-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   margin-top: 15px;
+  gap: 10px;
+  margin-left: 20px;
 }
 .container {
   position: fixed;
-  width: 87%;
+  width: 100%;
   z-index: 1;
   background-color: #303030;
   height: 6.5% !important;
@@ -34,23 +36,15 @@
   }
 }
 @media screen and (max-width: 1150px) {
-  .container {
-    width: 83%;
-  }
+
 }
 @media screen and (max-width: 1000px) {
-  .container {
-    width: 80%;
-  }
+  
 }
 
 @media screen and (max-width: 900px) {
-  .container {
-    width: 77.5%;
-  }
+ 
 }
 @media screen and (max-width: 800px) {
-  .container {
-    width: 100%;
-  }
+ 
 }
