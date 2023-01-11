@@ -16,7 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
   private totalRequests = 0;
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (request.url.includes('no-spinner')) {
+    if (request.url.includes('no-spinner') || request.url.includes('assets/svg-country-flags')) {
       this.spinnerService.setLoading(false);
       return next.handle(request)
     }

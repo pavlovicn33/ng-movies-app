@@ -19,10 +19,11 @@ import {
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
 } from '@angular/material/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { CountryData } from 'src/shared/models/countryCodes';
 
 export const MY_FORMATS = {
   parse: {
@@ -66,8 +67,8 @@ export class DiscoverComponent implements OnInit {
   dateStart = new FormControl({ value: moment(1874), disabled: true });
   dateEnd = new FormControl({ value: moment(), disabled: true });
   status: boolean = false;
-  predefinedCountries: any[] = [];
   @ViewChild('templateBottomSheet') TemplateBottomSheet!: TemplateRef<any>;
+
   constructor(
     private movieService: MoviesService,
     private tvService: ShowsService,
@@ -100,7 +101,6 @@ export class DiscoverComponent implements OnInit {
     );
     this.getMovieGenres();
     this.getTvGenres();
-    this.getCountries();
   }
 
   openTemplateSheetMenu() {
@@ -111,20 +111,11 @@ export class DiscoverComponent implements OnInit {
     this.bottomSheet.dismiss();
   }
 
-  getCountries() {
-    this.movieService
-      .getCountries()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((data: any) => {
-        this.predefinedCountries = data;
-      });
-  }
-
   onCountrySelected(event: any) {
-    this.predefinedCountries.forEach((element) => {
-      if (element.english_name == event.name) {
-      }
-    });
+    console.log(event);
+    this.movieService.getLanguageCode(event.alpha2Code).subscribe((data:CountryData) => {
+      console.log(data)
+    })
   }
 
   yearSelectedStart(event: Moment, picker: MatDatepicker<any>) {

@@ -71,12 +71,14 @@
       </mat-form-field>
     </div>
     <div>
-      <mat-select-country
-        class="select-country"
-        (onCountrySelected)="onCountrySelected($event)"
-        autocomplete="off"
-        appearance="outline"
-      ></mat-select-country>
+      <form>
+        <mat-select-country
+          class="select-country"
+          (onCountrySelected)="onCountrySelected($event)"
+          autocomplete="off"
+          appearance="outline"
+        ></mat-select-country>
+      </form>
     </div>
   </div>
 </div>
