@@ -9,13 +9,17 @@ import { ResultShow, Shows } from 'src/shared/models/popularTvShows';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
 import { SpinnerService } from 'src/shared/services/spinner/spinner.service';
-import { Country } from '@angular-material-extensions/select-country';
+import {
+  Country,
+  MatSelectCountryComponent,
+} from '@angular-material-extensions/select-country';
 import {
   MomentDateAdapter,
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
 import {
   DateAdapter,
+  MatOption,
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
 } from '@angular/material/core';
@@ -24,6 +28,7 @@ import * as moment from 'moment';
 import { Moment } from 'moment';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { CountryData } from 'src/shared/models/countryCodes';
+import { MatSelect } from '@angular/material/select';
 
 export const MY_FORMATS = {
   parse: {
@@ -61,14 +66,25 @@ export class DiscoverComponent implements OnInit {
   movieGenres: Genre[] = [];
   tvGenres: Genre[] = [];
   selectedGenreName: string = '';
-  selectedGenre: number = 0;
+  selectedGenre: any[] = [];
   maxDate = new Date();
   minDate = new Date(1874, 1, 1);
   dateStart = new FormControl({ value: moment(1874), disabled: true });
   dateEnd = new FormControl({ value: moment(), disabled: true });
   status: boolean = false;
   @ViewChild('templateBottomSheet') TemplateBottomSheet!: TemplateRef<any>;
-
+  languageCode: string = '';
+  countryDefault: Country = {
+    name: '',
+    alpha2Code: '',
+    alpha3Code: '',
+    numericCode: '',
+    callingCode: '',
+  };
+  countryFormControl = new FormControl({
+    value: this.countryDefault,
+    disabled: false,
+  });
   constructor(
     private movieService: MoviesService,
     private tvService: ShowsService,
@@ -94,10 +110,11 @@ export class DiscoverComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMovies(
-      0,
+      [],
       1,
       this.minDate.getFullYear(),
-      this.maxDate.getFullYear()
+      this.maxDate.getFullYear(),
+      this.languageCode
     );
     this.getMovieGenres();
     this.getTvGenres();
@@ -112,10 +129,39 @@ export class DiscoverComponent implements OnInit {
   }
 
   onCountrySelected(event: any) {
-    console.log(event);
-    this.movieService.getLanguageCode(event.alpha2Code).subscribe((data:CountryData) => {
-      console.log(data)
-    })
+    this.status = false;
+    this.movieService
+      .getLanguageCode(event.alpha2Code)
+      .subscribe((data: CountryData) => {
+        this.languageCode = data.languages[0].iso639_1;
+        if (this.mediaType == 'movie') {
+          if (this.dateStart.value?.year() && this.dateEnd.value?.year()) {
+            this.movieList = [];
+            this.getMovies(
+              this.selectedGenre,
+              1,
+              this.dateStart.value.year(),
+              this.dateEnd.value?.year(),
+              this.languageCode
+            );
+          }
+        }
+        if (this.mediaType == 'tv') {
+          if (this.dateStart.value?.year() && this.dateEnd.value?.year()) {
+            this.tvList = [];
+            this.getTv(
+              this.selectedGenre,
+              1,
+              this.dateStart.value.year(),
+              this.dateEnd.value?.year(),
+              this.languageCode
+            );
+          }
+        }
+        if (!data) {
+          this.status = true;
+        }
+      });
   }
 
   yearSelectedStart(event: Moment, picker: MatDatepicker<any>) {
@@ -131,7 +177,8 @@ export class DiscoverComponent implements OnInit {
           this.selectedGenre,
           1,
           this.dateStart.value.year(),
-          this.dateEnd.value?.year()
+          this.dateEnd.value?.year(),
+          this.languageCode
         );
       }
     }
@@ -142,7 +189,8 @@ export class DiscoverComponent implements OnInit {
           this.selectedGenre,
           1,
           this.dateStart.value.year(),
-          this.dateEnd.value?.year()
+          this.dateEnd.value?.year(),
+          this.languageCode
         );
       }
     }
@@ -162,7 +210,8 @@ export class DiscoverComponent implements OnInit {
           this.selectedGenre,
           1,
           this.dateStart.value.year(),
-          this.dateEnd.value.year()
+          this.dateEnd.value.year(),
+          this.languageCode
         );
       }
     }
@@ -175,47 +224,64 @@ export class DiscoverComponent implements OnInit {
           this.selectedGenre,
           1,
           this.dateStart.value.year(),
-          this.dateEnd.value.year()
+          this.dateEnd.value.year(),
+          this.languageCode
         );
       }
     }
   }
 
   onValChange(event: any) {
+    this.languageCode = '';
+    if (event == 'tv') {
+      this.languageCode = 'en';
+    }
+    this.countryFormControl = new FormControl({
+      value: this.countryDefault,
+      disabled: false,
+    });
     this.dateStart = new FormControl({ value: moment(1874), disabled: true });
     this.dateEnd = new FormControl({ value: moment(), disabled: true });
     this.status = false;
-    this.selectedGenre = 0;
+    this.selectedGenre = [];
     this.selectedGenreName = '';
     this.mediaType = event;
     this.movieList = [];
     this.tvList = [];
     if (this.mediaType == 'movie') {
       this.getMovies(
-        0,
+        [],
         1,
         this.minDate.getFullYear(),
-        this.maxDate.getFullYear()
+        this.maxDate.getFullYear(),
+        this.languageCode
       );
       return;
     }
-    this.getTv(0, 1, this.minDate.getFullYear(), this.maxDate.getFullYear());
+    this.getTv(
+      [],
+      1,
+      this.minDate.getFullYear(),
+      this.maxDate.getFullYear(),
+      this.languageCode
+    );
   }
 
   genreChange(event: any) {
     this.movieList = [];
     this.tvList = [];
-    this.selectedGenre = event.value.id;
+    this.selectedGenre = event.value;
     if (
       this.mediaType == 'movie' &&
       this.dateStart.value?.year &&
       this.dateEnd.value?.year()
     ) {
       this.getMovies(
-        event.value.id,
+        this.selectedGenre,
         1,
         this.dateStart.value.year(),
-        this.dateEnd.value.year()
+        this.dateEnd.value.year(),
+        this.languageCode
       );
     } else if (
       this.mediaType == 'tv' &&
@@ -223,17 +289,25 @@ export class DiscoverComponent implements OnInit {
       this.dateEnd.value?.year()
     ) {
       this.getTv(
-        event.value.id,
+        this.selectedGenre,
         1,
         this.dateStart.value.year(),
-        this.dateEnd.value.year()
+        this.dateEnd.value.year(),
+        this.languageCode
       );
     }
   }
 
-  getMovies(genre: number, page: number, from: number, to: number) {
+  getMovies(
+    genre: any[],
+    page: number,
+    from: number,
+    to: number,
+    languageCode: string
+  ) {
+    this.status = false;
     this.movieService
-      .discoverMovie(genre, page, from, to)
+      .discoverMovie(genre, page, from, to, languageCode)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: Movies) => {
         this.movieData = data;
@@ -259,9 +333,16 @@ export class DiscoverComponent implements OnInit {
       });
   }
 
-  getTv(genre: number, page: number, from: number, to: number) {
+  getTv(
+    genre: any[],
+    page: number,
+    from: number,
+    to: number,
+    languageCode: string
+  ) {
+    this.status = false;
     this.tvService
-      .discoverShow(genre, page, from, to)
+      .discoverShow(genre, page, from, to, languageCode)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: Shows) => {
         this.tvData = data;
@@ -294,7 +375,8 @@ export class DiscoverComponent implements OnInit {
           this.selectedGenre,
           number,
           this.dateStart.value.year(),
-          this.dateEnd.value?.year()
+          this.dateEnd.value?.year(),
+          this.languageCode
         );
         return;
       }
@@ -306,7 +388,8 @@ export class DiscoverComponent implements OnInit {
           this.selectedGenre,
           number,
           this.dateStart.value.year(),
-          this.dateEnd.value?.year()
+          this.dateEnd.value?.year(),
+          this.languageCode
         );
         return;
       }

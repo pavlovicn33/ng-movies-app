@@ -12,6 +12,7 @@
     <div class="genres-container">
       <mat-form-field appearance="outline">
         <mat-select
+          multiple
           placeholder="Genres"
           (selectionChange)="genreChange($event)"
           [(value)]="selectedGenreName"
@@ -71,14 +72,13 @@
       </mat-form-field>
     </div>
     <div>
-      <form>
-        <mat-select-country
-          class="select-country"
-          (onCountrySelected)="onCountrySelected($event)"
-          autocomplete="off"
-          appearance="outline"
-        ></mat-select-country>
-      </form>
+      <mat-select-country
+        [formControl]="countryFormControl"
+        class="select-country"
+        (onCountrySelected)="onCountrySelected($event)"
+        autocomplete="off"
+        appearance="outline"
+      ></mat-select-country>
     </div>
   </div>
 </div>
@@ -117,6 +117,7 @@
     <div class="genres-container">
       <mat-form-field appearance="outline">
         <mat-select
+          multiple
           placeholder="Genres"
           (selectionChange)="genreChange($event)"
           [(value)]="selectedGenreName"

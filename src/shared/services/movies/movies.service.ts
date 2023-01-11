@@ -76,13 +76,12 @@ export class MoviesService {
   }
 
   discoverMovie(genre?:any, page?:number,from?:number,to?:number,lan?:string):Observable<Movies>{
-    if (genre == 0) {
-      genre = null
-    }
     if (!lan) {
       lan = ''
     }
-    return this.http.get<Movies>(`${environment.baseURL}/discover/movie${environment.apiKey}&with_genres=${genre}&page=${page}&no-spinner&primary_release_date.gte=${from}-01-01&primary_release_date.lte=${to}-12-31&with_original_language=${lan}`)
+    let genreIds = genre.map((el:any) => String(el.id))
+    let genres = String(genreIds)
+    return this.http.get<Movies>(`${environment.baseURL}/discover/movie${environment.apiKey}&with_genres=${genres}&page=${page}&no-spinner&primary_release_date.gte=${from}-01-01&primary_release_date.lte=${to}-12-31&with_original_language=${lan}`)
   }
 
   getMovieGenres():Observable<Genres> {

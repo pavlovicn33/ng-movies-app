@@ -93,12 +93,20 @@ export class ShowsService {
     );
   }
 
-  discoverShow(genre?: any, page?: number,from?:number, to?:number): Observable<Shows> {
-    if (genre == 0) {
-      genre = null;
+  discoverShow(
+    genre?: any,
+    page?: number,
+    from?: number,
+    to?: number,
+    lan?: string
+  ): Observable<Shows> {
+    if (!lan) {
+      lan = '';
     }
+    let genreIds = genre.map((el: any) => String(el.id));
+    let genres = String(genreIds);
     return this.http.get<Shows>(
-      `${environment.baseURL}/discover/tv${environment.apiKey}&with_genres=${genre}&page=${page}&no-spinner&first_air_date.gte=${from}-01-01&first_air_date.lte=${to}-12-31&language=en-US&with_original_language=en`
+      `${environment.baseURL}/discover/tv${environment.apiKey}&with_genres=${genres}&page=${page}&no-spinner&first_air_date.gte=${from}-01-01&first_air_date.lte=${to}-12-31&language=en-US&with_original_language=en&with_original_language=${lan}`
     );
   }
 
