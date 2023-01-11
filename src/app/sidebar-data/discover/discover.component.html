@@ -178,6 +178,7 @@
     </div>
     <div>
       <mat-select-country
+        [formControl]="countryFormControl"
         class="select-country"
         (onCountrySelected)="onCountrySelected($event)"
         autocomplete="off"

@@ -11,6 +11,7 @@ import { Cast, Credits } from 'src/shared/models/cast';
 import { Person } from 'src/shared/models/castMovies';
 import { Genres } from 'src/shared/models/genres';
 import { CountryData } from 'src/shared/models/countryCodes';
+import { isArray } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -79,8 +80,11 @@ export class MoviesService {
     if (!lan) {
       lan = ''
     }
-    let genreIds = genre.map((el:any) => String(el.id))
-    let genres = String(genreIds)
+    let genres = genre
+    if (isArray(genre) == true) {
+      let genreIds = genre.map((el:any) => String(el.id))
+      genres = String(genreIds)
+    }
     return this.http.get<Movies>(`${environment.baseURL}/discover/movie${environment.apiKey}&with_genres=${genres}&page=${page}&no-spinner&primary_release_date.gte=${from}-01-01&primary_release_date.lte=${to}-12-31&with_original_language=${lan}`)
   }
 

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { isArray } from 'lodash';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Cast, Credits } from 'src/shared/models/cast';
@@ -103,8 +104,11 @@ export class ShowsService {
     if (!lan) {
       lan = '';
     }
-    let genreIds = genre.map((el: any) => String(el.id));
-    let genres = String(genreIds);
+    let genres = genre;
+    if (isArray(genre) == true) {
+      let genreIds = genre.map((el: any) => String(el.id));
+      genres = String(genreIds);
+    }
     return this.http.get<Shows>(
       `${environment.baseURL}/discover/tv${environment.apiKey}&with_genres=${genres}&page=${page}&no-spinner&first_air_date.gte=${from}-01-01&first_air_date.lte=${to}-12-31&language=en-US&with_original_language=en&with_original_language=${lan}`
     );
