@@ -19,6 +19,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { GenreComponent } from './pages/genre/genre.component';
 import { RecentComponent } from './sidebar-data/recent/recent.component';
 import { DiscoverComponent } from './sidebar-data/discover/discover.component';
+import { HelpPageComponent } from './sidebar-data/help-page/help-page.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 
@@ -89,6 +90,11 @@ const routes: Routes = [
       {
         path:'recent',
         component:RecentComponent,
+        pathMatch:'full'
+      },
+      {
+        path:'help',
+        component:HelpPageComponent,
         pathMatch:'full'
       }
     ],

@@ -1,0 +1,43 @@
+.container {
+  width: 90%;
+  margin: auto;
+  font-family: 'Source Sans Pro';
+
+  h2 {
+    font-size: 30px;
+  }
+
+  ul {
+    li {
+      font-size: 22px;
+    }
+  }
+
+  p {
+    font-size: 22px;
+  }
+
+  h3 {
+    font-size: 28px;
+  }
+
+  .mat-divider {
+    border-top-width: 13px;
+  }
+}
+
+.footer{
+    padding-top: 50px;
+    width: 90%;
+    margin: auto;
+}
+
+@media screen and (max-width:600px) {
+    .container{
+        width: 97.5%;
+    }
+
+    .footer{
+        width: 97.5%;
+    }
+}

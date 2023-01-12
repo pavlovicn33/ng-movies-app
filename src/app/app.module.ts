@@ -45,6 +45,7 @@ import { DiscoverComponent } from './sidebar-data/discover/discover.component';
 import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
 import { ErrorHandlerService } from 'src/shared/services/error/error-handler.service';
 import { ErrorHandler } from '@angular/core';
+import { HelpPageComponent } from './sidebar-data/help-page/help-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,6 +73,7 @@ import { ErrorHandler } from '@angular/core';
     NotFoundComponent,
     GenreComponent,
     DiscoverComponent,
+    HelpPageComponent,
   ],
   imports: [
     MatSelectCountryModule.forRoot('en'),
