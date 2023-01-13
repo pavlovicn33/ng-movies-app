@@ -20,6 +20,7 @@ import { GenreComponent } from './pages/genre/genre.component';
 import { RecentComponent } from './sidebar-data/recent/recent.component';
 import { DiscoverComponent } from './sidebar-data/discover/discover.component';
 import { HelpPageComponent } from './sidebar-data/help-page/help-page.component';
+import { NewsComponent } from './sidebar-data/news/news.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 
@@ -95,6 +96,11 @@ const routes: Routes = [
       {
         path:'help',
         component:HelpPageComponent,
+        pathMatch:'full'
+      },
+      {
+        path:'news',
+        component:NewsComponent,
         pathMatch:'full'
       }
     ],

@@ -95,6 +95,10 @@ export class MoviesService {
   getLanguageCode(alphaCode2:string):Observable<CountryData>{
     return this.http.get<CountryData>(`https://restcountries.com/v2/alpha/${alphaCode2}`)
   }
+
+  getNews():Observable<any>{
+    return this.http.get(`${environment.newsBaseURL}/top-headlines?country=us&category=entertainment&apiKey=${environment.newsKey}`)
+  }
 }
 
 

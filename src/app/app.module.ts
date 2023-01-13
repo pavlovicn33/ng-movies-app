@@ -46,6 +46,7 @@ import { MatSelectCountryModule } from '@angular-material-extensions/select-coun
 import { ErrorHandlerService } from 'src/shared/services/error/error-handler.service';
 import { ErrorHandler } from '@angular/core';
 import { HelpPageComponent } from './sidebar-data/help-page/help-page.component';
+import { NewsComponent } from './sidebar-data/news/news.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +75,7 @@ import { HelpPageComponent } from './sidebar-data/help-page/help-page.component'
     GenreComponent,
     DiscoverComponent,
     HelpPageComponent,
+    NewsComponent,
   ],
   imports: [
     MatSelectCountryModule.forRoot('en'),

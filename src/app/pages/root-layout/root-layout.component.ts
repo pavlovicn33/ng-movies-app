@@ -84,13 +84,10 @@ export class RootLayoutComponent implements OnInit {
         link: 'bookmarked',
       },
       {
-        icon: 'star_border',
-        title: 'Top Rated',
+        icon: 'public',
+        title: 'News',
+        link:'news'
       },
-      // {
-      //   icon: 'alarm',
-      //   title: 'Coming soon',
-      // },
     ];
     this.miscItems = [
       {
