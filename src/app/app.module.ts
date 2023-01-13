@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RootLayoutComponent } from './pages/root-layout/root-layout.component';
@@ -21,8 +20,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
-import { provideFunctions,getFunctions } from '@angular/fire/functions';
-import { provideStorage,getStorage } from '@angular/fire/storage';
+import { provideFunctions, getFunctions } from '@angular/fire/functions';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'src/shared/interceptors/auth.interceptor';
@@ -41,9 +40,13 @@ import { MovieTvItemComponent } from './components/movie-tv-item/movie-tv-item.c
 import { MovieTrailerDialogComponent } from './components/movie-trailer-dialog/movie-trailer-dialog.component';
 import { CastDetailsComponent } from './pages/cast-details/cast-details.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { RouterModule } from '@angular/router';
 import { GenreComponent } from './pages/genre/genre.component';
-
+import { DiscoverComponent } from './sidebar-data/discover/discover.component';
+import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
+import { ErrorHandlerService } from 'src/shared/services/error/error-handler.service';
+import { ErrorHandler } from '@angular/core';
+import { HelpPageComponent } from './sidebar-data/help-page/help-page.component';
+import { NewsComponent } from './sidebar-data/news/news.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,8 +73,12 @@ import { GenreComponent } from './pages/genre/genre.component';
     CastDetailsComponent,
     NotFoundComponent,
     GenreComponent,
+    DiscoverComponent,
+    HelpPageComponent,
+    NewsComponent,
   ],
   imports: [
+    MatSelectCountryModule.forRoot('en'),
     InfiniteScrollModule,
     BrowserModule,
     SharedModule,
@@ -86,11 +93,13 @@ import { GenreComponent } from './pages/genre/genre.component';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideFunctions(() => getFunctions()),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
   ],
-  providers: [AuthGuard,
+  providers: [
+    AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: ErrorHandler, useClass: ErrorHandlerService },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { isArray } from 'lodash';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Cast, Credits } from 'src/shared/models/cast';
@@ -63,31 +64,59 @@ export class ShowsService {
     );
   }
 
-
   getSimilar(id: number): Observable<Shows> {
     return this.http.get<Shows>(
       `${environment.baseURL}/tv/${id}/recommendations${environment.apiKey}`
     );
   }
 
-  getShowStreams(id:number, season:number, episode:number):Observable<Stream>{
-    return this.http.get<Stream>(`https://private-anon-b6f507e52b-superembed.apiary-proxy.com/?type=tmdb&id=${id}&season=${season}&episode=${episode}&max_results=1`)
+  getShowStreams(
+    id: number,
+    season: number,
+    episode: number
+  ): Observable<Stream> {
+    return this.http.get<Stream>(
+      `https://private-anon-b6f507e52b-superembed.apiary-proxy.com/?type=tmdb&id=${id}&season=${season}&episode=${episode}&max_results=1`
+    );
   }
 
-  getSeasonImages(id:number, season:number):Observable<SeasonPosters>{
-    return this.http.get<SeasonPosters>(`${environment.baseURL}/tv/${id}/season/${season}/images${environment.apiKey}&include_image_language=en,null&no-spinner`)
+  getSeasonImages(id: number, season: number): Observable<SeasonPosters> {
+    return this.http.get<SeasonPosters>(
+      `${environment.baseURL}/tv/${id}/season/${season}/images${environment.apiKey}&include_image_language=en,null&no-spinner`
+    );
   }
 
-  rateShow(rating:number, id:number):Observable<any>{
-    const session = localStorage.getItem('sessionTmdb')
-    return this.http.post(`${environment.baseURL}/tv/${id}/rating${environment.apiKey}&guest_session_id=${session}`, {value:rating})
+  rateShow(rating: number, id: number): Observable<any> {
+    const session = localStorage.getItem('sessionTmdb');
+    return this.http.post(
+      `${environment.baseURL}/tv/${id}/rating${environment.apiKey}&guest_session_id=${session}`,
+      { value: rating }
+    );
   }
 
-  discoverShow(genre:number, page?:number):Observable<Shows>{
-    return this.http.get<Shows>(`${environment.baseURL}/discover/tv${environment.apiKey}&with_genres=${genre}&page${page}&no-spinner`)
+  discoverShow(
+    genre?: any,
+    page?: number,
+    from?: number,
+    to?: number,
+    lan?: string
+  ): Observable<Shows> {
+    if (!lan) {
+      lan = '';
+    }
+    let genres = genre;
+    if (isArray(genre) == true) {
+      let genreIds = genre.map((el: any) => String(el.id));
+      genres = String(genreIds);
+    }
+    return this.http.get<Shows>(
+      `${environment.baseURL}/discover/tv${environment.apiKey}&with_genres=${genres}&page=${page}&no-spinner&first_air_date.gte=${from}-01-01&first_air_date.lte=${to}-12-31&language=en-US&with_original_language=en&with_original_language=${lan}`
+    );
   }
 
-  getTvGenres():Observable<Genres> {
-    return this.http.get<Genres>(`${environment.baseURL}/genre/tv/list${environment.apiKey}`)
+  getTvGenres(): Observable<Genres> {
+    return this.http.get<Genres>(
+      `${environment.baseURL}/genre/tv/list${environment.apiKey}`
+    );
   }
 }

@@ -15,10 +15,16 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private spinnerService: SpinnerService) {}
   private totalRequests = 0;
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (request.url.includes('no-spinner')) {
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    if (
+      request.url.includes('no-spinner') ||
+      request.url.includes('assets/svg-country-flags')
+    ) {
       this.spinnerService.setLoading(false);
-      return next.handle(request)
+      return next.handle(request);
     }
     this.totalRequests++;
     this.spinnerService.setLoading(true);

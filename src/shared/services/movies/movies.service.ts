@@ -10,6 +10,9 @@ import { Stream, StreamMovieTv } from 'src/shared/models/stream';
 import { Cast, Credits } from 'src/shared/models/cast';
 import { Person } from 'src/shared/models/castMovies';
 import { Genres } from 'src/shared/models/genres';
+import { CountryData } from 'src/shared/models/countryCodes';
+import { isArray } from 'lodash';
+import { News } from 'src/shared/models/articles';
 
 @Injectable({
   providedIn: 'root'
@@ -74,12 +77,28 @@ export class MoviesService {
     return this.http.post(`${environment.baseURL}/movie/${id}/rating${environment.apiKey}&guest_session_id=${session}`, {value:rating})
   }
 
-  discoverMovie(genre:number, page?:number):Observable<Movies>{
-    return this.http.get<Movies>(`${environment.baseURL}/discover/movie${environment.apiKey}&with_genres=${genre}&page=${page}&no-spinner`)
+  discoverMovie(genre?:any, page?:number,from?:number,to?:number,lan?:string):Observable<Movies>{
+    if (!lan) {
+      lan = ''
+    }
+    let genres = genre
+    if (isArray(genre) == true) {
+      let genreIds = genre.map((el:any) => String(el.id))
+      genres = String(genreIds)
+    }
+    return this.http.get<Movies>(`${environment.baseURL}/discover/movie${environment.apiKey}&with_genres=${genres}&page=${page}&no-spinner&primary_release_date.gte=${from}-01-01&primary_release_date.lte=${to}-12-31&with_original_language=${lan}`)
   }
 
   getMovieGenres():Observable<Genres> {
     return this.http.get<Genres>(`${environment.baseURL}/genre/movie/list${environment.apiKey}`)
+  }
+
+  getLanguageCode(alphaCode2:string):Observable<CountryData>{
+    return this.http.get<CountryData>(`https://restcountries.com/v2/alpha/${alphaCode2}`)
+  }
+
+  getNews(page?:number,query?:string):Observable<News>{
+    return this.http.get<News>(`${environment.newsBaseURL}/everything?q=${query}&apiKey=${environment.newsKey}&page=${page}&pageSize=20&sortBy=relevancy`)
   }
 }
 

@@ -35,4 +35,7 @@
   .watch-now{
     background-color: mat.get-color-from-palette($accent-palette, 200) !important;
   }
+  #filters{
+    background-color: white;
+  }
 }

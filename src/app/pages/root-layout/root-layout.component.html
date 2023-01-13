@@ -231,7 +231,6 @@
               </mat-nav-list>
             </mat-menu>
           </div>
-
           <li>
             <button
               mat-icon-button
@@ -305,8 +304,12 @@
               </mat-list-option>
               <mat-divider></mat-divider>
               <h2>Genre</h2>
-              <mat-list-option *ngFor="let i of genres" [value]="i" [routerLink]="['/ngmovies/genre/' + i.src]">
-                <span >
+              <mat-list-option
+                *ngFor="let i of genres"
+                [value]="i"
+                [routerLink]="['/ngmovies/genre/' + i.src]"
+              >
+                <span>
                   {{ i.title }}
                 </span>
               </mat-list-option>

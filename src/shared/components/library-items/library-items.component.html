@@ -1,5 +1,6 @@
 <div>
   <mat-tab-group
+    dynamicHeight
     fitInkBarToContent
     [style.font-family]="'Nunito'"
     [style.text-align]="'center'"
@@ -21,16 +22,16 @@
                 </h3>
                 <div>
                   <button
-                  (click)="$event.preventDefault(); $event.stopPropagation()"
-                  *ngIf="actor"
-                  (click)="addToFavourites(i, 1)"
-                  class="popout"
-                  mat-icon-button
-                >
-                  <mat-icon>add_circle_outline</mat-icon>
-                </button>
+                    (click)="$event.preventDefault(); $event.stopPropagation()"
+                    *ngIf="actor || currentRoute == 'recent'"
+                    (click)="addToFavourites(i, 1)"
+                    class="popout"
+                    mat-icon-button
+                  >
+                    <mat-icon>add_circle_outline</mat-icon>
+                  </button>
                   <button
-                    *ngIf="!actor"
+                    *ngIf="!actor && currentRoute == 'bookmarked'"
                     (click)="$event.preventDefault(); $event.stopPropagation()"
                     (click)="removeFromFavourites(i)"
                     class="popout"
@@ -67,16 +68,16 @@
                 </h3>
                 <div>
                   <button
-                  (click)="$event.preventDefault(); $event.stopPropagation()"
-                  *ngIf="actor"
-                  (click)="addToFavourites(i, 1)"
-                  class="popout"
-                  mat-icon-button
-                >
-                  <mat-icon>add_circle_outline</mat-icon>
-                </button>
+                    (click)="$event.preventDefault(); $event.stopPropagation()"
+                    *ngIf="actor || currentRoute == 'recent'"
+                    (click)="addToFavourites(i, 1)"
+                    class="popout"
+                    mat-icon-button
+                  >
+                    <mat-icon>add_circle_outline</mat-icon>
+                  </button>
                   <button
-                    *ngIf="!actor"
+                    *ngIf="!actor && currentRoute == 'bookmarked'"
                     (click)="$event.preventDefault(); $event.stopPropagation()"
                     (click)="removeFromFavourites(i)"
                     class="popout"

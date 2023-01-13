@@ -4,10 +4,11 @@ import { MatGridList } from '@angular/material/grid-list';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
-import { map, Observable } from 'rxjs';
+import { filter, map, Observable } from 'rxjs';
 import { BookmarkedService } from 'src/shared/services/bookmarked/bookmarked.service';
 import { SpinnerService } from 'src/shared/services/spinner/spinner.service';
 import { debounce } from 'lodash';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-see-all',
@@ -35,7 +36,6 @@ export class SeeAllComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private snackbar: MatSnackBar,
-    private spinnerService: SpinnerService,
     private bookmarkService: BookmarkedService
   ) {
     this.data = {
@@ -97,7 +97,7 @@ export class SeeAllComponent implements OnInit {
       return;
     }
     this.bookmarked.forEach((element: any) => {
-      if (movie.id == element.id) {
+      if (movie.id == element.id && movie.media_type == element.media_type) {
         this.status = 2;
       }
     });

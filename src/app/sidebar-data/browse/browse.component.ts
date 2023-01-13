@@ -30,7 +30,8 @@ export class BrowseComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   getAutoComplete() {
     this.autocomplete = [];

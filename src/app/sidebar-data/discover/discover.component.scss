@@ -1,0 +1,103 @@
+.filter-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 15px;
+  gap: 10px;
+  margin-left: 20px;
+}
+.filters-button{
+  display: none;
+}
+.container {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  background-color: #303030;
+  height: 6.5% !important;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  margin-bottom: 50px;
+
+  .mat-button-toggle-standalone,
+  .mat-button-toggle-group {
+    height: 32.5px !important;
+    align-items: center !important;
+  }
+
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper {
+      height: 35px !important;
+      align-items: center !important;
+      width: 175px !important;
+    }
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none !important;
+    }
+  }
+}
+
+.year-select {
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper {
+      height: 35px !important;
+      align-items: center !important;
+      width: 110px !important;
+    }
+  }
+}
+.select-country {
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper {
+      height: 35px !important;
+      align-items: center !important;
+      width: 200px !important;
+    }
+  }
+}
+::ng-deep {
+  .mat-mdc-option .mdc-list-item__primary-text {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+}
+@media screen and (max-width: 1060px) {
+  .container{
+    height: 11.75% !important;
+  }
+  .padding{
+    padding-top: 90px !important;
+  }
+  .filter-container {
+    justify-content: center;
+    margin-right: 210px;
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 800px) {
+  .filter-container{
+    margin-right: 0px;
+  }
+}
+@media screen and (max-width: 460px ) {
+  .filters-button-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .filters-button{
+    text-align: center;
+    display: block;
+  }
+  .filter-container{
+    margin-right: 20px;
+  }
+  .padding{
+    padding-top: 10px !important;
+  }
+  .container{
+    display: none;
+  }
+}

@@ -1,0 +1,57 @@
+<div
+class="container"
+infinite-scroll
+[infiniteScrollDistance]="2"
+[infiniteScrollThrottle]="300"
+(scrolled)="onScroll()"
+[scrollWindow]="false">
+  <div class="header">
+    <h1>
+      All News <span>({{ news.totalResults }} new posts)</span>
+    </h1>
+    <mat-form-field
+      [style.margin-top]="'50px'"
+      appearance="outline"
+      class="form-container"
+    >
+      <input
+        (keydown.enter)="debounceSearch()"
+        [(ngModel)]="query"
+        matInput
+        placeholder="Search..."
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="debounceSearch()"
+        [attr.aria-label]="'Hide password'"
+      >
+        <mat-icon class="search-icon" matSuffix>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="content">
+    <mat-card *ngFor="let i of articles" class="card">
+      <mat-card-content class="card-content">
+        <div  [style.text-align]="'center'">
+
+            <a href="{{ i.url }}" target="_blank">
+                <img
+                mat-card-image
+                class="img"
+                src="{{ i.urlToImage }}"
+                alt="Photo of a Shiba Inu"
+                />
+            </a>
+        </div>
+        <h3>{{ i.title }}</h3>
+        <p>
+          {{ i.description }}
+        </p>
+        <mat-chip-listbox aria-label="Dog selection">
+          <mat-chip> {{i.source.name}} </mat-chip>
+        </mat-chip-listbox>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

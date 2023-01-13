@@ -1,0 +1,51 @@
+.mdc-card {
+  width: 95%;
+  margin: auto;
+  margin-top: 25px;
+}
+.container {
+  width: 90%;
+  margin: auto;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+  h2 {
+    font-size: 28px;
+    font-weight: 400;
+  }
+
+  ul {
+    list-style: none;
+    li {
+      font-size: 18px;
+    }
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .mat-divider {
+    border-top-width: 13px;
+  }
+}
+
+.footer {
+  padding-top: 50px;
+  width: 90%;
+  margin: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 97.5%;
+  }
+
+  .footer {
+    width: 97.5%;
+  }
+}

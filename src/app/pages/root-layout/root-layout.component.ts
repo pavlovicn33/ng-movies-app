@@ -63,18 +63,20 @@ export class RootLayoutComponent implements OnInit {
         link: 'browse',
       },
       {
-        icon: 'people',
-        title: 'Community',
+        icon: 'apps',
+        title: 'Discovery',
+        link: 'discover',
       },
-      {
-        icon: 'alarm',
-        title: 'Coming soon',
-      },
+      // {
+      //   icon: 'alarm',
+      //   title: 'Coming soon',
+      // },
     ];
     this.libraryItems = [
       {
         icon: 'access_time',
         title: 'Recent',
+        link: 'recent',
       },
       {
         icon: 'bookmark_border',
@@ -82,12 +84,9 @@ export class RootLayoutComponent implements OnInit {
         link: 'bookmarked',
       },
       {
-        icon: 'star_border',
-        title: 'Top Rated',
-      },
-      {
-        icon: 'cloud_download',
-        title: 'Downloaded',
+        icon: 'public',
+        title: 'News',
+        link:'news'
       },
     ];
     this.miscItems = [
@@ -99,6 +98,7 @@ export class RootLayoutComponent implements OnInit {
       {
         icon: 'help_outline',
         title: 'Help',
+        link:'help'
       },
     ];
     this.logoutItem = [
