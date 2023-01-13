@@ -24,6 +24,9 @@ export class NewsComponent implements OnInit {
     {name: 'kiwi'},
     {name: 'cherry'},
   ];
+
+  page:number = 1
+
   constructor(private moviesService: MoviesService) {
     this.news = {
       status: '',
@@ -34,21 +37,21 @@ export class NewsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getMovies();
+    this.getMovies(this.page);
   }
 
-  getMovies() {
-    let dataArticle:any[] = []
-    this.moviesService.getNews().subscribe((data: News) => {
+  getMovies(page:number) {
+    // let dataArticle:any[] = []
+    this.moviesService.getNews(page).subscribe((data: News) => {
       this.news = data
       data.articles.forEach(el =>{
         if (!el.urlToImage) {
           return
         }
-        dataArticle.push(el)
+        this.articles.push(el)
       })
-      this.articles = dataArticle
-      console.log(this.articles)
+      // this.articles = dataArticle
+      // console.log(this.articles)
     });
   }
 
@@ -60,5 +63,10 @@ export class NewsComponent implements OnInit {
     // this.items.page = 1;
     // this.itemsResult = [];
     // this.debounceSearchLoad();
+  }
+
+  onScroll(){
+    this.page ++
+    this.getMovies(this.page)
   }
 }

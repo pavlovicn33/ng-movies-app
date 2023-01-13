@@ -97,8 +97,11 @@ export class MoviesService {
     return this.http.get<CountryData>(`https://restcountries.com/v2/alpha/${alphaCode2}`)
   }
 
-  getNews():Observable<News>{
-    return this.http.get<News>(`${environment.newsBaseURL}/top-headlines?country=us&category=entertainment&apiKey=${environment.newsKey}`)
+  getNews(page?:number,query?:string):Observable<News>{
+    if (query == null) {
+      query = ''
+    }
+    return this.http.get<News>(`${environment.newsBaseURL}/top-headlines?country=us&category=entertainment&apiKey=${environment.newsKey}&q=${query}&page=${page}`)
   }
 }
 

@@ -1,4 +1,10 @@
-<div>
+<div
+class="container"
+infinite-scroll
+[infiniteScrollDistance]="2"
+[infiniteScrollThrottle]="300"
+(scrolled)="onScroll()"
+[scrollWindow]="false">
   <div class="header">
     <h1>
       All News <span>({{ news.totalResults }} new posts)</span>

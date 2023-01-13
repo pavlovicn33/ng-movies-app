@@ -1,3 +1,10 @@
+.container{
+  height: 100%;
+  overflow: auto;
+}
+::-webkit-scrollbar {
+  display: none !important;
+}
 .header {
   font-family: "Nunito";
   width: 90%;
