@@ -1,0 +1,56 @@
+.header {
+  font-family: "Nunito";
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 10px;
+
+  span {
+    font-size: 18px;
+    opacity: 0.75;
+  }
+
+  ::ng-deep {
+    .mat-mdc-form-field {
+      margin-top: 0px !important;
+    }
+    .mat-mdc-text-field-wrapper {
+      height: 45px !important;
+      align-items: center !important;
+    }
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none !important;
+    }
+  }
+}
+
+.content {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 75px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+  .card {
+    width: 400px;
+    border-radius: 25px;
+  }
+
+  .card-content {
+    width: 90%;
+    margin: auto;
+
+    img {
+      border-radius: 15px;
+      width: 350px;
+      height: 250px;
+      object-fit: cover;
+    }
+  }
+}

@@ -12,6 +12,7 @@ import { Person } from 'src/shared/models/castMovies';
 import { Genres } from 'src/shared/models/genres';
 import { CountryData } from 'src/shared/models/countryCodes';
 import { isArray } from 'lodash';
+import { News } from 'src/shared/models/articles';
 
 @Injectable({
   providedIn: 'root'
@@ -96,8 +97,8 @@ export class MoviesService {
     return this.http.get<CountryData>(`https://restcountries.com/v2/alpha/${alphaCode2}`)
   }
 
-  getNews():Observable<any>{
-    return this.http.get(`${environment.newsBaseURL}/top-headlines?country=us&category=entertainment&apiKey=${environment.newsKey}`)
+  getNews():Observable<News>{
+    return this.http.get<News>(`${environment.newsBaseURL}/top-headlines?country=us&category=entertainment&apiKey=${environment.newsKey}`)
   }
 }
 

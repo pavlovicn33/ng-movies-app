@@ -75,4 +75,11 @@
       margin-left: -1em;  
     }
   }
+  .mat-mdc-chip{
+    background-color:  mat.get-color-from-palette($accent-palette, 400) !important;
+    
+    span{
+      color: white !important;
+    }
+  }
 }
