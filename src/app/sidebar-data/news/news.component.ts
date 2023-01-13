@@ -9,7 +9,7 @@ import { MoviesService } from 'src/shared/services/movies/movies.service';
   styleUrls: ['./news.component.scss'],
 })
 export class NewsComponent implements OnInit {
-  query: string = '';
+  query: string = 'movie';
 
   news!: News;
 
@@ -47,6 +47,7 @@ export class NewsComponent implements OnInit {
         }
         this.articles.push(el);
       });
+      console.log(this.articles)
     });
   }
   private debounceSearchLoad = debounce(

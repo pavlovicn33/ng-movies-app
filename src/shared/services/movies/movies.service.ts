@@ -98,7 +98,7 @@ export class MoviesService {
   }
 
   getNews(page?:number,query?:string):Observable<News>{
-    return this.http.get<News>(`${environment.newsBaseURL}/top-headlines?country=us&category=entertainment&apiKey=${environment.newsKey}&q=${query}&page=${page}`)
+    return this.http.get<News>(`${environment.newsBaseURL}/everything?q=${query}&apiKey=${environment.newsKey}&page=${page}&pageSize=20&sortBy=relevancy`)
   }
 }
 
