@@ -33,14 +33,17 @@ infinite-scroll
   <div class="content">
     <mat-card *ngFor="let i of articles" class="card">
       <mat-card-content class="card-content">
-        <a href="{{ i.url }}" target="_blank">
-          <img
-            mat-card-image
-            class="img"
-            src="{{ i.urlToImage }}"
-            alt="Photo of a Shiba Inu"
-          />
-        </a>
+        <div  [style.text-align]="'center'">
+
+            <a href="{{ i.url }}" target="_blank">
+                <img
+                mat-card-image
+                class="img"
+                src="{{ i.urlToImage }}"
+                alt="Photo of a Shiba Inu"
+                />
+            </a>
+        </div>
         <h3>{{ i.title }}</h3>
         <p>
           {{ i.description }}

@@ -9,64 +9,58 @@ import { MoviesService } from 'src/shared/services/movies/movies.service';
   styleUrls: ['./news.component.scss'],
 })
 export class NewsComponent implements OnInit {
+  query: string = '';
 
-  query:string = ''
+  news!: News;
 
-  news!:News
-
-  articles:Article[] = []
+  articles: Article[] = [];
 
   availableColors: any[] = [
-    {name: 'apple',color:'accent'},
-    {name: 'banana'},
-    {name: 'strawberry'},
-    {name: 'orange'},
-    {name: 'kiwi'},
-    {name: 'cherry'},
+    { name: 'apple', color: 'accent' },
+    { name: 'banana' },
+    { name: 'strawberry' },
+    { name: 'orange' },
+    { name: 'kiwi' },
+    { name: 'cherry' },
   ];
 
-  page:number = 1
+  page: number = 1;
 
   constructor(private moviesService: MoviesService) {
     this.news = {
       status: '',
       totalResults: 0,
-      articles: []
-    }
-    
+      articles: [],
+    };
   }
 
   ngOnInit(): void {
-    this.getMovies(this.page);
+    this.getMovies(this.page, this.query);
   }
 
-  getMovies(page:number) {
-    // let dataArticle:any[] = []
-    this.moviesService.getNews(page).subscribe((data: News) => {
-      this.news = data
-      data.articles.forEach(el =>{
+  getMovies(page: number, query: string) {
+    this.moviesService.getNews(page, query).subscribe((data: News) => {
+      this.news = data;
+      data.articles.forEach((el) => {
         if (!el.urlToImage) {
-          return
+          return;
         }
-        this.articles.push(el)
-      })
-      // this.articles = dataArticle
-      // console.log(this.articles)
+        this.articles.push(el);
+      });
     });
   }
-
-  // private debounceSearchLoad = debounce(
-  //   () => this.getSearch(this.items.page, this.query),
-  //   0
-  // );
+  private debounceSearchLoad = debounce(
+    () => this.getMovies(this.page, this.query),
+    0
+  );
   debounceSearch() {
-    // this.items.page = 1;
-    // this.itemsResult = [];
-    // this.debounceSearchLoad();
+    this.page = 1;
+    this.articles = [];
+    this.debounceSearchLoad();
   }
 
-  onScroll(){
-    this.page ++
-    this.getMovies(this.page)
+  onScroll() {
+    this.page++;
+    this.getMovies(this.page, this.query);
   }
 }
