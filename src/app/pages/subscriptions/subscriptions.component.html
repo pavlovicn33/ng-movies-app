@@ -1,10 +1,15 @@
 <div class="container">
   <div class="select">
-    <mat-form-field  appearance="outline">
-        <mat-label>Currencies</mat-label>
-        <mat-select [(value)]="selectedCurrency">
-          <mat-option [value]="option" *ngFor="let option of currencies">{{ option.viewValue }}</mat-option>
-        </mat-select>
+    <mat-form-field appearance="outline">
+      <mat-label>Currencies</mat-label>
+      <mat-select
+        (selectionChange)="currencyChange($event)"
+        [(value)]="selectedCurrency"
+      >
+        <mat-option [value]="option" *ngFor="let option of currencies">{{
+          option.viewValue
+        }}</mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
   <div class="header">
@@ -14,21 +19,42 @@
   <div class="subscription-cards">
     <mat-card *ngFor="let i of subscriptions" class="mat-card">
       <mat-card-header>
-        <mat-card-title [style.font-size]="'18px'" [style.font-family]="'Nunito'" [style.margin-bottom]="'10px'">{{i.name}}</mat-card-title>
-        <mat-card-subtitle [style.width]="'100%'"><mat-divider></mat-divider></mat-card-subtitle>
+        <mat-card-title
+          [style.font-size]="'18px'"
+          [style.font-family]="'Nunito'"
+          [style.margin-bottom]="'10px'"
+          >{{ i.name }}</mat-card-title
+        >
+        <mat-card-subtitle [style.width]="'100%'"
+          ><mat-divider></mat-divider
+        ></mat-card-subtitle>
       </mat-card-header>
-
       <mat-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-          bred for hunting.
+        <p class="price" *ngIf="i.code != 3">
+          <span class="highlight"
+            >{{ i.price }}{{ selectedCurrency.value }}</span
+          >
+          per month
         </p>
+        <p class="price" *ngIf="i.code == 3">
+          <span class="highlight"
+            >{{ i.price }}{{ selectedCurrency.value }}</span
+          >
+          yearly, <span class="highlight discount"> 30% discount!</span>
+        </p>
+        <mat-divider></mat-divider>
+        <div>
+          <p class="attrs" *ngFor="let at of i.attrs">
+            <mat-icon class="check">check_circle_outline</mat-icon>{{ at }}
+          </p>
+        </div>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
+      <div class="footer">
+        <mat-card-footer [style.text-align]="'center'">
+          <mat-divider></mat-divider>
+          <button (click)="openPurchaseModal(i)" color="accent" mat-raised-button>Buy now</button>
+        </mat-card-footer>
+      </div>
     </mat-card>
   </div>
 </div>

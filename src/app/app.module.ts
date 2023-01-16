@@ -48,6 +48,7 @@ import { ErrorHandler } from '@angular/core';
 import { HelpPageComponent } from './sidebar-data/help-page/help-page.component';
 import { NewsComponent } from './sidebar-data/news/news.component';
 import { SubscriptionsComponent } from './pages/subscriptions/subscriptions.component';
+import { SubscriptionModalComponent } from './components/subscription-modal/subscription-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +79,7 @@ import { SubscriptionsComponent } from './pages/subscriptions/subscriptions.comp
     HelpPageComponent,
     NewsComponent,
     SubscriptionsComponent,
+    SubscriptionModalComponent,
   ],
   imports: [
     MatSelectCountryModule.forRoot('en'),

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -15,6 +15,7 @@ import {
   updatePassword,
   deleteUser,
 } from 'firebase/auth';
+import { Observable } from 'rxjs';
 import { PasswordDialogComponent } from 'src/app/components/password-dialog/password-dialog.component';
 import { environment } from 'src/environments/environment';
 import { DialogComponent } from 'src/shared/components/dialog/dialog.component';
@@ -40,11 +41,13 @@ export class AuthService {
   }
 
   getSessionTmdb() {
-    this.http.get(
-      `${environment.baseURL}/authentication/guest_session/new${environment.apiKey}`
-    ).subscribe((data:any) => {
-      localStorage.setItem('sessionTmdb', `${data.guest_session_id}`);
-    });
+    this.http
+      .get(
+        `${environment.baseURL}/authentication/guest_session/new${environment.apiKey}`
+      )
+      .subscribe((data: any) => {
+        localStorage.setItem('sessionTmdb', `${data.guest_session_id}`);
+      });
   }
 
   login(email: string, password: string) {
@@ -52,7 +55,7 @@ export class AuthService {
       (res) => {
         if (res.user?.emailVerified == true) {
           localStorage.setItem('token', 'true');
-          this.getSessionTmdb()
+          this.getSessionTmdb();
           this.router.navigate(['/ngmovies']);
         } else {
           this.openSnackBar(
@@ -272,5 +275,15 @@ export class AuthService {
           });
       }
     });
+  }
+
+  getCurrency(): Observable<any> {
+    const headerDict = {
+      'apiKey':`${environment.currencyApiKey}`
+    }
+    const requestOptions = {                                                                                                                                                                                 
+      headers: new HttpHeaders(headerDict), 
+    };
+    return this.http.get<any>(`${environment.currencyBaseURL}/latest?currencies=EUR%2CUSD%2CGBP&base_currency=EUR`, requestOptions);
   }
 }
