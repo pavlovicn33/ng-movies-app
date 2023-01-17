@@ -7,24 +7,17 @@
     id="payment-form"
   >
     <h2
-      class="form-field"
+      class="form-field subscription-name"
       [style.color]="'white'"
       [style.font-family]="'Nunito'"
     >
       {{ data.subscription.name }}
     </h2>
-    <div class="form-row form-field">
-      <label class="mb-2" for="card-element"> Credit or debit card </label>
-      <div class="mb-4" id="card-element">
-        <!-- a Stripe Element will be inserted here. -->
-      </div>
-      <!-- Used to display form errors -->
-      <div
-        id="card-errors"
-        class="block text-900 font-medium mb-2 text-pink-500"
-        role="alert"
-      ></div>
-    </div>
+    <ngx-stripe-card
+      class="form-field"
+      [options]="cardOptions"
+      [elementsOptions]="elementsOptions"
+    ></ngx-stripe-card>
     <mat-form-field
       floatLabel="always"
       [color]="'primary'"
@@ -69,20 +62,26 @@
       <mat-label>Phone number</mat-label>
       <input
         autocomplete="off"
-        formControlName="phoneNmber"
+        formControlName="phoneNumber"
         matInput
         required
       />
-      <mat-error *ngIf="p['phoneNmber'].errors?.['required']"
+      <mat-error *ngIf="p['phoneNumber'].errors?.['required']"
         >You must enter a value</mat-error
       >
     </mat-form-field>
     <div class="button-container form-field">
-      <button color="accent" [style.font-family]="'Nunito'" mat-raised-button>
+      <button
+        (click)="createToken()"
+        color="accent"
+        [style.font-family]="'Nunito'"
+        mat-raised-button
+      >
         Submit Payment
       </button>
     </div>
-  </form>
+</form>
+<mat-progress-bar *ngIf="status" mode="indeterminate"></mat-progress-bar>
 </div>
 <script src="https://unpkg.com/event-target@latest/min.js"></script>
 <script src="https://unpkg.com/resize-observer-polyfill@1.5.0/dist/ResizeObserver.global.js"></script>

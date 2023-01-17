@@ -9,18 +9,19 @@ import { SpinnerService } from 'src/shared/services/spinner/spinner.service';
 })
 export class MovieTrailerDialogComponent implements OnInit {
   episodeUrl: string = '';
-  linksList:any[] = []
+  linksList: any[] = [];
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit(): void {
     if (this.data.streamLinks) {
-      
       this.data.streamLinks.forEach((element: any) => {
         if (element.exact_match == true) {
-          this.linksList.push(element)
+          this.linksList.push(element);
         }
       });
-      this.episodeUrl = this.linksList[0].url
+      if (this.linksList.length != 0) {
+        this.episodeUrl = this.linksList[0].url;
+      }
     }
   }
   ytUrl(url: string) {

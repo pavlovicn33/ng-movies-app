@@ -1,7 +1,21 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import {
+  StripeCardElementOptions,
+  StripeElementsOptions,
+} from '@stripe/stripe-js';
+import { StripeService } from 'ngx-stripe';
+import { StripeCardComponent } from 'ngx-stripe';
 import { environment } from 'src/environments/environment';
+import { Payment } from 'src/shared/models/payment';
 import { SubscriptionsService } from 'src/shared/services/subscriptions/subscriptions.service';
 
 @Component({
@@ -12,10 +26,43 @@ import { SubscriptionsService } from 'src/shared/services/subscriptions/subscrip
 export class SubscriptionModalComponent implements OnInit {
   paymentForm: FormGroup;
   customerId: string = '';
+  status: boolean = false;
+  transactionId: string = '';
+  stripeToken:string = ''
+  @ViewChild(StripeCardComponent) card!: StripeCardComponent;
+
+  cardOptions: StripeCardElementOptions = {
+    classes: {
+      base: 'card-input-color',
+    },
+    style: {
+      base: {
+        iconColor: '#fafafa',
+        color: '#fafafa',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#fafafa',
+        },
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a',
+      },
+    },
+  };
+
+  elementsOptions: StripeElementsOptions = {
+    locale: 'en',
+  };
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-    private subscriptionService: SubscriptionsService
+    private stripeService: StripeService,
+    private subscriptionService: SubscriptionsService,
+    private matSnackBar: MatSnackBar
   ) {
     this.paymentForm = this.fb.group({
       email: [
@@ -27,70 +74,121 @@ export class SubscriptionModalComponent implements OnInit {
         ],
       ],
       cardHolder: ['', [Validators.required]],
-      phoneNmber: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required]],
     });
   }
 
   ngOnInit(): void {
-    this.mountCards()
+    this.setStyle();
+  }
+
+  setStyle() {
+    if (localStorage.getItem('mode') == 'light') {
+      this.cardOptions = {
+        classes: {
+          base: 'card-input-color',
+        },
+        style: {
+          base: {
+            iconColor: '#000000',
+            color: '#000000',
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+              color: '#000000',
+            },
+          },
+          invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a',
+          },
+        },
+      };
+    }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.matSnackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 
   get p() {
     return this.paymentForm.controls;
   }
 
-  mountCards() {
-    const style = {
-      base: {
-        color: '#32325d',
-        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSmoothing: 'antialiased',
-        fontSize: '16px',
-        '::placeholder': {
-          color: '#aab7c4',
-        },
-      },
-      invalid: {
-        color: '#fa755a',
-        iconColor: '#fa755a',
-      },
-    };
-
-    const stripe = Stripe(environment.stripeTestKey);
-    const elements = stripe.elements();
-    const card = elements.create('card', { style: style });
-    card.mount('#card-element');
-
-    card.addEventListener('change', (event: any) => {
-      var displayError = document.getElementById('card-errors');
-      if (event.error) {
-        displayError!.textContent = event.error.message;
-      } else {
-        displayError!.textContent = '';
-      }
-    });
-
-    var form = document.getElementById('payment-form') as HTMLFormElement;
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      // this.createToken(card,stripe); 
-    });
+  createToken(): void {
+    var regExp = /[a-zA-Z]/g;
+    if (this.p['email'].hasError('required')) {
+      return;
+    }
+    if (this.p['email'].hasError('email')) {
+      return;
+    }
+    if (this.p['email'].hasError('pattern')) {
+      return;
+    }
+    if (this.p['cardHolder'].hasError('required')) {
+      return;
+    }
+    if (this.p['phoneNumber'].hasError('required')) {
+      return;
+    }
+    if (regExp.test(this.p['phoneNumber'].value)) {
+      return;
+    }
+    const name = this.p['cardHolder'].value;
+    this.stripeService
+      .createToken(this.card.element, { name })
+      .subscribe((result) => {
+        if (result.token) {
+          this.status = true;
+          this.stripeToken = result.token.id
+          this.stripeTokenHandler(result.token.id);
+        } else if (result.error) {
+          this.openSnackBar(String(result.error.message), 'X');
+        }
+      });
   }
 
   getStripeCustomer(form: FormData) {
     this.subscriptionService.getStripeCustomer(form).subscribe((data: any) => {
       this.customerId = data.id;
       let body = new URLSearchParams();
-      // body.set('amount', this.price);
-      // body.set('currency', this.currency.code);
-      // this.getTransaction(this.customerId, body)
+      body.set('amount', this.data.subscription.price);
+      body.set('currency', this.data.currency.code);
+      this.getTransaction(this.customerId, body);
     });
   }
 
-  stripeTokenHandler() {
+  stripeTokenHandler(params: string) {
     let form = new FormData();
-    form.append('description', 'description..');
-    form.append('source', environment.stripeTestKey);
+    form.append('description', `${this.data.subscription.name } subscription`);
+    form.append('source', params);
     this.getStripeCustomer(form);
+  }
+
+  getTransaction(customerId: string, body: URLSearchParams) {
+    this.subscriptionService
+      .postStripeTransaction(customerId, body)
+      .subscribe((data: any) => {
+        this.transactionId = data.id;
+        let dateTime = new Date().toISOString();
+        
+        let paymentForm = new Payment({
+          StripeCustomerId: this.customerId,
+          StripeTransactionId: this.transactionId,
+          SubscriptionType: this.data.subscription.name,
+          StripeToken: this.stripeToken,
+          Email: this.p['email'].value,
+          CardHolder: this.p['cardHolder'].value,
+          SubscriptionPeriod: this.data.subscription.subscriptionPeriod,
+          StripeKey: environment.stripeTestKey,
+          Currency: this.data.currency.code,
+          Phone: this.p['phoneNumber'].value,
+        });
+        // this.sendPayment(paymentForm)
+      });
   }
 }

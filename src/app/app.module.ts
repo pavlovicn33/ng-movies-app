@@ -49,6 +49,7 @@ import { HelpPageComponent } from './sidebar-data/help-page/help-page.component'
 import { NewsComponent } from './sidebar-data/news/news.component';
 import { SubscriptionsComponent } from './pages/subscriptions/subscriptions.component';
 import { SubscriptionModalComponent } from './components/subscription-modal/subscription-modal.component';
+import { NgxStripeModule } from 'ngx-stripe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,6 +93,7 @@ import { SubscriptionModalComponent } from './components/subscription-modal/subs
     NgxSplideModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    NgxStripeModule.forRoot(environment.stripeTestKey),
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

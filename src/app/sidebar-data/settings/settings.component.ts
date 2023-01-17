@@ -48,6 +48,7 @@ export class SettingsComponent {
       name: '',
       lastName: '',
       email: '',
+      subscription: ''
     };
 
     this.emailForm = this.fb.group({

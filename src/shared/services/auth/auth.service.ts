@@ -56,7 +56,7 @@ export class AuthService {
         if (res.user?.emailVerified == true) {
           localStorage.setItem('token', 'true');
           this.getSessionTmdb();
-          this.router.navigate(['/ngmovies']);
+          this.router.navigate(['/ngmovies/subscriptions']);
         } else {
           this.openSnackBar(
             'Confirm your account through email verification',
@@ -90,6 +90,7 @@ export class AuthService {
             name: name,
             lastName: lastName,
             email: email,
+            subscription:'Free'
           });
         }
         this.router.navigate(['/login']);

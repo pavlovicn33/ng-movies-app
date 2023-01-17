@@ -17,4 +17,20 @@ export class SubscriptionsService {
     let options = { headers: headers };
     return this.http.post(`https://api.stripe.com/v1/customers`, form, options);
   }
+
+  postStripeTransaction(
+    customerId: string,
+    form: URLSearchParams
+  ): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Bearer ${environment.stripeSecretKey}`,
+    });
+    let options = { headers: headers };
+    return this.http.post(
+      `https://api.stripe.com/v1/customers/${customerId}/balance_transactions`,
+      form,
+      options
+    );
+  }
 }
