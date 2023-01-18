@@ -139,6 +139,17 @@ export class AuthService {
       lastName: lastName,
     });
   }
+  updateSubscription(subscription: string, subscriptionId?:string) {
+    let id = getAuth().currentUser?.uid;
+    this.db.collection('users').doc(id).update({
+      subscription:subscription
+    });
+    if (subscriptionId) {
+      this.db.collection('users').doc(id).update({
+        subscriptionId:subscriptionId
+      })
+    }
+  }
 
   async updateEmail(newEmail: string, password: string, form: FormGroup) {
     const dialogRef = this.dialog.open(DialogComponent, {

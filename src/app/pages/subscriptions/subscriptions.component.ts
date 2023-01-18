@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { getAuth } from 'firebase/auth';
 import { SubscriptionModalComponent } from 'src/app/components/subscription-modal/subscription-modal.component';
 import { environment } from 'src/environments/environment';
+import { DialogComponent } from 'src/shared/components/dialog/dialog.component';
 import { AuthService } from 'src/shared/services/auth/auth.service';
 import { SubscriptionsService } from 'src/shared/services/subscriptions/subscriptions.service';
 
@@ -21,10 +25,17 @@ export class SubscriptionsComponent implements OnInit {
   selectedCurrency = this.currencies[0];
   subscriptions: any[] = [];
   exchangeRates: any;
+  isSubscribed: boolean = false;
+  subscriptionId: string = '';
+  subscriptionName: string = '';
   constructor(
     private authService: AuthService,
     private matDialog: MatDialog,
-    private matSnackBar: MatSnackBar
+    private db: AngularFirestore,
+    private matSnackBar: MatSnackBar,
+    public dialog: MatDialog,
+    private subscriptionService: SubscriptionsService,
+    private router: Router
   ) {
     this.subscriptions = [
       {
@@ -72,6 +83,7 @@ export class SubscriptionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrency();
+    this.getIsSubscribed();
   }
 
   currencyChange(event: any) {
@@ -99,17 +111,90 @@ export class SubscriptionsComponent implements OnInit {
     });
   }
 
+  getIsSubscribed() {
+    const auth = getAuth();
+    const userId = auth.currentUser?.uid;
+    this.db
+      .collection('users')
+      .doc(userId)
+      .ref.onSnapshot(
+        {
+          includeMetadataChanges: true,
+        },
+        (doc: any) => {
+          this.db
+            .collection('users')
+            .doc(userId)
+            .get()
+            .subscribe((data: any) => {
+              this.subscriptionName = data.data().subscription;
+              if (
+                data.data().subscription == 'Basic' ||
+                data.data().subscription == 'Yearly'
+              ) {
+                this.subscriptionId = data.data().subscriptionId;
+                this.isSubscribed = true;
+              }
+            });
+        }
+      );
+  }
+
   openPurchaseModal(event: any, currency: any) {
-    if (event.name == 'Free') {
+    if (this.subscriptionName == 'Free' && event.name == 'Free') {
       this.openSnackBar('User already has this subscription level', 'X');
       return;
     }
+    if (this.subscriptionName == 'Basic' && event.name == 'Basic') {
+      this.openSnackBar('User already has this level of subscription', 'X');
+      return;
+    }
+    if (this.subscriptionName == 'Yearly' && event.name == 'Yearly') {
+      this.openSnackBar('User already has this level of subscription', 'X');
+      return;
+    }
+    if (
+      (this.subscriptionName == 'Yearly' && event.name == 'Basic') ||
+      event.name == 'Free'
+    ) {
+      this.openSnackBar('User already has a higher level of subscription', 'X');
+      return;
+    }
+    if (this.subscriptionName == 'Basic' && event.name == 'Free') {
+      this.openSnackBar('User already has a higher level of subscription', 'X');
+      return;
+    }
+
     const dialogRef = this.matDialog.open(SubscriptionModalComponent, {
       hasBackdrop: true,
       data: {
         subscription: event,
         currency: currency,
       },
+    });
+  }
+
+  disableSubscription() {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        option: 'subscription',
+        title: 'Cancellation',
+        description: 'this action will cancel your ',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == true) {
+        const pack = {
+          subscriptionId: this.subscriptionId,
+        };
+        this.subscriptionService
+          .cancelSubscription(pack)
+          .subscribe((data: any) => {
+            this.router.navigate(['/ngmovies/movies']);
+            this.openSnackBar('Your subscription is cancelled', 'X');
+            this.authService.updateSubscription('Free');
+          });
+      }
     });
   }
 

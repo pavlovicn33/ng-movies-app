@@ -4,9 +4,11 @@ import {
   Inject,
   OnInit,
   ViewChild,
+  EventEmitter,
+  Output,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   StripeCardElementOptions,
@@ -16,6 +18,7 @@ import { StripeService } from 'ngx-stripe';
 import { StripeCardComponent } from 'ngx-stripe';
 import { environment } from 'src/environments/environment';
 import { Payment } from 'src/shared/models/payment';
+import { AuthService } from 'src/shared/services/auth/auth.service';
 import { SubscriptionsService } from 'src/shared/services/subscriptions/subscriptions.service';
 
 @Component({
@@ -28,7 +31,7 @@ export class SubscriptionModalComponent implements OnInit {
   customerId: string = '';
   status: boolean = false;
   transactionId: string = '';
-  stripeToken:string = ''
+  stripeToken: string = '';
   @ViewChild(StripeCardComponent) card!: StripeCardComponent;
 
   cardOptions: StripeCardElementOptions = {
@@ -62,7 +65,9 @@ export class SubscriptionModalComponent implements OnInit {
     private fb: FormBuilder,
     private stripeService: StripeService,
     private subscriptionService: SubscriptionsService,
-    private matSnackBar: MatSnackBar
+    private matSnackBar: MatSnackBar,
+    private dialogRef: MatDialogRef<SubscriptionModalComponent>,
+    private authService: AuthService
   ) {
     this.paymentForm = this.fb.group({
       email: [
@@ -79,6 +84,7 @@ export class SubscriptionModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('qwe')
     this.setStyle();
   }
 
@@ -144,7 +150,7 @@ export class SubscriptionModalComponent implements OnInit {
       .subscribe((result) => {
         if (result.token) {
           this.status = true;
-          this.stripeToken = result.token.id
+          this.stripeToken = result.token.id;
           this.stripeTokenHandler(result.token.id);
         } else if (result.error) {
           this.openSnackBar(String(result.error.message), 'X');
@@ -158,37 +164,66 @@ export class SubscriptionModalComponent implements OnInit {
       let body = new URLSearchParams();
       body.set('amount', this.data.subscription.price);
       body.set('currency', this.data.currency.code);
-      this.getTransaction(this.customerId, body);
+      this.createPayment();
     });
   }
 
   stripeTokenHandler(params: string) {
     let form = new FormData();
-    form.append('description', `${this.data.subscription.name } subscription`);
+    form.append('description', `${this.data.subscription.name} subscription`);
     form.append('source', params);
     this.getStripeCustomer(form);
   }
 
-  getTransaction(customerId: string, body: URLSearchParams) {
-    this.subscriptionService
-      .postStripeTransaction(customerId, body)
-      .subscribe((data: any) => {
-        this.transactionId = data.id;
-        let dateTime = new Date().toISOString();
-        
-        let paymentForm = new Payment({
-          StripeCustomerId: this.customerId,
-          StripeTransactionId: this.transactionId,
-          SubscriptionType: this.data.subscription.name,
-          StripeToken: this.stripeToken,
-          Email: this.p['email'].value,
-          CardHolder: this.p['cardHolder'].value,
-          SubscriptionPeriod: this.data.subscription.subscriptionPeriod,
-          StripeKey: environment.stripeTestKey,
-          Currency: this.data.currency.code,
-          Phone: this.p['phoneNumber'].value,
-        });
-        // this.sendPayment(paymentForm)
+  createPayment(): void {
+    let priceID = 'price_1MRGacJwD7c1wFyCizlghcG1';
+    if (this.data.subscription.name == 'Yearly') {
+      priceID = 'price_1MRGbLJwD7c1wFyCmrOkyyos';
+    }
+    this.stripeService
+      .createPaymentMethod({
+        type: 'card',
+        card: this.card.element,
+        billing_details: {
+          name: this.p['cardHolder'].value,
+          phone: this.p['phoneNumber'].value,
+          email: this.p['email'].value,
+        },
+      })
+      .subscribe((result) => {
+        if (result.paymentMethod) {
+          const pack = {
+            paymentMethodId: result.paymentMethod,
+            customerID: this.customerId,
+            priceID: priceID,
+          };
+          this.subscriptionService
+            .startSubscription(pack)
+            .subscribe((res: any) => {
+              // this.stripeService
+              //   .confirmCardPayment(res.clientSecret, {
+              //     payment_method: {
+              //       card: this.card.element,
+              //       billing_details: {
+              //         name: this.p['cardHolder'].value,
+              //         phone: this.p['phoneNumber'].value,
+              //         email: this.p['email'].value,
+              //       },
+              //     },
+              //   })
+              //   .subscribe((data: any) => {
+              this.authService.updateSubscription(
+                this.data.subscription.name,
+                res.subscriptionId
+              );
+              this.openSnackBar('Subscription Successfull', 'X');
+              this.dialogRef.close();
+            });
+          // });
+        } else if (result.error) {
+          this.paymentForm.reset();
+          this.openSnackBar(String(result.error.message), 'X');
+        }
       });
   }
 }

@@ -56,5 +56,9 @@
         </mat-card-footer>
       </div>
     </mat-card>
+
+  </div>
+  <div class="cancel-container">
+    <button mat-stroked-button color="accent" *ngIf="isSubscribed" (click)="disableSubscription()">Cancel Subscription</button>
   </div>
 </div>
