@@ -39,9 +39,9 @@ export class NewsComponent implements OnInit {
   }
 
   getMovies(page: number, query: string) {
-    this.moviesService.getNews(page, query).subscribe((data: News) => {
+    this.moviesService.getServerNews({page, query}).subscribe((data: any) => {
       this.news = data;
-      data.articles.forEach((el) => {
+      data.articles.forEach((el:any) => {
         if (!el.urlToImage) {
           return;
         }

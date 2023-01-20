@@ -97,11 +97,18 @@ export class MoviesService {
     return this.http.get<CountryData>(`https://restcountries.com/v2/alpha/${alphaCode2}`)
   }
 
-  getNews(page?:number,query?:string):Observable<News>{
-    if (query == '') {
-      query = 'movie'
+  // getNews(page?:number,query?:string):Observable<News>{
+  //   if (query == '') {
+  //     query = 'movie'
+  //   }
+  //   return this.http.get<News>(`${environment.newsBaseURL}/everything?q=${query}&apiKey=${environment.newsKey}&page=${page}&pageSize=20&sortBy=relevancy`)
+  // }
+
+  getServerNews(data?:any){
+    if (data.query == '') {
+      data.query = 'movie'
     }
-    return this.http.get<News>(`${environment.newsBaseURL}/everything?q=${query}&apiKey=${environment.newsKey}&page=${page}&pageSize=20&sortBy=relevancy`)
+    return this.http.post('http://localhost:4242/getNews',data)
   }
 }
 
