@@ -36,6 +36,9 @@ export class SubscriptionsService {
   startSubscription(data:any) {
     return this.http.post('http://localhost:4242/create-subscription', data);
  }
+  webhook(data:any) {
+    return this.http.post('http://localhost:4242/webhook', data);
+ }
  cancelSubscription(data:any) {
   return this.http.post('http://localhost:4242/cancel-subscription', data);
  }
