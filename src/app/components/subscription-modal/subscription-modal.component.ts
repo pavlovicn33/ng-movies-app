@@ -84,7 +84,6 @@ export class SubscriptionModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('qwe')
     this.setStyle();
   }
 
