@@ -21,6 +21,7 @@ import { RecentComponent } from './sidebar-data/recent/recent.component';
 import { DiscoverComponent } from './sidebar-data/discover/discover.component';
 import { HelpPageComponent } from './sidebar-data/help-page/help-page.component';
 import { NewsComponent } from './sidebar-data/news/news.component';
+import { SubscriptionsComponent } from './pages/subscriptions/subscriptions.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 
@@ -54,9 +55,9 @@ const routes: Routes = [
           ),
       },
       {
-        path:'genre/:genre',
-        component:GenreComponent,
-        pathMatch:'full'
+        path: 'genre/:genre',
+        component: GenreComponent,
+        pathMatch: 'full',
       },
       {
         path: 'settings',
@@ -89,20 +90,25 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
-        path:'recent',
-        component:RecentComponent,
-        pathMatch:'full'
+        path: 'recent',
+        component: RecentComponent,
+        pathMatch: 'full',
       },
       {
-        path:'help',
-        component:HelpPageComponent,
-        pathMatch:'full'
+        path: 'help',
+        component: HelpPageComponent,
+        pathMatch: 'full',
       },
       {
-        path:'news',
-        component:NewsComponent,
-        pathMatch:'full'
-      }
+        path: 'news',
+        component: NewsComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'subscriptions',
+        component: SubscriptionsComponent,
+        pathMatch: 'full',
+      },
     ],
   },
   {

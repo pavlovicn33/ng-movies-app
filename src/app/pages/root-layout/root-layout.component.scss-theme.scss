@@ -65,21 +65,30 @@
   .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
     color: mat.get-color-from-palette($accent-palette, 400) !important;
   }
-  #help-container{
-    ul li::before{
+  #help-container {
+    ul li::before {
       content: "\2022";
       color: mat.get-color-from-palette($accent-palette, 400) !important;
       font-weight: bold;
-      display: inline-block; 
+      display: inline-block;
       width: 1em;
-      margin-left: -1em;  
+      margin-left: -1em;
     }
   }
-  .mat-mdc-chip{
-    background-color:  mat.get-color-from-palette($accent-palette, 400) !important;
-    
-    span{
+  .mat-mdc-chip {
+    background-color: mat.get-color-from-palette(
+      $accent-palette,
+      400
+    ) !important;
+
+    span {
       color: white !important;
     }
   }
+  .card-input-color {
+    border: 1px solid mat.get-color-from-palette($accent-palette, 500);
+    border-radius: 3px;
+    padding: 20px !important;
+  }
+
 }

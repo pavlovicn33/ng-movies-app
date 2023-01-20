@@ -1,0 +1,88 @@
+<div class="container">
+  <form
+    [formGroup]="paymentForm"
+    action="/charge"
+    method="post"
+    class="form-container"
+    id="payment-form"
+  >
+    <h2
+      class="form-field subscription-name"
+      [style.color]="'white'"
+      [style.font-family]="'Nunito'"
+    >
+      {{ data.subscription.name }}
+    </h2>
+    <ngx-stripe-card
+      class="form-field"
+      [options]="cardOptions"
+      [elementsOptions]="elementsOptions"
+    ></ngx-stripe-card>
+    <mat-form-field
+      floatLabel="always"
+      [color]="'primary'"
+      appearance="fill"
+      [style.margin-top]="'15px'"
+      class="form-field"
+    >
+      <mat-label>Email</mat-label>
+      <input autocomplete="off" formControlName="email" matInput required />
+      <mat-error *ngIf="p['email'].errors?.['required']"
+        >You must enter a value</mat-error
+      >
+      <mat-error *ngIf="p['email'].errors?.['pattern']"
+        >Email not valid</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field
+      floatLabel="always"
+      [color]="'primary'"
+      appearance="fill"
+      [style.margin-top]="'15px'"
+      class="form-field"
+    >
+      <mat-label>Cardholder</mat-label>
+      <input
+        autocomplete="off"
+        formControlName="cardHolder"
+        matInput
+        required
+      />
+      <mat-error *ngIf="p['cardHolder'].errors?.['required']"
+        >You must enter a value</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field
+      floatLabel="always"
+      [color]="'primary'"
+      appearance="fill"
+      [style.margin-top]="'15px'"
+      class="form-field"
+    >
+      <mat-label>Phone number</mat-label>
+      <input
+        autocomplete="off"
+        formControlName="phoneNumber"
+        matInput
+        required
+      />
+      <mat-error *ngIf="p['phoneNumber'].errors?.['required']"
+        >You must enter a value</mat-error
+      >
+    </mat-form-field>
+    <div class="button-container form-field">
+      <button
+        (click)="createToken()"
+        color="accent"
+        [style.font-family]="'Nunito'"
+        mat-raised-button
+      >
+        Submit Payment
+      </button>
+    </div>
+</form>
+<mat-progress-bar *ngIf="status" mode="indeterminate"></mat-progress-bar>
+</div>
+<script src="https://unpkg.com/event-target@latest/min.js"></script>
+<script src="https://unpkg.com/resize-observer-polyfill@1.5.0/dist/ResizeObserver.global.js"></script>
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=IntersectionObserver"></script>

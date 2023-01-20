@@ -17,7 +17,12 @@ export const environment = {
   apiKey: '?api_key=8ee7f4d4c46b1cba684adc6118411654',
   baseURL: 'https://api.themoviedb.org/3',
   newsKey: '22f48bc819ec40d496e45c9c10c48d16',
-  newsBaseURL: 'https://newsapi.org/v2'
+  newsBaseURL: 'https://newsapi.org/v2',
+  currencyBaseURL: 'https://api.freecurrencyapi.com/v1',
+  currencyApiKey: 'smVlrFvbZ2Oh5xvfisE3xg8IPYz6H1uQOSNvW58x',
+  stripeTestKey:'pk_test_51MPxHCJwD7c1wFyCbk90c9bvk0V1rfUbOepP0xAt9GW6BM7JrmGTq2QFRDbNq9N4XDZzM5H4ahIO4GwMnH3B7aVv00BmQrG9LR',
+  stripeSecretKey:'sk_test_51MPxHCJwD7c1wFyCuUe3uAxaXw9NGkho6k8ExoSgBZ5hFr1UXhmX3NCoB3vJnH0dqNtdVtQl4jI1vScOIe6VUi4i00IxGF0B9a',
+  stripeBaseURL:'https://api.stripe.com/v1'
 };
 
 /*

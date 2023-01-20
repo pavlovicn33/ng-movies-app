@@ -126,7 +126,7 @@
             mat-header-cell
             *matHeaderCellDef
           >
-            <button mat-raised-button class="black">Free</button>
+            <button [routerLink]="['/register']" mat-raised-button class="black">Free</button>
           </th>
           <td class="shrink" mat-cell *matCellDef="let element">
             <mat-icon [ngClass]="{ green: element.free, red: !element.free }">{{
@@ -141,7 +141,7 @@
             mat-header-cell
             *matHeaderCellDef
           >
-            <button mat-raised-button class="black">$7.99 / Month</button>
+            <button [routerLink]="['/register']" mat-raised-button class="black">$7.99 / Month</button>
           </th>
           <td class="shrink" mat-cell *matCellDef="let element">
             <mat-icon [ngClass]="{ green: element.paid, red: !element.paid }">{{

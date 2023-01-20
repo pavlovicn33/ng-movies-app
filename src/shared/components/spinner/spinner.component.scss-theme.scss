@@ -28,14 +28,24 @@
     ) !important;
   }
 
-  .toolbar{
-    background-color: mat.get-color-from-palette($accent-palette, 200) !important;
+  .toolbar {
+    background-color: mat.get-color-from-palette(
+      $accent-palette,
+      200
+    ) !important;
   }
 
-  .watch-now{
-    background-color: mat.get-color-from-palette($accent-palette, 200) !important;
+  .watch-now {
+    background-color: mat.get-color-from-palette(
+      $accent-palette,
+      200
+    ) !important;
   }
-  #filters{
+  #filters {
     background-color: white;
+  }
+
+  .subscription-name {
+    color: black !important;
   }
 }

@@ -21,6 +21,7 @@
       margin-top: 15px;
       font-size: 12px;
       margin-left: 59px;
+      
     }
 
     .mat-mdc-card-content {
@@ -84,9 +85,11 @@
   visibility: visible;
 }
 .delete-button {
-  text-align: end;
-  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
   button {
+    margin: 0px !important;
     font-family: "Nunito";
   }
 }
@@ -110,7 +113,8 @@
   }
   .delete-button {
     margin-top: 45px;
-    text-align: center;
+    gap: 15px;
+    flex-direction: column;
   }
   .mat-mdc-card-title {
     text-align: center !important;

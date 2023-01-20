@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -15,6 +15,7 @@ import {
   updatePassword,
   deleteUser,
 } from 'firebase/auth';
+import { Observable } from 'rxjs';
 import { PasswordDialogComponent } from 'src/app/components/password-dialog/password-dialog.component';
 import { environment } from 'src/environments/environment';
 import { DialogComponent } from 'src/shared/components/dialog/dialog.component';
@@ -40,11 +41,13 @@ export class AuthService {
   }
 
   getSessionTmdb() {
-    this.http.get(
-      `${environment.baseURL}/authentication/guest_session/new${environment.apiKey}`
-    ).subscribe((data:any) => {
-      localStorage.setItem('sessionTmdb', `${data.guest_session_id}`);
-    });
+    this.http
+      .get(
+        `${environment.baseURL}/authentication/guest_session/new${environment.apiKey}`
+      )
+      .subscribe((data: any) => {
+        localStorage.setItem('sessionTmdb', `${data.guest_session_id}`);
+      });
   }
 
   login(email: string, password: string) {
@@ -52,8 +55,8 @@ export class AuthService {
       (res) => {
         if (res.user?.emailVerified == true) {
           localStorage.setItem('token', 'true');
-          this.getSessionTmdb()
-          this.router.navigate(['/ngmovies']);
+          this.getSessionTmdb();
+          this.router.navigate(['/ngmovies/subscriptions']);
         } else {
           this.openSnackBar(
             'Confirm your account through email verification',
@@ -87,6 +90,7 @@ export class AuthService {
             name: name,
             lastName: lastName,
             email: email,
+            subscription:'Free'
           });
         }
         this.router.navigate(['/login']);
@@ -134,6 +138,17 @@ export class AuthService {
       name: name,
       lastName: lastName,
     });
+  }
+  updateSubscription(subscription: string, subscriptionId?:string) {
+    let id = getAuth().currentUser?.uid;
+    this.db.collection('users').doc(id).update({
+      subscription:subscription
+    });
+    if (subscriptionId) {
+      this.db.collection('users').doc(id).update({
+        subscriptionId:subscriptionId
+      })
+    }
   }
 
   async updateEmail(newEmail: string, password: string, form: FormGroup) {
@@ -272,5 +287,15 @@ export class AuthService {
           });
       }
     });
+  }
+
+  getCurrency(): Observable<any> {
+    const headerDict = {
+      'apiKey':`${environment.currencyApiKey}`
+    }
+    const requestOptions = {                                                                                                                                                                                 
+      headers: new HttpHeaders(headerDict), 
+    };
+    return this.http.get<any>(`${environment.currencyBaseURL}/latest?currencies=EUR%2CUSD%2CGBP&base_currency=EUR`, requestOptions);
   }
 }

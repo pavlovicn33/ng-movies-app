@@ -255,13 +255,16 @@
           <h4>
             Your account contains personal data that you have given us. This
             section allows you to <span class="highlight">delete</span> that
-            data.
+            data or view your subscription details.
           </h4>
           <h4>
             Deleting this data will permanently remove your account, and
             <span class="highlight">this cannot be recovered.</span>
           </h4>
           <div class="delete-button">
+            <button [routerLink]="['../subscriptions']" color="accent" mat-raised-button>
+              Subscription &#187;
+            </button>
             <button (click)="openDeleteModal()" color="warn" mat-stroked-button>
               <mat-icon>delete_forever</mat-icon>Delete
             </button>

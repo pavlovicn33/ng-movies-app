@@ -173,6 +173,7 @@ export class RootLayoutComponent implements OnInit {
       name: '',
       lastName: '',
       email: '',
+      subscription: ''
     };
   }
 
@@ -181,7 +182,6 @@ export class RootLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.navigate(['ngmovies/movies']);
     this.getUser();
     let obj = {
       value: localStorage.getItem('mode'),
@@ -219,6 +219,10 @@ export class RootLayoutComponent implements OnInit {
             .subscribe((data: any) => {
               this.user.name = data.data().name;
               this.user.lastName = data.data().lastName;
+              this.user.subscription = data.data().subscription;
+              if (this.user.subscription != 'Free') {
+                this.router.navigate(['ngmovies/movies']);
+              }
             });
         }
       );

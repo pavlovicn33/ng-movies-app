@@ -29,6 +29,8 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@splidejs/splide": "^4.1.4",
     "@splidejs/splide-extension-auto-scroll": "^0.5.3",
+    "@stripe/stripe-js": "^1.46.0",
+    "@types/stripe-v3": "^3.1.27",
     "firebase": "^9.14.0",
     "firebase-admin": "^11.4.1",
     "firebase-functions": "^4.1.1",
@@ -36,7 +38,9 @@
     "moment": "^2.29.4",
     "ngx-infinite-scroll": "^15.0.0",
     "ngx-splide": "^0.0.16",
+    "ngx-stripe": "^15.1.0",
     "rxjs": "~7.5.0",
+    "stripe": "^11.6.0",
     "svg-country-flags": "^1.2.10",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

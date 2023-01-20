@@ -47,6 +47,9 @@ import { ErrorHandlerService } from 'src/shared/services/error/error-handler.ser
 import { ErrorHandler } from '@angular/core';
 import { HelpPageComponent } from './sidebar-data/help-page/help-page.component';
 import { NewsComponent } from './sidebar-data/news/news.component';
+import { SubscriptionsComponent } from './pages/subscriptions/subscriptions.component';
+import { SubscriptionModalComponent } from './components/subscription-modal/subscription-modal.component';
+import { NgxStripeModule } from 'ngx-stripe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,6 +79,8 @@ import { NewsComponent } from './sidebar-data/news/news.component';
     DiscoverComponent,
     HelpPageComponent,
     NewsComponent,
+    SubscriptionsComponent,
+    SubscriptionModalComponent,
   ],
   imports: [
     MatSelectCountryModule.forRoot('en'),
@@ -88,6 +93,7 @@ import { NewsComponent } from './sidebar-data/news/news.component';
     NgxSplideModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    NgxStripeModule.forRoot(environment.stripeTestKey),
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
