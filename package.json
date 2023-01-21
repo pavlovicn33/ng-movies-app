@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "cd server/node && node server.js",
-    "prebuild": "cd server/node && npm run",
-    "build": "npm run build",
+    "prebuild": "cd server/node && npm run build",
+    "build": "webpack & webpack-dev-server --config webpack.config.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
