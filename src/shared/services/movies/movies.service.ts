@@ -15,86 +15,126 @@ import { isArray } from 'lodash';
 import { News } from 'src/shared/models/articles';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MoviesService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http:HttpClient) { }
-
-  getPopularMovies(page?:number):Observable<Movies>{
-    return this.http.get<Movies>(`${environment.baseURL}/movie/popular${environment.apiKey}&page=${page}`)
-  }
-  
-  getPopularMoviesList(page?:number):Observable<Movies>{
-    return this.http.get<Movies>(`${environment.baseURL}/movie/popular${environment.apiKey}&page=${page}&no-spinner`)
+  getPopularMovies(page?: number): Observable<Movies> {
+    return this.http.get<Movies>(
+      `${environment.baseURL}/movie/popular${environment.apiKey}&page=${page}`
+    );
   }
 
-  getUpcomingMovies(page:number):Observable<Movies>{
-    return this.http.get<Movies>(`${environment.baseURL}/movie/upcoming${environment.apiKey}&page=${page}`)
+  getPopularMoviesList(page?: number): Observable<Movies> {
+    return this.http.get<Movies>(
+      `${environment.baseURL}/movie/popular${environment.apiKey}&page=${page}&no-spinner`
+    );
   }
 
-  getTrailers(movie_id:number):Observable<Videos>{
-    return this.http.get<Videos>(`${environment.baseURL}/movie/${movie_id}/videos${environment.apiKey}&page=1`)  
+  getUpcomingMovies(page: number): Observable<Movies> {
+    return this.http.get<Movies>(
+      `${environment.baseURL}/movie/upcoming${environment.apiKey}&page=${page}`
+    );
   }
 
-  getTopRated(page:number):Observable<Movies>{
-    return this.http.get<Movies>(`${environment.baseURL}/movie/top_rated/${environment.apiKey}&page=${page}`)
+  getTrailers(movie_id: number): Observable<Videos> {
+    return this.http.get<Videos>(
+      `${environment.baseURL}/movie/${movie_id}/videos${environment.apiKey}&page=1`
+    );
   }
 
-  multiSearch(page:number,query:string):Observable<any>{
-    return this.http.get<any>(`${environment.baseURL}/search/multi${environment.apiKey}&page=${page}&query=${query}`)
-  }
-  multiSearchNames(page:number,query:string):Observable<any>{
-    return this.http.get<any>(`${environment.baseURL}/search/multi${environment.apiKey}&page=${page}&query=${query}&no-spinner`)
-  }
-
-  getMovieDetails(id:number):Observable<MovieDetails>{
-    return this.http.get<MovieDetails>(`${environment.baseURL}/movie/${id}${environment.apiKey}`)
+  getTopRated(page: number): Observable<Movies> {
+    return this.http.get<Movies>(
+      `${environment.baseURL}/movie/top_rated${environment.apiKey}&page=${page}`
+    );
   }
 
-  getPeopleDetails(id:number):Observable<PeopleDetails>{
-    return this.http.get<PeopleDetails>(`${environment.baseURL}/person/${id}${environment.apiKey}`)
+  multiSearch(page: number, query: string): Observable<any> {
+    return this.http.get<any>(
+      `${environment.baseURL}/search/multi${environment.apiKey}&page=${page}&query=${query}`
+    );
+  }
+  multiSearchNames(page: number, query: string): Observable<any> {
+    return this.http.get<any>(
+      `${environment.baseURL}/search/multi${environment.apiKey}&page=${page}&query=${query}&no-spinner`
+    );
   }
 
-  getMovieStream(id:number):Observable<Stream>{
-    return this.http.get<Stream>(`https://private-anon-b6f507e52b-superembed.apiary-proxy.com/?type=tmdb&id=${id}`)
+  getMovieDetails(id: number): Observable<MovieDetails> {
+    return this.http.get<MovieDetails>(
+      `${environment.baseURL}/movie/${id}${environment.apiKey}`
+    );
   }
 
-  getMovieCast(id:number):Observable<Credits>{
-    return this.http.get<Credits>(`${environment.baseURL}/movie/${id}/credits${environment.apiKey}`)
+  getPeopleDetails(id: number): Observable<PeopleDetails> {
+    return this.http.get<PeopleDetails>(
+      `${environment.baseURL}/person/${id}${environment.apiKey}`
+    );
   }
 
-  getCastRelatedMovies(id:number):Observable<Person>{
-    return this.http.get<Person>(`${environment.baseURL}/person/${id}/movie_credits${environment.apiKey}`)
+  getMovieStream(id: number): Observable<Stream> {
+    return this.http.get<Stream>(
+      `https://private-anon-b6f507e52b-superembed.apiary-proxy.com/?type=tmdb&id=${id}`
+    );
   }
 
-  getSimilar(id:number):Observable<Movies>{
-    return this.http.get<Movies>(`${environment.baseURL}/movie/${id}/recommendations${environment.apiKey}`)
+  getMovieCast(id: number): Observable<Credits> {
+    return this.http.get<Credits>(
+      `${environment.baseURL}/movie/${id}/credits${environment.apiKey}`
+    );
   }
 
-  rateMovie(rating:number, id:number):Observable<any>{
-    const session = localStorage.getItem('sessionTmdb')
-    return this.http.post(`${environment.baseURL}/movie/${id}/rating${environment.apiKey}&guest_session_id=${session}`, {value:rating})
+  getCastRelatedMovies(id: number): Observable<Person> {
+    return this.http.get<Person>(
+      `${environment.baseURL}/person/${id}/movie_credits${environment.apiKey}`
+    );
   }
 
-  discoverMovie(genre?:any, page?:number,from?:number,to?:number,lan?:string):Observable<Movies>{
+  getSimilar(id: number): Observable<Movies> {
+    return this.http.get<Movies>(
+      `${environment.baseURL}/movie/${id}/recommendations${environment.apiKey}`
+    );
+  }
+
+  rateMovie(rating: number, id: number): Observable<any> {
+    const session = localStorage.getItem('sessionTmdb');
+    return this.http.post(
+      `${environment.baseURL}/movie/${id}/rating${environment.apiKey}&guest_session_id=${session}`,
+      { value: rating }
+    );
+  }
+
+  discoverMovie(
+    genre?: any,
+    page?: number,
+    from?: number,
+    to?: number,
+    lan?: string
+  ): Observable<Movies> {
     if (!lan) {
-      lan = ''
+      lan = '';
     }
-    let genres = genre
+    let genres = genre;
     if (isArray(genre) == true) {
-      let genreIds = genre.map((el:any) => String(el.id))
-      genres = String(genreIds)
+      let genreIds = genre.map((el: any) => String(el.id));
+      genres = String(genreIds);
     }
-    return this.http.get<Movies>(`${environment.baseURL}/discover/movie${environment.apiKey}&with_genres=${genres}&page=${page}&no-spinner&primary_release_date.gte=${from}-01-01&primary_release_date.lte=${to}-12-31&with_original_language=${lan}`)
+    return this.http.get<Movies>(
+      `${environment.baseURL}/discover/movie${environment.apiKey}&with_genres=${genres}&page=${page}&no-spinner&primary_release_date.gte=${from}-01-01&primary_release_date.lte=${to}-12-31&with_original_language=${lan}`
+    );
   }
 
-  getMovieGenres():Observable<Genres> {
-    return this.http.get<Genres>(`${environment.baseURL}/genre/movie/list${environment.apiKey}`)
+  getMovieGenres(): Observable<Genres> {
+    return this.http.get<Genres>(
+      `${environment.baseURL}/genre/movie/list${environment.apiKey}`
+    );
   }
 
-  getLanguageCode(alphaCode2:string):Observable<CountryData>{
-    return this.http.get<CountryData>(`https://restcountries.com/v2/alpha/${alphaCode2}`)
+  getLanguageCode(alphaCode2: string): Observable<CountryData> {
+    return this.http.get<CountryData>(
+      `https://restcountries.com/v2/alpha/${alphaCode2}`
+    );
   }
 
   // getNews(page?:number,query?:string):Observable<News>{
@@ -104,12 +144,11 @@ export class MoviesService {
   //   return this.http.get<News>(`${environment.newsBaseURL}/everything?q=${query}&apiKey=${environment.newsKey}&page=${page}&pageSize=20&sortBy=relevancy`)
   // }
 
-  getServerNews(data?:any){
+  getServerNews(data?: any) {
     if (data.query == '') {
-      data.query = 'movie'
+      data.query = 'movie';
     }
-    return this.http.post('http://localhost:4242/getNews',data)
+
+    return this.http.post('https://backend-gwhl.onrender.com/getNews', data);
   }
 }
-
-

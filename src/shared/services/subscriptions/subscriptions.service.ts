@@ -34,12 +34,12 @@ export class SubscriptionsService {
     );
   }
   startSubscription(data: any) {
-    return this.http.post('http://localhost:4242/create-subscription', data);
+    return this.http.post('https://backend-gwhl.onrender.com/create-subscription', data);
   }
   webhook(data: any) {
-    return this.http.post('http://localhost:4242/webhook', data);
+    return this.http.post('https://backend-gwhl.onrender.com/webhook', data);
   }
   cancelSubscription(data: any) {
-    return this.http.post('http://localhost:4242/cancel-subscription', data);
+    return this.http.post('https://backend-gwhl.onrender.com/cancel-subscription', data);
   }
 }
