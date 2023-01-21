@@ -4,7 +4,8 @@
   "description": "A Stripe sample for collecting fixed price recurring payments with Stripe subscriptions.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "npm install"
   },
   "author": "stripe-demos",
   "license": "ISC",
