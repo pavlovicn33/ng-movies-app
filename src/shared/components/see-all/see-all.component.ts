@@ -16,9 +16,9 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./see-all.component.scss'],
 })
 export class SeeAllComponent implements OnInit {
-  private breakpoints: any = { xs: 2, sm: 3, md: 4, lg: 6 };
+  private breakpoints: any = { xs: 2, sm: 4, md: 5, lg: 6 };
 
-  cols!: number;
+  cols: number = 6;
 
   @Input()
   data: any;
@@ -80,7 +80,7 @@ export class SeeAllComponent implements OnInit {
     this.getBookmarked();
     if (this.data.browse) {
       return;
-    }
+    } 
     this.onScroll();
   }
 

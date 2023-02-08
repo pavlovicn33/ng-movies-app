@@ -21,7 +21,7 @@ export class LibraryItemsComponent {
   private breakpoints: any = { xs: 2, sm: 3, md: 4, lg: 6 };
   @Input()
   actor: string = '';
-  cols!: number;
+  cols: number = 6;
   @Input()
   data: any;
   @Input()
