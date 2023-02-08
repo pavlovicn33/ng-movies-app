@@ -90,12 +90,12 @@ export class AuthService {
             name: name,
             lastName: lastName,
             email: email,
-            subscription:'Free'
+            subscription: 'Free',
           });
         }
-        this.router.navigate(['/login']);
         this.openSnackBar('Confirmation Email Sent', 'X');
         this.sendEmailVerification(res.user);
+        this.router.navigate(['/login']);
       },
       (err) => {
         this.openSnackBar('The email address is badly formatted', 'X');
@@ -138,16 +138,27 @@ export class AuthService {
       name: name,
       lastName: lastName,
     });
+
   }
-  updateSubscription(subscription: string, subscriptionId?:string) {
+
+  addProfileImage(file:string){
     let id = getAuth().currentUser?.uid;
     this.db.collection('users').doc(id).update({
-      subscription:subscription
+      profileImage: file
+    })
+    this.openSnackBar('You have successfully changed your profile image', 'X');
+
+  }
+
+  updateSubscription(subscription: string, subscriptionId?: string) {
+    let id = getAuth().currentUser?.uid;
+    this.db.collection('users').doc(id).update({
+      subscription: subscription,
     });
     if (subscriptionId) {
       this.db.collection('users').doc(id).update({
-        subscriptionId:subscriptionId
-      })
+        subscriptionId: subscriptionId,
+      });
     }
   }
 
@@ -291,11 +302,14 @@ export class AuthService {
 
   getCurrency(): Observable<any> {
     const headerDict = {
-      'apiKey':`${environment.currencyApiKey}`
-    }
-    const requestOptions = {                                                                                                                                                                                 
-      headers: new HttpHeaders(headerDict), 
+      apiKey: `${environment.currencyApiKey}`,
     };
-    return this.http.get<any>(`${environment.currencyBaseURL}/latest?currencies=EUR%2CUSD%2CGBP&base_currency=EUR`, requestOptions);
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+    return this.http.get<any>(
+      `${environment.currencyBaseURL}/latest?currencies=EUR%2CUSD%2CGBP&base_currency=EUR`,
+      requestOptions
+    );
   }
 }

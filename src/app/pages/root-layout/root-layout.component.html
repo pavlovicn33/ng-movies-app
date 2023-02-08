@@ -275,8 +275,20 @@
       <mat-divider [vertical]="true" class="divider"></mat-divider>
       <mat-divider class="divider-1"></mat-divider>
       <div class="profile-container">
-        <div class="profile-picture">
+        <div class="profile-picture" [matMenuTriggerFor]="profileMenu">
+          <input  accept="image/*" (change)="sendImage($event.target)" type="file" id="imgupload" style="display: none" />
+          <mat-menu #profileMenu="matMenu">
+            <button (click)="openPreview()" mat-menu-item>
+              <mat-icon>remove_red_eye</mat-icon>
+              <span>Preview</span>
+            </button>
+            <button mat-menu-item (click)="uploadImage()">
+              <mat-icon>attachment</mat-icon>
+              <span>Upload image</span>
+            </button>
+          </mat-menu>
           <img
+            id="avatar"
             src="../../../assets/images/blank-profile-picture-973460_640.webp"
             alt=""
           />

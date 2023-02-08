@@ -1,5 +1,5 @@
-<h1 [style.font-family]="'Nunito'" mat-dialog-title>{{ data.title }}</h1>
-<div mat-dialog-content>
+<h1 *ngIf="!data.showImage" [style.font-family]="'Nunito'" mat-dialog-title>{{ data.title }}</h1>
+<div *ngIf="!data.showImage" mat-dialog-content>
   <p
     [style.display]="'flex'"
     [style.align-items]="'center'"
@@ -11,7 +11,7 @@
     }} {{ data.option }}
   </p>
 </div>
-<mat-dialog-actions align="end">
+<mat-dialog-actions *ngIf="!data.showImage" align="end">
   <button [style.font-family]="'Nunito'" mat-button mat-dialog-close>
     <mat-icon>cancel</mat-icon> Cancel
   </button>
@@ -25,3 +25,6 @@
     Save
   </button>
 </mat-dialog-actions>
+<div *ngIf="data.showImage">
+  <img src="{{data.imgUrl}}" alt="">
+</div>

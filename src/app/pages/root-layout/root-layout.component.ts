@@ -45,6 +45,7 @@ export class RootLayoutComponent implements OnInit {
   showFiller = false;
   user: User;
   selectedE: boolean = false;
+  uploadFile: File | null = null;
   constructor(
     private authService: AuthService,
     @Inject(DOCUMENT) private document: Document,
@@ -172,6 +173,7 @@ export class RootLayoutComponent implements OnInit {
       lastName: '',
       email: '',
       subscription: '',
+      profileImage: ''
     };
   }
 
@@ -231,6 +233,13 @@ export class RootLayoutComponent implements OnInit {
               if (this.user.subscription != 'Free') {
                 this.router.navigate(['ngmovies/movies']);
               }
+              if(data.data().profileImage) {
+                this.user.profileImage = data.data().profileImage
+                let AVATAR = document.getElementById('avatar');
+                if (AVATAR) {
+                  AVATAR.setAttribute('src', String(this.user.profileImage));
+                }
+              }
             });
         }
       );
@@ -245,5 +254,33 @@ export class RootLayoutComponent implements OnInit {
           this.user.email = mail;
         }
       });
+  }
+
+  uploadImage() {
+    document.getElementById('imgupload')?.click();
+  }
+
+  sendImage(event: any) {
+    let AVATAR = document.getElementById('avatar');
+    const file = event.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      console.log(reader)
+      if (AVATAR) {
+        AVATAR.setAttribute('aria-label', file.name);
+        AVATAR.setAttribute('src', String(reader.result));
+      }
+      this.authService.addProfileImage(String(reader.result));
+    };
+  }
+
+  openPreview(){
+    const dialogRef = this.matDialog.open(DialogComponent, {
+      data: {
+        showImage:true,
+        imgUrl:this.user.profileImage
+      },
+    });
   }
 }
