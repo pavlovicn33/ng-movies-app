@@ -25,6 +25,8 @@ import { User } from 'src/shared/models/user';
 import * as functions from 'firebase-functions';
 import * as firebase from 'firebase-admin';
 import { doc, onSnapshot } from 'firebase/firestore';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/shared/components/dialog/dialog.component';
 
 @Component({
   selector: 'app-root-layout',
@@ -49,7 +51,7 @@ export class RootLayoutComponent implements OnInit {
     private render: Renderer2,
     private db: AngularFirestore,
     private router: Router,
-    private spinnerService: SpinnerService
+    private matDialog: MatDialog
   ) {
     this.menuItems = [
       {
@@ -67,10 +69,6 @@ export class RootLayoutComponent implements OnInit {
         title: 'Discovery',
         link: 'discover',
       },
-      // {
-      //   icon: 'alarm',
-      //   title: 'Coming soon',
-      // },
     ];
     this.libraryItems = [
       {
@@ -86,7 +84,7 @@ export class RootLayoutComponent implements OnInit {
       {
         icon: 'public',
         title: 'News',
-        link:'news'
+        link: 'news',
       },
     ];
     this.miscItems = [
@@ -98,7 +96,7 @@ export class RootLayoutComponent implements OnInit {
       {
         icon: 'help_outline',
         title: 'Help',
-        link:'help'
+        link: 'help',
       },
     ];
     this.logoutItem = [
@@ -173,7 +171,7 @@ export class RootLayoutComponent implements OnInit {
       name: '',
       lastName: '',
       email: '',
-      subscription: ''
+      subscription: '',
     };
   }
 
@@ -197,7 +195,17 @@ export class RootLayoutComponent implements OnInit {
   }
 
   signOut() {
-    this.authService.signOut();
+    const dialogRef = this.matDialog.open(DialogComponent, {
+      data: {
+        title: 'Sign out confirmation',
+        description: 'Are you sure you want to logout?',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == true) {
+        this.authService.signOut();
+      }
+    });
   }
 
   async getUser() {
