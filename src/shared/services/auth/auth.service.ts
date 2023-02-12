@@ -312,4 +312,8 @@ export class AuthService {
       requestOptions
     );
   }
+
+  sendEmail(){
+    return this.http.get('https://backend-gwhl.onrender.com/sendMail');
+  }
 }

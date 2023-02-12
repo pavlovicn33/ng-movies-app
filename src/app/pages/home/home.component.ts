@@ -4,6 +4,7 @@ import { Movies, ResultMovies } from 'src/shared/models/popularMovies';
 import { ResultShow, Shows } from 'src/shared/models/popularTvShows';
 import { TableSubscription } from 'src/shared/models/subscription';
 import { CarouselPipe } from 'src/shared/pipes/carousel.pipe';
+import { AuthService } from 'src/shared/services/auth/auth.service';
 import { MoviesService } from 'src/shared/services/movies/movies.service';
 import { ShowsService } from 'src/shared/services/shows/shows.service';
 
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private movieService: MoviesService,
     private tvService: ShowsService,
-    private pipe:CarouselPipe
+    private pipe:CarouselPipe,
+    private authService:AuthService
   ) {
     this.displayedColumns = ['position', 'weight', 'symbol'];
 
@@ -61,6 +63,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getMovies();
     this.getShows();
+    this.authService.sendEmail().subscribe()
   }
 
   getMovies() {
