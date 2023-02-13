@@ -63,7 +63,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getMovies();
     this.getShows();
-    this.authService.sendEmail().subscribe()
+    this.authService.sendEmail().pipe(takeUntil(this.unsubscribe$)).subscribe((data:any) => {
+
+    })
   }
 
   getMovies() {
