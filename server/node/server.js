@@ -4,6 +4,8 @@ const app = express();
 const { resolve } = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+var nodemailer = require("nodemailer");
+const PORT = process.env.PORT || 4242;
 // Replace if using a different env file or config
 var cors = require("cors");
 require("dotenv").config({ path: "./.env" });
@@ -89,7 +91,7 @@ app.post("/getNews", (req, res) => {
       "User-Agent": userAgent,
     },
   };
-  console.log(req.body)
+  console.log(req.body);
   request.get(
     `https://newsapi.org/v2/everything?apiKey=22f48bc819ec40d496e45c9c10c48d16&q=${req.body.query}&page=${req.body.page}&pageSize=20&sortBy=relevancy`,
     options,
@@ -100,6 +102,31 @@ app.post("/getNews", (req, res) => {
       res.send(body);
     }
   );
+});
+
+app.get("/sendMail", async (req, res) => {
+  const transporter = nodemailer.createTransport({
+    service:'hotmail',
+    auth:{
+      user:"nodeSender33@outlook.com",
+      pass:"PasswordPassword123!"
+    }
+  })
+  
+  const options = {
+    from:"nodeSender33@outlook.com",
+    to: "pavlovicn410@gmail.com",
+    subject:"Node Email Testing",
+    text:"Home page enter"
+  }
+  
+  transporter.sendMail(options, (err,info) => {
+    if (err) {
+      console.log(err)
+      return
+    }
+    console.log(info.response)
+  })
 });
 
 app.post("/create-customer", async (req, res) => {
@@ -310,6 +337,6 @@ app.post(
   }
 );
 
-app.listen(4242, () =>
-  console.log(`Node server listening on port http://localhost:${4242}!`)
+app.listen(PORT, () =>
+  console.log(`Node server listening on port http://localhost:${PORT}!`)
 );
