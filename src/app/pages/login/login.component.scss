@@ -33,11 +33,19 @@
 }
 
 .sign-up-button-container {
+  display: flex;
+
   .sign-up-button {
     margin-top: 25px;
     margin-bottom: 10px;
     width: 30%;
     font-size: 14px;
+  }
+
+  .google-sign-up {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 }
 

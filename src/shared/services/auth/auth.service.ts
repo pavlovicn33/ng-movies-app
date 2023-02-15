@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 import { PasswordDialogComponent } from 'src/app/components/password-dialog/password-dialog.component';
 import { environment } from 'src/environments/environment';
 import { DialogComponent } from 'src/shared/components/dialog/dialog.component';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,54 @@ export class AuthService {
     this._snackBar.open(message, action, {
       duration: 3000,
     });
+  }
+
+  googleSignIn() {
+    return this.authLogin(new GoogleAuthProvider());
+  }
+
+  authLogin(provider: any) {
+    return this.fireauth
+      .signInWithPopup(provider)
+      .then((result) => {
+        if (result.user?.emailVerified == true) {
+          let e = this.db.collection('users').doc(result.user.uid).get();
+          e.forEach((el) => {
+            if (!el.exists) {
+              if (result.user) {
+                this.db
+                  .collection('users')
+                  .doc(result.user.uid)
+                  .set({
+                    name: result.user.displayName?.split(' ')[0],
+                    lastName: result.user.displayName?.split(' ')[1],
+                    email: result.user.email,
+                    subscription: 'Free',
+                  });
+              }
+            }
+          });
+          localStorage.setItem('token', 'true');
+          this.getSessionTmdb();
+          this.router.navigate(['/ngmovies/subscriptions']);
+        } else {
+          this.openSnackBar(
+            'Confirm your account through email verification',
+            'X'
+          );
+          this.sendEmailVerification(result.user);
+        }
+      })
+      .catch((error) => {
+        if (error.code == 'auth/too-many-requests') {
+          this.openSnackBar(
+            'Access to this account has been temporarily disabled due to many failed login attempts. Try again later',
+            'X'
+          );
+          return;
+        }
+        this.router.navigate(['/login']);
+      });
   }
 
   getSessionTmdb() {
@@ -138,16 +187,14 @@ export class AuthService {
       name: name,
       lastName: lastName,
     });
-
   }
 
-  addProfileImage(file:string){
+  addProfileImage(file: string) {
     let id = getAuth().currentUser?.uid;
     this.db.collection('users').doc(id).update({
-      profileImage: file
-    })
+      profileImage: file,
+    });
     this.openSnackBar('You have successfully changed your profile image', 'X');
-
   }
 
   updateSubscription(subscription: string, subscriptionId?: string) {
@@ -313,7 +360,7 @@ export class AuthService {
     );
   }
 
-  sendEmail(){
+  sendEmail() {
     return this.http.get('https://backend-gwhl.onrender.com/sendMail');
   }
 }

@@ -266,7 +266,6 @@ export class RootLayoutComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      console.log(reader)
       if (AVATAR) {
         AVATAR.setAttribute('aria-label', file.name);
         AVATAR.setAttribute('src', String(reader.result));

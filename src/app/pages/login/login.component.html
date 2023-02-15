@@ -63,7 +63,7 @@
             >
               Sign In
             </button>
-              <p [routerLink]="['/forgot-password']">Forgot Password?</p>
+            <p [routerLink]="['/forgot-password']">Forgot Password?</p>
           </div>
           <div class="split">
             <hr />
@@ -82,6 +82,23 @@
               mat-raised-button
             >
               Register
+            </button>
+            <button
+              class="sign-up-button"
+              [style.font-family]="'Nunito'"
+              mat-raised-button
+              type="button"
+              (click)="authService.googleSignIn()"
+            >
+              <span class="google-sign-up">
+                <img
+                  width="24px"
+                  height="24px"
+                  src="../../../assets/icons/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png"
+                  alt=""
+                />
+                Sign in with Google
+              </span>
             </button>
           </div>
         </div>
